@@ -50,7 +50,8 @@ alias tl="tmux ls"
 alias gs="git status"
 alias gfr="git fetch && git rebase"
 alias gaac="git add -A && git commit -m"
-alias cdevk="cd /mnt/c/Coding/Vayyar/Imaging/BringUp/SPOT/Projects/EVK/EVK_Engine/EVK_WebGUI/"
+alias reload="source ~/.bashrc && echo '- .bashrc reloaded.'"
+alias update="sudo apt update -y && sudo apt upgrade -y"
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
