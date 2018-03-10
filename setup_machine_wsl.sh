@@ -12,6 +12,8 @@ apt -qq -y install python3
 apt -qq -y install python3-pip
 apt -qq -y install htop
 
+git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash     # installing nvm
 nvm install latest
 
