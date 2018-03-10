@@ -27,14 +27,18 @@ export EDITOR=vim
 
 set editing-mode vi
 
+case $(uname) in
+    'Linux')    LS_FLAGS='--color=auto --group-directories-first' ;;
+    'Darwin')   LS_FLAGS='-Gh' ;;
+esac
+
 # Alias definitions.
 alias c="clear"
-alias ls="ls --color=auto"
+alias ls="ls $LS_FLAGS"
 alias ll="ls -l"
 alias la="ls -la"
 alias tl="tmux ls"
 alias reload="source ~/.bashrc && echo '- .bashrc reloaded.'"
-alias update="sudo apt update -y && sudo apt upgrade -y"
 
 # enable nvm
 export NVM_DIR="$HOME/.nvm"
