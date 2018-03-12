@@ -1,20 +1,29 @@
 #!/bin/bash
+
+# vim8
+add-apt-repository -y ppa:jonathonf/vim
+
+# system update
 apt full-upgrade -y
 apt update -y
 apt upgrade -y
 apt autoremove -y
 
+# others
 apt -qq -y install build-essential
-apt -qq -y install vim
 apt -qq -y install tmux
 apt -qq -y install git
-apt -qq -y install python3
-apt -qq -y install python3-pip
 apt -qq -y install htop
 
-git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+# python
+apt -qq -y install python-pip
+apt -qq -y install python3-pip
+apt -qq -y install pylint
+apt -qq -y install pylint3
 
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash     # installing nvm
+# nvm
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash     
 nvm install latest
 
+# base16 (themes)
 git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell

@@ -1,20 +1,29 @@
-" vim-plug plugins
+" vim-plug
 call plug#begin('~/.vim/plugged')
 Plug 'chriskempson/base16-vim'      " themes
+Plug 'w0rp/ale'                     " ale
 call plug#end()
 
-set nocompatible                    " disable vi compatibility
-filetype plugin on
+
+" base
+set nocompatible                    " vim, not vi
+syntax on                           " syntax highlighting
+filetype plugin indent on           " recognise filetype, load plugins and indent files
 set path+=**                        " search in dir of current file, cwd and subdirs
 
-" line numbers
+" interface
+set colorcolumn=100                 " show a column at 100 chars
+set cursorline                      " highlight current line
 set number                          " show line numbers
-" set relativenumber                " show relative numbers instead of absolute
 
 " whitespace
 set tabstop=4			            " number of spaces a tab counts for
 set shiftwidth=4		            " number of spaces to use for each step of ident
 set expandtab			            " insert spaces instead of tabs
+
+" searching
+set hlsearch                        " highlight search matches
+set incsearch                       " search as you type
 
 " backup and swap files
 set nobackup                        " disable backup files
@@ -26,3 +35,5 @@ syntax enable                       " syntax highlighting
 let base16colorspace=256            " Access colors present in 256 colorspace
 colorscheme base16-solarized-light  " syntax colors
 
+" ale
+let g:ale_python_pylint_executable='pylint3'
