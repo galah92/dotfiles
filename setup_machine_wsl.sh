@@ -25,5 +25,9 @@ apt -qq -y install pylint3
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash     
 nvm install latest
 
+# vim-plug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 # base16 (themes)
 git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
