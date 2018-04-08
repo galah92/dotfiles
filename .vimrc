@@ -1,6 +1,6 @@
-" vim-plug
+
 call plug#begin('~/.vim/plugged')
-Plug 'chriskempson/base16-vim'      " themes
+" Plug 'chriskempson/base16-vim'      " themes
 Plug 'w0rp/ale'                     " ale
 call plug#end()
 
@@ -12,7 +12,6 @@ filetype plugin indent on           " recognise filetype, load plugins and inden
 set path+=**                        " search in dir of current file, cwd and subdirs
 
 " interface
-set colorcolumn=100                 " show a column at 100 chars
 set cursorline                      " highlight current line
 set number                          " show line numbers
 
@@ -32,8 +31,14 @@ set nowritebackup                   " disable auto bakcup before overwriting a f
 
 " theme
 syntax enable                       " syntax highlighting 
-let base16colorspace=256            " Access colors present in 256 colorspace
-colorscheme base16-solarized-light  " syntax colors
+"let base16colorspace=256            " Access colors present in 256 colorspace
+"colorscheme base16-solarized-light  " syntax colors
 
 " ale
 let g:ale_python_pylint_executable='pylint3'
+
+" clang_complete
+let s:uname = system("uname -s")
+if s:uname == "Darwin\n"
+    let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
+endif
