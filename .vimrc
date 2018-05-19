@@ -7,7 +7,6 @@ endif
 " set vim-plug plugins
 call plug#begin('~/.vim/plugged')
 Plug 'w0rp/ale'                         " linting
-Plug 'altercation/vim-colors-solarized'
 call plug#end()
 
 " base
@@ -35,10 +34,4 @@ set nowritebackup                       " disable auto bakcup before overwriting
 
 " theme
 syntax enable                           " syntax highlighting
-set background=light
-colorscheme solarized
-"set t_Co=256
-set t_ut=
-
-" ale
-let g:ale_python_pylint_executable='pylint3'
+colorscheme desert

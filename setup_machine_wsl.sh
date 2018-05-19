@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # system update
-apt full-upgrade -y
 apt update -y
 apt upgrade -y
 apt autoremove -y
@@ -14,7 +13,6 @@ apt -qq -y install git
 apt -qq -y install htop
 
 # python
-apt -qq -y install python-pip
+apt -qq -y install python3
 apt -qq -y install python3-pip
-apt -qq -y install pylint
 apt -qq -y install pylint3

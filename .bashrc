@@ -13,12 +13,9 @@ case $(uname) in
 esac
 
 # Alias definitions.
-alias c="clear"
 alias ls="ls $LS_FLAGS"
 alias ll="ls -l"
 alias la="ls -la"
-alias tl="tmux ls"
-alias reload="source ~/.bashrc && echo '- .bashrc reloaded.'"
 
 # enable programmable completion features
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
