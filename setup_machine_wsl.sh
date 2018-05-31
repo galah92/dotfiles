@@ -11,6 +11,8 @@ apt -qq -y install gdb
 apt -qq -y install tmux
 apt -qq -y install git
 apt -qq -y install htop
+apt -qq -y install zip
+apt -qq -y install unzip
 
 # python
 apt -qq -y install python3
