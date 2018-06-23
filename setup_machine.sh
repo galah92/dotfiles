@@ -7,6 +7,7 @@ apt autoremove -y
 
 # others
 apt -qq -y install build-essential
+apt -qq -y install vim
 apt -qq -y install gdb
 apt -qq -y install tmux
 apt -qq -y install git

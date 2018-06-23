@@ -9,29 +9,12 @@ call plug#begin('~/.vim/plugged')
 Plug 'w0rp/ale'                         " linting
 call plug#end()
 
-" base
-set nocompatible                        " vim, not vi
-syntax on                               " syntax highlighting
-filetype plugin indent on               " recognise filetype, load plugins and indent files
-set path+=**                            " search in dir of current file, cwd and subdirs
-
 " interface
-set number                              " show line numbers
-
-" whitespace
-set tabstop=4			                " number of spaces a tab counts for
-set shiftwidth=4		                " number of spaces to use for each step of ident
-set expandtab			                " insert spaces instead of tabs
-
-" searching
-set hlsearch                            " highlight search matches
-set incsearch                           " search as you type
-
-" backup and swap files
-set nobackup                            " disable backup files
-set noswapfile                          " disable swap files
-set nowritebackup                       " disable auto bakcup before overwriting a file
-
-" theme
+set number                              " print the line number in front of each line
 syntax enable                           " syntax highlighting
 colorscheme desert
+
+" whitespace
+set tabstop=4                           " number of spaces that a <Tab> in the file counts for
+set shiftwidth=4                        " number of spaces to use for each step of (auto) ident
+set expandtab                           " use the appropriate number of spaces to insert a <Tab>
