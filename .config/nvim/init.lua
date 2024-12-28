@@ -101,6 +101,11 @@ require("lazy").setup({
       },
     },
 
+    { -- Highlight and search for todo comments like TODO, HACK, BUG
+      "folke/todo-comments.nvim",
+      dependencies = { "nvim-lua/plenary.nvim" },
+    },
+
     {
       'shaunsingh/nord.nvim',
       lazy = false,
