@@ -4,65 +4,35 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Make line numbers default
-vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.mouse = 'a' -- Enable mouse support
+vim.opt.relativenumber = true -- Show relative line numbers
+vim.opt.number = true -- Show current aboslute line number
+vim.opt.showmode = false -- Don't show mode, it's already in the status line
+vim.opt.cursorline = true -- Highlight current line
+vim.opt.signcolumn = 'yes' -- Always show signcolumn
+vim.opt.guicursor = "" -- Set block cursor in insert mode
+vim.opt.scrolloff = 10  -- Minimal number of screen lines to keep above and below the cursor
 
--- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
+vim.opt.splitright = true -- Open new splits to the right
+vim.opt.splitbelow = true -- Open new splits below
 
--- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false
+vim.opt.breakindent = true -- Enable break indent
+vim.opt.undofile = true -- Save undo history
 
--- Sync clipboard between OS and Neovim.
---  Schedule the setting after `UiEnter` because it can increase startup-time.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
-end)
-
--- Enable break indent
-vim.opt.breakindent = true
-
--- Save undo history
-vim.opt.undofile = true
-
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
--- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help hlsearch`
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-
--- Keep signcolumn on by default
-vim.opt.signcolumn = 'yes'
-
--- Configure how new splits should be opened
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
-vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-
--- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
-
--- Show which line your cursor is on
-vim.opt.cursorline = true
-
--- Set block cursor in insert mode
-vim.opt.guicursor = ""
-
--- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.opt.ignorecase = true -- Ignore case in search patterns
+vim.opt.smartcase = true -- Override 'ignorecase' if search pattern contains upper case characters
 
 vim.opt.cmdheight = 0
 vim.opt.laststatus = 3
+
+vim.opt.list = true -- Show invisible characters
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Set characters to display for tabs, trailing spaces, and non-breaking spaces
+
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>') -- Clear highlights on search when pressing <Esc> in normal mode
+
+vim.schedule(function() -- Schedule the setting after `UiEnter` because it can increase startup-time
+  vim.opt.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim
+end)
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -161,7 +131,7 @@ require("lazy").setup({
                   disabled = '',
                 },
               },
-            }
+            },
           },
         },
       },
