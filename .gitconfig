@@ -1,0 +1,23 @@
+[user]
+    name = galah92
+    email = 14138433+galah92@users.noreply.github.com
+[credential "https://github.com"]
+    helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+    helper = !gh auth git-credential
+[alias]
+    st = status
+    co = commit
+    amend = commit --amend --no-edit
+    aa = add --all
+    br = branch
+    ch = checkout
+    df = diff
+    ps = push
+    pl = pull
+[fetch]
+    prune = true # Remove remote tracking branches that no longer exist on the remote
+[push]
+    autoSetupRemote = true # Automatically set up the remote tracking branch
+[init]
+    defaultBranch = main
