@@ -1,7 +1,7 @@
 alias vi="nvim"
 
-alias dockup="docker-compose up -d"
-alias dockdown="docker-compose down -v"
+alias dockup="docker compose up -d"
+alias dockdown="docker compose down -v"
 
 alias tf="terraform"
 
