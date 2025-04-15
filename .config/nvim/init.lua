@@ -22,8 +22,8 @@ vim.opt.undofile = true -- Save undo history
 vim.opt.ignorecase = true -- Ignore case in search patterns
 vim.opt.smartcase = true -- Override 'ignorecase' if search pattern contains upper case characters
 
-vim.opt.cmdheight = 0
-vim.opt.laststatus = 3
+-- vim.opt.cmdheight = 0
+vim.opt.laststatus = 0
 
 vim.opt.list = true -- Show invisible characters
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Set characters to display for tabs, trailing spaces, and non-breaking spaces
@@ -84,58 +84,77 @@ require("lazy").setup({
         vim.g.nord_contrast = true
         vim.g.nord_borders = true
         vim.g.nord_italic = false
+        vim.g.nord_bold = false
         vim.cmd.colorscheme "nord"
       end
     },
 
---     {
---       "slugbyte/lackluster.nvim",
---       lazy = false,
---       priority = 1000,
+    {
+      "slugbyte/lackluster.nvim",
+      lazy = false,
+      priority = 1000,
 --       init = function()
 --           vim.cmd.colorscheme("lackluster")
 --           -- vim.cmd.colorscheme("lackluster-hack") -- my favorite
 --           -- vim.cmd.colorscheme("lackluster-mint")
 --       end,
---     },
+    },
 
---     {
---       "wnkz/monoglow.nvim",
---       lazy = false,
---       priority = 1000,
---       opts = {},
---       init = function()
---         vim.cmd.colorscheme("monoglow")
---       end
---     },
+    {
+      "wnkz/monoglow.nvim",
+      lazy = false,
+      priority = 1000,
+      opts = {},
+--      init = function()
+--        vim.cmd.colorscheme("monoglow-lack")
+--      end
+    },
+
+    {
+      'aliqyan-21/darkvoid.nvim',
+    },
+    {
+      "zenbones-theme/zenbones.nvim",
+      dependencies = "rktjmp/lush.nvim",
+    },
+
+    {
+      'datsfilipe/vesper.nvim',
+      lazy = false,
+      priority = 1000,
+      opts = {},
+      init = function()
+--        vim.cmd.colorscheme("vesper")
+      end
+    },
 
     'github/copilot.vim',
 
-    'ofseed/copilot-status.nvim',
-    {
-      'nvim-lualine/lualine.nvim',
-      opts = {
-        options = {
-          icons_enabled = false,
-          component_separators = '|',
-          section_separators = '',
-        },
-        sections = {
-          lualine_x = {
-            {
-              'copilot',
-              show_running = True,
-              symbols = {
-                status = {
-                  enabled = 'Copilot',
-                  disabled = '',
-                },
-              },
-            },
-          },
-        },
+  { -- Highlight, edit, and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+    opts = {
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      -- Autoinstall languages that are not installed
+      auto_install = true,
+      highlight = {
+        enable = true,
+        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
+        --  If you are experiencing weird indenting issues, add the language to
+        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
+        additional_vim_regex_highlighting = { 'ruby' },
       },
+      indent = { enable = true, disable = { 'ruby' } },
     },
+    -- There are additional nvim-treesitter modules that you can use to interact
+    -- with nvim-treesitter. You should go explore a few and see what interests you:
+    --
+    --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
+    --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
+    --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  },
 
   },
   -- Configure any other settings here. See the documentation for more details.
