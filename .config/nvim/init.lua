@@ -54,21 +54,11 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
-    -- add your plugins here
-
     'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
     { -- Adds git related signs to the gutter, as well as utilities for managing changes
       'lewis6991/gitsigns.nvim',
-      opts = {
---         signs = {
---           add = { text = '+' },
---           change = { text = '~' },
---           delete = { text = '_' },
---           topdelete = { text = '‾' },
---           changedelete = { text = '~' },
---         },
-      },
+      opts = {},
     },
 
     { -- Highlight and search for todo comments like TODO, HACK, BUG
@@ -78,8 +68,8 @@ require("lazy").setup({
 
     {
       'shaunsingh/nord.nvim',
-      lazy = false,
-      priority = 1000,
+      lazy = false, -- make sure we load this during startup if it is your main colorscheme
+      priority = 1000, -- make sure to load this before all the other start plugins
       init = function()
         vim.g.nord_contrast = true
         vim.g.nord_borders = true
@@ -89,43 +79,13 @@ require("lazy").setup({
       end
     },
 
+    'slugbyte/lackluster.nvim',
+    'wnkz/monoglow.nvim',
+    'aliqyan-21/darkvoid.nvim',
+    'datsfilipe/vesper.nvim',
     {
-      "slugbyte/lackluster.nvim",
-      lazy = false,
-      priority = 1000,
---       init = function()
---           vim.cmd.colorscheme("lackluster")
---           -- vim.cmd.colorscheme("lackluster-hack") -- my favorite
---           -- vim.cmd.colorscheme("lackluster-mint")
---       end,
-    },
-
-    {
-      "wnkz/monoglow.nvim",
-      lazy = false,
-      priority = 1000,
-      opts = {},
---      init = function()
---        vim.cmd.colorscheme("monoglow-lack")
---      end
-    },
-
-    {
-      'aliqyan-21/darkvoid.nvim',
-    },
-    {
-      "zenbones-theme/zenbones.nvim",
-      dependencies = "rktjmp/lush.nvim",
-    },
-
-    {
-      'datsfilipe/vesper.nvim',
-      lazy = false,
-      priority = 1000,
-      opts = {},
-      init = function()
---        vim.cmd.colorscheme("vesper")
-      end
+      'zenbones-theme/zenbones.nvim',
+      dependencies = 'rktjmp/lush.nvim',
     },
 
     'github/copilot.vim',
