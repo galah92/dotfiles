@@ -75,7 +75,6 @@ require("lazy").setup({
         vim.g.nord_borders = true
         vim.g.nord_italic = false
         vim.g.nord_bold = false
-        vim.cmd.colorscheme "nord"
       end
     },
 
@@ -86,6 +85,23 @@ require("lazy").setup({
     {
       'zenbones-theme/zenbones.nvim',
       dependencies = 'rktjmp/lush.nvim',
+    },
+    {
+      "rose-pine/neovim",
+      name = "rose-pine",
+      opts = {
+        styles = {
+          italic = false,
+        },
+      },
+    },
+    {
+      'sainnhe/everforest',
+      lazy = false,
+      priority = 1000,
+      init = function()
+        vim.g.everforest_background = 'medium'
+      end
     },
 
     'github/copilot.vim',
@@ -123,3 +139,5 @@ require("lazy").setup({
   -- automatically check for plugin updates
   checker = { enabled = true },
 })
+
+vim.cmd("colorscheme everforest")

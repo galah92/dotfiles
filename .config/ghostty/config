@@ -1,5 +1,7 @@
 font-family = JetBrains Mono
-theme = nord
+# theme = nord
+# theme = dark:rose-pine,light:rose-pine-dawn
+theme = dark:everforest-dark-medium,light:everforest-light-medium
 cursor-style = block
 shell-integration-features = no-cursor
 cursor-style-blink = false
