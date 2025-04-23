@@ -100,8 +100,15 @@ require("lazy").setup({
       lazy = false,
       priority = 1000,
       init = function()
-        vim.g.everforest_background = 'medium'
+        -- vim.g.everforest_background = 'medium'
+        -- vim.g.everforest_transparent_background = 1
+        vim.g.everforest_better_performance = 1
       end
+    },
+    {
+      'AlexvZyl/nordic.nvim',
+      lazy = false,
+      priority = 1000,
     },
 
     'github/copilot.vim',
@@ -140,4 +147,4 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 
-vim.cmd("colorscheme everforest")
+vim.cmd("colorscheme nord")
