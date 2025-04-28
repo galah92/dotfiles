@@ -147,4 +147,4 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 
-vim.cmd("colorscheme everforest")
+vim.cmd("colorscheme nord")
