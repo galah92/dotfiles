@@ -7,5 +7,7 @@ theme = dark:everforest-dark-medium,light:everforest-light-medium
 cursor-style = block
 shell-integration-features = no-cursor
 cursor-style-blink = false
+adjust-cell-height = 10%
+# adjust-cell-width = -3%
 # macos-titlebar-style = tabs
 macos-titlebar-proxy-icon = hidden
