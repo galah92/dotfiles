@@ -148,3 +148,16 @@ require("lazy").setup({
 })
 
 vim.cmd("colorscheme nord")
+
+vim.lsp.config['ruff'] = {
+  cmd = { 'uv', 'run', 'ruff', 'server' },
+  filetypes = { 'python' },
+  root_markers = { 'pyproject.toml', 'ruff.toml', '.ruff.toml', '.git' },
+  settings = {},
+}
+
+vim.lsp.enable({
+  "ruff",
+})
+
+vim.api.nvim_set_keymap('n', '<leader>f', ':lua vim.lsp.buf.format()<CR>', { noremap = true, silent = true, desc = 'Format file' })
