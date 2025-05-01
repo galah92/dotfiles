@@ -156,8 +156,16 @@ vim.lsp.config['ruff'] = {
   settings = {},
 }
 
+vim.lsp.config['rust-analyzer'] = {
+  cmd = { 'rust-analyzer' },
+  filetypes = { 'rust' },
+  root_markers = { 'Cargo.toml', 'Cargo.lock', '.git' },
+  settings = {},
+}
+
 vim.lsp.enable({
   "ruff",
+  "rust-analyzer",
 })
 
 vim.api.nvim_set_keymap('n', '<leader>f', ':lua vim.lsp.buf.format()<CR>', { noremap = true, silent = true, desc = 'Format file' })
