@@ -78,7 +78,10 @@ require("lazy").setup({
       dependencies = { "nvim-tree/nvim-web-devicons" },
       -- or if using mini.icons/mini.nvim
       -- dependencies = { "echasnovski/mini.icons" },
-      opts = {},
+      opts = {
+        -- winopts = { row = 1, col = 0 },
+        defaults = { file_icons = false },
+      },
     },
 
     {
