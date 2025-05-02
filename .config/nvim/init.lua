@@ -32,6 +32,10 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>') -- Clear highlights on searc
 
 vim.keymap.set("n", "yc", "yygccp", {remap=true}) -- Duplicate a line and comment out the first line
 
+-- Move selected lines
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
 vim.schedule(function() -- Schedule the setting after `UiEnter` because it can increase startup-time
   vim.opt.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim
 end)
