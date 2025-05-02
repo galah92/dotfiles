@@ -30,6 +30,8 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Set character
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>') -- Clear highlights on search when pressing <Esc> in normal mode
 
+vim.keymap.set("n", "yc", "yygccp", {remap=true}) -- Duplicate a line and comment out the first line
+
 vim.schedule(function() -- Schedule the setting after `UiEnter` because it can increase startup-time
   vim.opt.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim
 end)
