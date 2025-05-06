@@ -179,11 +179,16 @@ vim.lsp.config['rust-analyzer'] = {
   filetypes = { 'rust' },
   root_markers = { 'Cargo.toml', 'Cargo.lock', '.git' },
   settings = {},
+  init_options = { ["checkOnSave"] = { command = "clippy" } },
 }
 
 vim.lsp.enable({
   "ruff",
   "rust-analyzer",
+})
+
+vim.diagnostic.config({
+  virtual_text = true, -- Show diagnostics inline
 })
 
 vim.api.nvim_set_keymap('n', '<leader>f', ':lua vim.lsp.buf.format()<CR>', { noremap = true, silent = true, desc = 'Format file' })
