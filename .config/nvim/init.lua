@@ -174,6 +174,13 @@ vim.lsp.config['ruff'] = {
   settings = {},
 }
 
+vim.lsp.config['ty'] = {
+  cmd = { 'uv', 'run', 'ty', 'server' },
+  filetypes = { 'python' },
+  root_markers = { 'pyproject.toml', 'ty.toml', '.git' },
+  settings = {},
+}
+
 vim.lsp.config['rust-analyzer'] = {
   cmd = { 'rust-analyzer' },
   filetypes = { 'rust' },
@@ -184,6 +191,7 @@ vim.lsp.config['rust-analyzer'] = {
 
 vim.lsp.enable({
   "ruff",
+  "ty",
   "rust-analyzer",
 })
 
