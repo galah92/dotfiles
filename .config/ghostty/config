@@ -1,5 +1,5 @@
 font-family = JetBrains Mono
-font-variation = wght=650
+# font-variation = wght=650
 theme = nord
 # theme = dark:rose-pine,light:rose-pine-dawn
 # theme = dark:everforest-dark-medium,light:everforest-light-medium
@@ -7,7 +7,7 @@ theme = nord
 cursor-style = block
 shell-integration-features = no-cursor
 cursor-style-blink = false
-adjust-cell-height = 10%
+adjust-cell-height = 8%
 # adjust-cell-width = -3%
 # macos-titlebar-style = tabs
 macos-titlebar-proxy-icon = hidden
