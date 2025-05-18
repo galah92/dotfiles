@@ -101,10 +101,6 @@ require("lazy").setup({
     'aliqyan-21/darkvoid.nvim',
     'datsfilipe/vesper.nvim',
     {
-      'zenbones-theme/zenbones.nvim',
-      dependencies = 'rktjmp/lush.nvim',
-    },
-    {
       "rose-pine/neovim",
       name = "rose-pine",
       opts = {
