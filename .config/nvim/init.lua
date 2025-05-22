@@ -126,6 +126,13 @@ require("lazy").setup({
     },
 
     'github/copilot.vim',
+    
+  {
+     'm4xshen/hardtime.nvim',
+     lazy = false,
+     dependencies = { 'MunifTanjim/nui.nvim' },
+     opts = {},
+  },
 
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
