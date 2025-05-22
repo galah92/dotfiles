@@ -11,7 +11,7 @@ vim.opt.showmode = false -- Don't show mode, it's already in the status line
 vim.opt.cursorline = true -- Highlight current line
 vim.opt.signcolumn = 'yes' -- Always show signcolumn
 vim.opt.guicursor = "" -- Set block cursor in insert mode
-vim.opt.scrolloff = 10  -- Minimal number of screen lines to keep above and below the cursor
+vim.opt.scrolloff = 5  -- Minimal number of screen lines to keep above and below the cursor
 
 vim.opt.splitright = true -- Open new splits to the right
 vim.opt.splitbelow = true -- Open new splits below
