@@ -23,3 +23,5 @@
     defaultBranch = main
 [pull]
 	rebase = true
+[core]
+	editor = vi
