@@ -102,7 +102,7 @@ vim.lsp.config['rust-analyzer'] = {
   filetypes = { 'rust' },
   root_markers = { 'Cargo.toml', 'Cargo.lock', '.git' },
   settings = {},
-  init_options = { ["checkOnSave"] = { command = "clippy" } },
+  init_options = { ["check"] = { command = "clippy" } },
 }
 
 vim.lsp.config['clangd'] = {
