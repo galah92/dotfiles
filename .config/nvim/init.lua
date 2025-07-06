@@ -70,6 +70,16 @@ require("lazy").setup({
     'lewis6991/gitsigns.nvim', -- Adds git related signs to the gutter
     { 'ibhagwan/fzf-lua', opts = { defaults = { file_icons = false }, }, },
     'github/copilot.vim',
+    'webhooked/kanso.nvim',
+    {
+      'nvim-treesitter/nvim-treesitter',
+      main = 'nvim-treesitter.configs',
+      build = ":TSUpdate",
+      opts = {
+        ensure_installed = { 'c', 'cpp', 'python', 'rust', 'lua', 'bash', 'json', 'yaml', 'toml' },
+        highlight = { enable = true },
+      },
+    },
   },
 })
 
