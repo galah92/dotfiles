@@ -6,6 +6,18 @@ vim.g.maplocalleader = ' '
 
 vim.opt.mouse = 'a'               -- Enable mouse support
 vim.opt.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim
+vim.g.clipboard = {  -- Support copying and pasting over SSH using OSC 52
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+  },
+}
+
 vim.opt.relativenumber = true     -- Show relative line numbers
 vim.opt.number = true             -- Show current aboslute line number
 vim.opt.cursorline = true         -- Highlight current line
@@ -118,3 +130,4 @@ vim.keymap.set("n", "<C-p>", [[<Cmd>lua require"fzf-lua".files()<CR>]], {})
 vim.keymap.set("n", "<C-l>", [[<Cmd>lua require"fzf-lua".live_grep_glob()<CR>]], {})
 vim.keymap.set("n", "<C-g>", [[<Cmd>lua require"fzf-lua".grep_project()<CR>]], {})
 vim.keymap.set("n", "<F1>", [[<Cmd>lua require"fzf-lua".help_tags()<CR>]], {})
+
