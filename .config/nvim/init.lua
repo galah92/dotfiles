@@ -134,6 +134,8 @@ vim.diagnostic.config({
 vim.api.nvim_set_keymap('n', '<leader>f', ':lua vim.lsp.buf.format()<CR>',
   { noremap = true, silent = true, desc = 'Format file' })
 
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Action' })
+
 vim.keymap.set("n", "<C-\\>", [[<Cmd>lua require"fzf-lua".buffers()<CR>]], {})
 vim.keymap.set("n", "<C-k>", [[<Cmd>lua require"fzf-lua".builtin()<CR>]], {})
 vim.keymap.set("n", "<C-p>", [[<Cmd>lua require"fzf-lua".files()<CR>]], {})
