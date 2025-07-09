@@ -130,10 +130,11 @@ vim.diagnostic.config({
   virtual_text = true, -- Show diagnostics inline
 })
 
-vim.api.nvim_set_keymap('n', '<leader>f', ':lua vim.lsp.buf.format()<CR>',
-  { noremap = true, silent = true, desc = 'Format file' })
+-- Will be supported from next version: https://github.com/neovim/neovim/pull/34642
+vim.keymap.set('n', 'grt', vim.lsp.buf.type_definition, { desc = 'vim.lsp.buf.type_definition()' })
 
-vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Action' })
+vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = 'vim.lsp.buf.format()' })
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'vim.lsp.buf.code_action()' })
 
 vim.keymap.set("n", "<C-\\>", [[<Cmd>lua require"fzf-lua".buffers()<CR>]], {})
 vim.keymap.set("n", "<C-k>", [[<Cmd>lua require"fzf-lua".builtin()<CR>]], {})
