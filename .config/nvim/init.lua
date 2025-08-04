@@ -68,7 +68,7 @@ require("lazy").setup({
   spec = {
     'tpope/vim-sleuth',        -- Detect tabstop, expandtab and shiftwidth automatically
     'lewis6991/gitsigns.nvim', -- Adds git related signs to the gutter
-    { 'ibhagwan/fzf-lua', opts = { defaults = { file_icons = false }, }, },
+    { 'ibhagwan/fzf-lua', opts = { winopts = { fullscreen = true, border = 'none', }, }, },
     'github/copilot.vim',
     {
       'nvim-treesitter/nvim-treesitter',
@@ -137,5 +137,4 @@ vim.keymap.set("n", "<C-\\>", [[<Cmd>lua require"fzf-lua".buffers()<CR>]], {})
 vim.keymap.set("n", "<C-k>", [[<Cmd>lua require"fzf-lua".builtin()<CR>]], {})
 vim.keymap.set("n", "<C-p>", [[<Cmd>lua require"fzf-lua".files()<CR>]], {})
 vim.keymap.set("n", "<C-l>", [[<Cmd>lua require"fzf-lua".live_grep()<CR>]], {})
-vim.keymap.set("n", "<C-g>", [[<Cmd>lua require"fzf-lua".grep_project()<CR>]], {})
 vim.keymap.set("n", "<F1>", [[<Cmd>lua require"fzf-lua".help_tags()<CR>]], {})
