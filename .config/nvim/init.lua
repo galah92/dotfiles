@@ -130,9 +130,6 @@ vim.diagnostic.config({
   virtual_text = true, -- Show diagnostics inline
 })
 
--- Will be supported from next version: https://github.com/neovim/neovim/pull/34642
-vim.keymap.set('n', 'grt', vim.lsp.buf.type_definition, { desc = 'vim.lsp.buf.type_definition()' })
-
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = 'vim.lsp.buf.format()' })
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'vim.lsp.buf.code_action()' })
 
