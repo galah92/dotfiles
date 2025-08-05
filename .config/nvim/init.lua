@@ -132,6 +132,7 @@ vim.diagnostic.config({
 
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = 'vim.lsp.buf.format()' })
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'vim.lsp.buf.code_action()' })
+vim.keymap.set("n", "<leader>i", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 
 vim.keymap.set("n", "<C-\\>", [[<Cmd>lua require"fzf-lua".buffers()<CR>]], {})
 vim.keymap.set("n", "<C-k>", [[<Cmd>lua require"fzf-lua".builtin()<CR>]], {})
