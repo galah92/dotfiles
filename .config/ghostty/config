@@ -1,10 +1,12 @@
-font-family = JetBrains Mono
-# font-variation = wght=650
 theme = dark:NvimDark,light:NvimLight
+font-family = JetBrains Mono
 cursor-style = block
-shell-integration-features = no-cursor
 cursor-style-blink = false
-adjust-cell-height = 8%
-# adjust-cell-width = -3%
-# macos-titlebar-style = tabs
+
+# Force shell to use ghostty cursor style
+shell-integration-features = no-cursor  
+
+# Hide icon on titlebar
 macos-titlebar-proxy-icon = hidden
+
+adjust-cell-height = 8%
