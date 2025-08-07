@@ -1,3 +1,4 @@
+alias cat="bat --plain"
 alias vi="nvim"
 
 alias dockup="docker compose up -d"
