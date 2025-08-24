@@ -6,32 +6,21 @@ vim.g.maplocalleader = ' '
 
 vim.opt.mouse = 'a'               -- Enable mouse support
 vim.opt.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim
-vim.g.clipboard = {               -- Support copying and pasting over SSH using OSC 52
-  name = 'OSC 52',
-  copy = {
-    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-  },
-  paste = {
-    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-  },
-}
 
-vim.opt.relativenumber = true -- Show relative line numbers
-vim.opt.number = true         -- Show current aboslute line number
-vim.opt.cursorline = true     -- Highlight current line
-vim.opt.signcolumn = 'yes'    -- Always show signcolumn
-vim.opt.guicursor = ""        -- Set block cursor in insert mode
+vim.opt.relativenumber = true     -- Show relative line numbers
+vim.opt.number = true             -- Show current aboslute line number
+vim.opt.cursorline = true         -- Highlight current line
+vim.opt.signcolumn = 'yes'        -- Always show signcolumn
+vim.opt.guicursor = ""            -- Set block cursor in insert mode
 
-vim.opt.splitright = true     -- Open new splits to the right
-vim.opt.splitbelow = true     -- Open new splits below
+vim.opt.splitright = true         -- Open new splits to the right
+vim.opt.splitbelow = true         -- Open new splits below
 
-vim.opt.breakindent = true    -- Enable break indent
-vim.opt.undofile = true       -- Save undo history
+vim.opt.breakindent = true        -- Enable break indent
+vim.opt.undofile = true           -- Save undo history
 
-vim.opt.ignorecase = true     -- Ignore case in search patterns
-vim.opt.smartcase = true      -- Override 'ignorecase' if search pattern contains upper case characters
+vim.opt.ignorecase = true         -- Ignore case in search patterns
+vim.opt.smartcase = true          -- Override 'ignorecase' if search pattern contains upper case characters
 
 vim.opt.laststatus = 0
 
@@ -134,8 +123,5 @@ vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = 'vim.lsp.buf.forma
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'vim.lsp.buf.code_action()' })
 vim.keymap.set("n", "<leader>i", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 
-vim.keymap.set("n", "<C-\\>", [[<Cmd>lua require"fzf-lua".buffers()<CR>]], {})
-vim.keymap.set("n", "<C-k>", [[<Cmd>lua require"fzf-lua".builtin()<CR>]], {})
-vim.keymap.set("n", "<C-p>", [[<Cmd>lua require"fzf-lua".files()<CR>]], {})
+vim.keymap.set("n", "<C-p>", [[<Cmd>lua require"fzf-lua".global()<CR>]], {})
 vim.keymap.set("n", "<C-l>", [[<Cmd>lua require"fzf-lua".live_grep()<CR>]], {})
-vim.keymap.set("n", "<F1>", [[<Cmd>lua require"fzf-lua".help_tags()<CR>]], {})
