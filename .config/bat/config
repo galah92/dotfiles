@@ -1,0 +1,5 @@
+# Match cat output
+--style="plain"
+
+# https://github.com/sharkdp/bat/issues/1746#issuecomment-1004698823
+--theme="ansi"
