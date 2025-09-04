@@ -1,5 +1,5 @@
 {
-  "selectedAuthType": "gemini-api-key",
+  "selectedAuthType": "oauth-personal",
   "preferredEditor": "neovim",
   "hideBanner": true,
   "hideTips": true
