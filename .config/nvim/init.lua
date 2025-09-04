@@ -65,6 +65,7 @@ require("lazy").setup({
       build = ":TSUpdate",
       opts = {
         ensure_installed = { 'c', 'cpp', 'python', 'rust', 'lua', 'bash', 'json', 'yaml', 'toml' },
+        auto_install = true,
         highlight = { enable = true },
       },
     },
