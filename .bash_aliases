@@ -15,3 +15,4 @@ alias uvci="uv run ruff check && uv run ruff format && uv run ty check"
 # Vayyar
 alias sqlp_prod_us="./cloud-sql-proxy walabot-home:us-central1:rdbms-postgresql --credentials-file ./service-accounts/walabot-home-62c43d769083.json"
 alias sqlp_prod_eu="./cloud-sql-proxy walabot-home:europe-west1:rdbms-postgresql-eu --credentials-file ./service-accounts/walabot-home-62c43d769083.json"
+alias sqlp_dev="./cloud-sql-proxy walabothome-app-cloud:us-central1:rdbms-postgresql --credentials-file ./service-accounts/walabothome-app-cloud-6cb6a16b1aa8.json"
