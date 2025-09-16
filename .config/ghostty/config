@@ -4,9 +4,9 @@ cursor-style = block
 cursor-style-blink = false
 
 # Force shell to use ghostty cursor style
-shell-integration-features = no-cursor  
+shell-integration-features = no-cursor
 
-# Hide icon on titlebar
-macos-titlebar-proxy-icon = hidden
+# Hide the titlebar
+macos-titlebar-style = hidden
 
 adjust-cell-height = 8%
