@@ -7,6 +7,6 @@ cursor-style-blink = false
 shell-integration-features = no-cursor
 
 # Hide the titlebar
-macos-titlebar-style = hidden
+macos-titlebar-style = tabs
 
 adjust-cell-height = 8%
