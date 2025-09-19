@@ -96,7 +96,7 @@ vim.lsp.config['rust-analyzer'] = {
 
 vim.lsp.config['clangd'] = {
   cmd = { 'clangd' },
-  filetypes = { 'c', 'cpp' },
+  filetypes = { 'c', 'cpp', 'cuda' },
   root_markers = { 'compile_commands.json', '.clangd' },
   settings = {},
 }
