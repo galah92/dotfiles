@@ -1,12 +1,12 @@
 theme = dark:Nvim Dark,light:Nvim Light
 font-family = JetBrains Mono
+font-feature = -calt, -liga, -dlig  # Disable ligatures
 cursor-style = block
 cursor-style-blink = false
 
 # Force shell to use ghostty cursor style
 shell-integration-features = no-cursor
 
-# Hide the titlebar
-macos-titlebar-style = tabs
+macos-titlebar-proxy-icon = hidden
 
 adjust-cell-height = 8%
