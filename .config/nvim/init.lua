@@ -59,6 +59,7 @@ require("lazy").setup({
     'lewis6991/gitsigns.nvim', -- Adds git related signs to the gutter
     { 'ibhagwan/fzf-lua', opts = { winopts = { fullscreen = true, border = 'none', }, }, },
     'github/copilot.vim',
+    'bjarneo/pixel.nvim',
     {
       'nvim-treesitter/nvim-treesitter',
       main = 'nvim-treesitter.configs',
