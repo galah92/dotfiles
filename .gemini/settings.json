@@ -1,6 +1,21 @@
 {
-  "selectedAuthType": "oauth-personal",
-  "preferredEditor": "neovim",
-  "hideBanner": true,
-  "hideTips": true
+  "ui": {
+    "hideTips": true,
+    "hideBanner": true
+  },
+  "general": {
+    "preferredEditor": "neovim"
+  },
+  "tools": {
+    "allowed": [
+      "run_shell_command(git)",
+      "run_shell_command(gh)",
+      "run_shell_command(uv)"
+    ]
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  }
 }
