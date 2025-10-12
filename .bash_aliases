@@ -18,3 +18,5 @@ alias sqlp_prod_us_replica="./cloud-sql-proxy walabot-home:us-central1:replica-3
 alias sqlp_prod_eu="./cloud-sql-proxy walabot-home:europe-west1:rdbms-postgresql-eu --credentials-file ./service-accounts/walabot-home-62c43d769083.json"
 alias sqlp_prod_eu_replica="./cloud-sql-proxy walabot-home:europe-west1:replica-d73e3ed7 --credentials-file ./service-accounts/walabot-home-62c43d769083.json"
 alias sqlp_dev="./cloud-sql-proxy walabothome-app-cloud:us-central1:rdbms-postgresql --credentials-file ./service-accounts/walabothome-app-cloud-6cb6a16b1aa8.json"
+
+export FZF_DEFAULT_OPTS="--info=inline --no-separator --ansi --color=16"
