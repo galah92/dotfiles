@@ -1,3 +1,12 @@
+# Common shell configuration for bash and zsh
+# This file should not assume anything besides bash or zsh being present
+
+# Editor settings
+export EDITOR="nvim"
+export GIT_EDITOR="nvim"
+
+# Common aliases
+alias ls='eza'
 alias cat="bat"
 alias vi="nvim"
 
@@ -20,3 +29,10 @@ alias sqlp_prod_eu_replica="./cloud-sql-proxy walabot-home:europe-west1:replica-
 alias sqlp_dev="./cloud-sql-proxy walabothome-app-cloud:us-central1:rdbms-postgresql --credentials-file ./service-accounts/walabothome-app-cloud-6cb6a16b1aa8.json"
 
 export FZF_DEFAULT_OPTS="--info=inline --no-separator --ansi --color=16"
+
+# Common prompt for bash and zsh
+if [ -n "$BASH_VERSION" ]; then
+    PS1='\e[1m\w\e[0m \[\e[33m\]❯\[\e[0m\] '
+elif [ -n "$ZSH_VERSION" ]; then
+    PS1='%B%~%b%f %F{yellow}❯%f '
+fi
