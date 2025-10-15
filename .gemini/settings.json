@@ -1,10 +1,18 @@
 {
   "ui": {
+    "theme": "ANSI",
     "hideTips": true,
-    "hideBanner": true
+    "hideBanner": true,
+    "showMemoryUsage": true
   },
   "general": {
     "preferredEditor": "neovim"
+  },
+  "context": {
+    "fileName": [
+      "AGENTS.md",
+      "GEMINI.md"
+    ]
   },
   "tools": {
     "allowed": [
