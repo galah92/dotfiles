@@ -77,21 +77,18 @@ vim.lsp.config['ruff'] = {
   cmd = { 'uv', 'run', 'ruff', 'server' },
   filetypes = { 'python' },
   root_markers = { 'pyproject.toml', 'ruff.toml', '.ruff.toml', '.git' },
-  settings = {},
 }
 
 vim.lsp.config['ty'] = {
   cmd = { 'uv', 'run', 'ty', 'server' },
   filetypes = { 'python' },
   root_markers = { 'pyproject.toml', 'ty.toml', '.git' },
-  settings = {},
 }
 
 vim.lsp.config['rust-analyzer'] = {
   cmd = { 'rust-analyzer' },
   filetypes = { 'rust' },
   root_markers = { 'Cargo.toml', 'Cargo.lock', '.git' },
-  settings = {},
   init_options = { ["check"] = { command = "clippy" } },
 }
 
@@ -99,7 +96,6 @@ vim.lsp.config['clangd'] = {
   cmd = { 'clangd' },
   filetypes = { 'c', 'cpp', 'cuda' },
   root_markers = { 'compile_commands.json', '.clangd' },
-  settings = {},
 }
 
 vim.lsp.config['lua'] = {
@@ -109,12 +105,26 @@ vim.lsp.config['lua'] = {
   settings = { Lua = { diagnostics = { globals = { 'vim' }, }, }, }, -- Add 'vim' to the list of global variables
 }
 
+vim.lsp.config['tombi'] = {
+  cmd = { 'uvx', 'tombi', 'lsp' },
+  filetypes = { 'toml' },
+  root_markers = { 'tombi.toml', 'pyproject.toml', '.git' },
+}
+
+vim.lsp.config['rumdl'] = {
+  cmd = { 'uvx', 'rumdl', 'server' },
+  filetypes = { 'markdown' },
+  root_markers = { '.git' },
+}
+
 vim.lsp.enable({
   "ruff",
   "ty",
   "rust-analyzer",
   "clangd",
   "lua",
+  "tombi",
+  "rumdl",
 })
 
 vim.diagnostic.config({
