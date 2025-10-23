@@ -1,39 +1,21 @@
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
-vim.opt.mouse = 'a'               -- Enable mouse support
+vim.g.mapleader = ' ' -- Set leader key (must happen before plugins are loaded)
+vim.g.maplocalleader = ' ' -- Set local leader key
+vim.opt.mouse = 'a' -- Enable mouse support
 vim.opt.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim
-
-vim.opt.relativenumber = true     -- Show relative line numbers
-vim.opt.number = true             -- Show current aboslute line number
-vim.opt.cursorline = true         -- Highlight current line
-vim.opt.signcolumn = 'yes'        -- Always show signcolumn
-vim.opt.guicursor = ""            -- Set block cursor in insert mode
-
-vim.opt.splitright = true         -- Open new splits to the right
-vim.opt.splitbelow = true         -- Open new splits below
-
-vim.opt.breakindent = true        -- Enable break indent
-vim.opt.undofile = true           -- Save undo history
-
-vim.opt.ignorecase = true         -- Ignore case in search patterns
-vim.opt.smartcase = true          -- Override 'ignorecase' if search pattern contains upper case characters
-
-vim.opt.laststatus = 0
-
+vim.opt.relativenumber = true -- Show relative line numbers
+vim.opt.number = true -- Show current aboslute line number
+vim.opt.cursorline = true -- Highlight current line
+vim.opt.signcolumn = 'yes' -- Always show signcolumn
+vim.opt.guicursor = "" -- Set block cursor in insert mode
+vim.opt.splitright = true -- Open new splits to the right
+vim.opt.splitbelow = true -- Open new splits below
+vim.opt.breakindent = true -- Enable break indent
+vim.opt.undofile = true -- Save undo history
+vim.opt.ignorecase = true -- Ignore case in search patterns
+vim.opt.smartcase = true -- Override 'ignorecase' if search pattern contains upper case characters
+vim.opt.laststatus = 0 -- Hide the statusline
 vim.opt.list = true -- Show invisible characters
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Set characters to display for tabs, trailing spaces, and non-breaking spaces
-
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>') -- Clear highlights on search when pressing <Esc> in normal mode
-
-vim.keymap.set("n", "yc", "yygccp", { remap = true }) -- Duplicate a line and comment out the first line
-
--- Move selected lines
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Set characters to display for invisible characters
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -76,19 +58,19 @@ require("lazy").setup({
 vim.lsp.config['ruff'] = {
   cmd = { 'uv', 'run', 'ruff', 'server' },
   filetypes = { 'python' },
-  root_markers = { 'pyproject.toml', 'ruff.toml', '.ruff.toml', '.git' },
+  root_markers = { 'pyproject.toml', 'ruff.toml' },
 }
 
 vim.lsp.config['ty'] = {
   cmd = { 'uv', 'run', 'ty', 'server' },
   filetypes = { 'python' },
-  root_markers = { 'pyproject.toml', 'ty.toml', '.git' },
+  root_markers = { 'pyproject.toml', 'ty.toml' },
 }
 
 vim.lsp.config['rust-analyzer'] = {
   cmd = { 'rust-analyzer' },
   filetypes = { 'rust' },
-  root_markers = { 'Cargo.toml', 'Cargo.lock', '.git' },
+  root_markers = { 'Cargo.toml', 'Cargo.lock' },
   init_options = { ["check"] = { command = "clippy" } },
 }
 
@@ -108,7 +90,7 @@ vim.lsp.config['lua'] = {
 vim.lsp.config['tombi'] = {
   cmd = { 'uvx', 'tombi', 'lsp' },
   filetypes = { 'toml' },
-  root_markers = { 'tombi.toml', 'pyproject.toml', '.git' },
+  root_markers = { 'tombi.toml', 'pyproject.toml' },
 }
 
 vim.lsp.config['rumdl'] = {
@@ -131,9 +113,10 @@ vim.diagnostic.config({
   virtual_text = true, -- Show diagnostics inline
 })
 
-vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = 'vim.lsp.buf.format()' })
-vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'vim.lsp.buf.code_action()' })
-vim.keymap.set("n", "<leader>i", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
-
-vim.keymap.set("n", "<C-p>", [[<Cmd>lua require"fzf-lua".global()<CR>]], {})
-vim.keymap.set("n", "<C-l>", [[<Cmd>lua require"fzf-lua".live_grep()<CR>]], {})
+vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = 'vim.lsp.buf.format()' })                         -- Format current buffer
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'vim.lsp.buf.code_action()' })              -- Show code actions
+vim.keymap.set("n", "<leader>i", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end) -- Toggle inlay hints
+vim.keymap.set("n", "<C-p>", [[<Cmd>lua require"fzf-lua".global()<CR>]], {})                                    -- Fuzzy file finder
+vim.keymap.set("n", "<C-l>", [[<Cmd>lua require"fzf-lua".live_grep()<CR>]], {})                                 -- Fuzzy live grep
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')                                                             -- Clear highlights on search when pressing <Esc> in normal mode
+vim.keymap.set("n", "yc", "yygccp", { remap = true })                                                           -- Duplicate a line and comment out the first line
