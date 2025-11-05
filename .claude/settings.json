@@ -3,7 +3,7 @@
     "allow": [
       "Read",
       "Edit",
-      "Bash",
+      "Bash"
     ],
     "deny": [],
     "ask": []
