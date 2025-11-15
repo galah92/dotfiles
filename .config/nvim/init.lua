@@ -106,7 +106,7 @@ vim.lsp.enable({
   "clangd",
   "lua",
   "tombi",
-  "rumdl",
+  -- "rumdl",
 })
 
 vim.diagnostic.config({
