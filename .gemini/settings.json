@@ -6,7 +6,8 @@
     "showMemoryUsage": true
   },
   "general": {
-    "preferredEditor": "neovim"
+    "preferredEditor": "neovim",
+    "previewFeatures": true
   },
   "context": {
     "fileName": [
