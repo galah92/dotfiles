@@ -37,9 +37,9 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
-    'tpope/vim-sleuth',        -- Detect tabstop, expandtab and shiftwidth automatically
-    'lewis6991/gitsigns.nvim', -- Adds git related signs to the gutter
-    { 'ibhagwan/fzf-lua', opts = { winopts = { fullscreen = true, border = 'none', }, }, },
+    'tpope/vim-sleuth',                                                           -- Detect tabstop, expandtab and shiftwidth automatically
+    { 'lewis6991/gitsigns.nvim', opts = { signcolumn = false, numhl = true, }, }, -- Color line numbers with git changes
+    { 'ibhagwan/fzf-lua',        opts = { winopts = { fullscreen = true, border = 'none', }, }, },
     'github/copilot.vim',
     'bjarneo/pixel.nvim',
     {
