@@ -12,11 +12,16 @@ brew "cmake"
 brew "colima"
 brew "docker"
 brew "docker-compose"
+
 cask "google-chrome"
 cask "ghostty"
 cask "visual-studio-code"
 cask "rectangle"
-cask "codex"
+
 cask "claude-code"
+cask "codex"
+brew "gemini-cli"
+cask "copilot-cli"
+
 cask "gcloud-cli"
 cask "vlc"
