@@ -42,6 +42,9 @@ require("lazy").setup({
     { 'ibhagwan/fzf-lua', opts = { winopts = { fullscreen = true, border = 'none', }, }, },
     'github/copilot.vim',
     'm6vrm/gruber.vim',
+    "savq/melange-nvim",
+    "xero/miasma.nvim",
+    "ptdewey/darkearth-nvim",
     {
       'nvim-treesitter/nvim-treesitter',
       main = 'nvim-treesitter.configs',
@@ -54,6 +57,8 @@ require("lazy").setup({
     },
   },
 })
+
+vim.g.melange_enable_font_variants = { italic = false, bold = true, underline = true, undercurl = true, strikethrough = true }
 
 vim.lsp.config['ruff'] = {
   cmd = { 'uv', 'run', 'ruff', 'server' },
@@ -93,12 +98,6 @@ vim.lsp.config['tombi'] = {
   root_markers = { 'tombi.toml', 'pyproject.toml' },
 }
 
-vim.lsp.config['rumdl'] = {
-  cmd = { 'uvx', 'rumdl', 'server' },
-  filetypes = { 'markdown' },
-  root_markers = { '.git' },
-}
-
 vim.lsp.enable({
   "ruff",
   "ty",
@@ -106,7 +105,6 @@ vim.lsp.enable({
   "clangd",
   "lua",
   "tombi",
-  -- "rumdl",
 })
 
 vim.diagnostic.config({
