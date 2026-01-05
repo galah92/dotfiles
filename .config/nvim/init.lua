@@ -34,6 +34,29 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+---@generic T
+---@param super T[]
+---@param sub T[]
+---@return T[]
+function table.except(super, sub)
+  local result = {}
+  local seenInResult = {}
+  local lookupSub = {}
+
+  for _, value in ipairs(sub) do
+    lookupSub[value] = true
+  end
+
+  for _, value in ipairs(super) do
+    if not lookupSub[value] and not seenInResult[value] then
+      table.insert(result, value)
+      seenInResult[value] = true
+    end
+  end
+
+  return result
+end
+
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
@@ -47,13 +70,27 @@ require("lazy").setup({
     "ptdewey/darkearth-nvim",
     {
       'nvim-treesitter/nvim-treesitter',
-      main = 'nvim-treesitter.configs',
-      build = ":TSUpdate",
-      opts = {
-        ensure_installed = { 'c', 'cpp', 'python', 'rust', 'lua', 'bash', 'json', 'yaml', 'toml' },
-        auto_install = true,
-        highlight = { enable = true },
-      },
+      build = ':TSUpdate',
+      branch = 'main',
+      config = function()
+        local treesitter = require('nvim-treesitter')
+        treesitter.setup {}
+        local should_install = { 'vim', 'c', 'python', 'rust', 'markdown' }
+        treesitter.install(table.except(should_install, treesitter.get_installed()))
+
+        vim.api.nvim_create_autocmd('FileType', {
+          callback = function(args)
+            if
+                vim.list_contains(
+                  treesitter.get_installed(),
+                  vim.treesitter.language.get_lang(args.match)
+                )
+            then
+              vim.treesitter.start(args.buf)
+            end
+          end,
+        })
+      end,
     },
   },
 })
