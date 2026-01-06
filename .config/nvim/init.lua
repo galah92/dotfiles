@@ -17,122 +17,53 @@ vim.opt.laststatus = 0 -- Hide the statusline
 vim.opt.list = true -- Show invisible characters
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Set characters to display for invisible characters
 
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out,                            "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-vim.opt.rtp:prepend(lazypath)
+vim.pack.add({
+  'https://github.com/tpope/vim-sleuth',        -- Detect tabstop, expandtab and shiftwidth automatically
+  'https://github.com/lewis6991/gitsigns.nvim', -- Color line numbers with git changes
+  'https://github.com/ibhagwan/fzf-lua',        -- Fuzzy finder
+  'https://github.com/github/copilot.vim',      -- GitHub Copilot
 
----@generic T
----@param super T[]
----@param sub T[]
----@return T[]
-function table.except(super, sub)
-  local result = {}
-  local seenInResult = {}
-  local lookupSub = {}
-
-  for _, value in ipairs(sub) do
-    lookupSub[value] = true
-  end
-
-  for _, value in ipairs(super) do
-    if not lookupSub[value] and not seenInResult[value] then
-      table.insert(result, value)
-      seenInResult[value] = true
-    end
-  end
-
-  return result
-end
-
--- Setup lazy.nvim
-require("lazy").setup({
-  spec = {
-    'tpope/vim-sleuth',        -- Detect tabstop, expandtab and shiftwidth automatically
-    'lewis6991/gitsigns.nvim', -- Color line numbers with git changes
-    { 'ibhagwan/fzf-lua', opts = { winopts = { fullscreen = true, border = 'none', }, }, },
-    'github/copilot.vim',
-    'm6vrm/gruber.vim',
-    "savq/melange-nvim",
-    "xero/miasma.nvim",
-    "ptdewey/darkearth-nvim",
-    {
-      'nvim-treesitter/nvim-treesitter',
-      build = ':TSUpdate',
-      branch = 'main',
-      config = function()
-        local treesitter = require('nvim-treesitter')
-        treesitter.setup {}
-        local should_install = { 'vim', 'c', 'python', 'rust', 'markdown' }
-        treesitter.install(table.except(should_install, treesitter.get_installed()))
-
-        vim.api.nvim_create_autocmd('FileType', {
-          callback = function(args)
-            if
-                vim.list_contains(
-                  treesitter.get_installed(),
-                  vim.treesitter.language.get_lang(args.match)
-                )
-            then
-              vim.treesitter.start(args.buf)
-            end
-          end,
-        })
-      end,
-    },
-  },
+  -- Colorschemes
+  'https://github.com/m6vrm/gruber.vim',
+  'https://github.com/savq/melange-nvim',
+  'https://github.com/xero/miasma.nvim',
+  'https://github.com/ptdewey/darkearth-nvim',
 })
+
+require('fzf-lua').setup({ 'border-fused', winopts = { fullscreen = true } })
 
 vim.g.melange_enable_font_variants = { italic = false, bold = true, underline = true, undercurl = true, strikethrough = true }
 
 vim.lsp.config['ruff'] = {
   cmd = { 'uv', 'run', 'ruff', 'server' },
   filetypes = { 'python' },
-  root_markers = { 'pyproject.toml', 'ruff.toml' },
 }
 
 vim.lsp.config['ty'] = {
   cmd = { 'uv', 'run', 'ty', 'server' },
   filetypes = { 'python' },
-  root_markers = { 'pyproject.toml', 'ty.toml' },
 }
 
 vim.lsp.config['rust-analyzer'] = {
   cmd = { 'rust-analyzer' },
   filetypes = { 'rust' },
-  root_markers = { 'Cargo.toml', 'Cargo.lock' },
   init_options = { ["check"] = { command = "clippy" } },
 }
 
 vim.lsp.config['clangd'] = {
   cmd = { 'clangd' },
   filetypes = { 'c', 'cpp', 'cuda' },
-  root_markers = { 'compile_commands.json', '.clangd' },
 }
 
 vim.lsp.config['lua'] = {
   cmd = { 'lua-language-server' },
   filetypes = { 'lua' },
-  root_markers = { '.luarc.json' },
   settings = { Lua = { diagnostics = { globals = { 'vim' }, }, }, }, -- Add 'vim' to the list of global variables
 }
 
 vim.lsp.config['tombi'] = {
   cmd = { 'uvx', 'tombi', 'lsp' },
   filetypes = { 'toml' },
-  root_markers = { 'tombi.toml', 'pyproject.toml' },
 }
 
 vim.lsp.enable({
