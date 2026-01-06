@@ -18,10 +18,17 @@ vim.opt.list = true -- Show invisible characters
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Set characters to display for invisible characters
 
 vim.pack.add({
-  'https://github.com/tpope/vim-sleuth',                  -- Detect tabstop, expandtab and shiftwidth automatically
-  'https://github.com/lewis6991/gitsigns.nvim',           -- Color line numbers with git changes
-  'https://github.com/ibhagwan/fzf-lua',                  -- Fuzzy finder
-  'https://github.com/nvim-treesitter/nvim-treesitter',   -- Treesitter
+  'https://github.com/tpope/vim-sleuth',        -- Detect tabstop, expandtab and shiftwidth automatically
+  'https://github.com/lewis6991/gitsigns.nvim', -- Color line numbers with git changes
+  'https://github.com/ibhagwan/fzf-lua',        -- Fuzzy finder
+  {
+    src = 'https://github.com/nvim-treesitter/nvim-treesitter',
+    data = {
+      -- Auto update treesitter parsers on install/update of the plugin:
+      -- https://www.reddit.com/r/neovim/comments/1mx71rc/
+      run = function(_) vim.cmd 'TSUpdate' end,
+    },
+  },
   'https://github.com/mks-h/treesitter-autoinstall.nvim', -- Auto install treesitter parsers and enable highlight
   'https://github.com/github/copilot.vim',                -- GitHub Copilot
 
