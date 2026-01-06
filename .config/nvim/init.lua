@@ -18,10 +18,12 @@ vim.opt.list = true -- Show invisible characters
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Set characters to display for invisible characters
 
 vim.pack.add({
-  'https://github.com/tpope/vim-sleuth',        -- Detect tabstop, expandtab and shiftwidth automatically
-  'https://github.com/lewis6991/gitsigns.nvim', -- Color line numbers with git changes
-  'https://github.com/ibhagwan/fzf-lua',        -- Fuzzy finder
-  'https://github.com/github/copilot.vim',      -- GitHub Copilot
+  'https://github.com/tpope/vim-sleuth',                  -- Detect tabstop, expandtab and shiftwidth automatically
+  'https://github.com/lewis6991/gitsigns.nvim',           -- Color line numbers with git changes
+  'https://github.com/ibhagwan/fzf-lua',                  -- Fuzzy finder
+  'https://github.com/nvim-treesitter/nvim-treesitter',   -- Treesitter
+  'https://github.com/mks-h/treesitter-autoinstall.nvim', -- Auto install treesitter parsers and enable highlight
+  'https://github.com/github/copilot.vim',                -- GitHub Copilot
 
   -- Colorschemes
   'https://github.com/m6vrm/gruber.vim',
@@ -31,6 +33,7 @@ vim.pack.add({
 })
 
 require('fzf-lua').setup({ 'border-fused', winopts = { fullscreen = true } })
+require('treesitter-autoinstall').setup({ highlight = true })
 
 vim.g.melange_enable_font_variants = { italic = false, bold = true, underline = true, undercurl = true, strikethrough = true }
 
@@ -47,7 +50,7 @@ vim.lsp.config['ty'] = {
 vim.lsp.config['rust-analyzer'] = {
   cmd = { 'rust-analyzer' },
   filetypes = { 'rust' },
-  init_options = { ["check"] = { command = "clippy" } },
+  init_options = { ['check'] = { command = 'clippy' } },
 }
 
 vim.lsp.config['clangd'] = {
@@ -58,7 +61,7 @@ vim.lsp.config['clangd'] = {
 vim.lsp.config['lua'] = {
   cmd = { 'lua-language-server' },
   filetypes = { 'lua' },
-  settings = { Lua = { diagnostics = { globals = { 'vim' }, }, }, }, -- Add 'vim' to the list of global variables
+  settings = { Lua = { diagnostics = { globals = { 'vim' } } } }, -- https://stackoverflow.com/a/79656109
 }
 
 vim.lsp.config['tombi'] = {
@@ -67,12 +70,12 @@ vim.lsp.config['tombi'] = {
 }
 
 vim.lsp.enable({
-  "ruff",
-  "ty",
-  "rust-analyzer",
-  "clangd",
-  "lua",
-  "tombi",
+  'ruff',
+  'ty',
+  'rust-analyzer',
+  'clangd',
+  'lua',
+  'tombi',
 })
 
 vim.diagnostic.config({
