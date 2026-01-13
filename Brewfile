@@ -17,6 +17,8 @@ cask "google-chrome"
 cask "ghostty"
 cask "visual-studio-code"
 cask "rectangle"
+cask "tailscale-app"
+cask "vlc"
 
 cask "claude-code"
 cask "codex"
@@ -24,4 +26,3 @@ brew "gemini-cli"
 cask "copilot-cli"
 
 cask "gcloud-cli"
-cask "vlc"
