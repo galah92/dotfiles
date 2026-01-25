@@ -30,8 +30,8 @@ Maintain a VPN connection to TAU's SLURM-managed HPC cluster for submitting GPU 
 export TAU_USERNAME=galaharoni
 export TAU_PASSWORD=<password>
 
-# Get OTP from user, then connect
-python3 $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py $TAU_USERNAME $TAU_PASSWORD <OTP>
+# Get OTP from user, then connect (uv handles dependencies automatically)
+uv run $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py $TAU_USERNAME $TAU_PASSWORD <OTP>
 
 # Verify connection
 ip addr show tun0  # Should show 10.x.x.x address
@@ -97,11 +97,14 @@ TAU uses Palo Alto GlobalProtect VPN with SAML authentication.
 ### Requirements
 
 ```bash
+# System packages
 sudo apt install openconnect sshpass
-pip install playwright && playwright install chromium
 
 # Install gpclient 2.5.x from https://github.com/yuezk/GlobalProtect-openconnect/releases
 sudo apt install ./globalprotect-openconnect_*.deb
+
+# First-time only: install playwright browser (uv handles the Python package)
+uv run --with playwright python -c "import playwright; playwright.sync_api.sync_playwright().start().chromium.launch()"
 ```
 
 ### How vpn-connect.py Works
@@ -118,12 +121,12 @@ sudo apt install ./globalprotect-openconnect_*.deb
 
 ```bash
 # With all arguments
-python3 $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py galaharoni <password> <OTP>
+uv run $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py galaharoni <password> <OTP>
 
 # With environment variables
 export TAU_USERNAME=galaharoni
 export TAU_PASSWORD=<password>
-python3 $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py <OTP>
+uv run $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py <OTP>
 ```
 
 ### Verify Connection

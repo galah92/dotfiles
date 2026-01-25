@@ -1,22 +1,31 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "playwright",
+# ]
+# ///
 """
 TAU VPN Connection Script for Headless VMs
 
 Automates GlobalProtect VPN connection using SAML authentication via playwright.
 Updated for gpclient 2.5.x CLI.
 
-Requirements:
+System requirements:
     sudo apt install openconnect
-    pip install playwright && playwright install chromium
     # Install gpclient from https://github.com/yuezk/GlobalProtect-openconnect/releases
 
+First-time setup:
+    uv run --with playwright python -c "from playwright.sync_api import sync_playwright; sync_playwright().start().chromium.launch()"
+    # Or: playwright install chromium
+
 Usage:
-    ./vpn-connect.py USERNAME PASSWORD OTP
+    uv run vpn-connect.py USERNAME PASSWORD OTP
 
     # Or with environment variables:
     export TAU_USERNAME=galaharoni
     export TAU_PASSWORD=mypassword
-    ./vpn-connect.py 123456  # just the OTP
+    uv run vpn-connect.py 123456  # just the OTP
 """
 
 import argparse
