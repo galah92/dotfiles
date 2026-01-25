@@ -1,4 +1,7 @@
 {
+  "experimental": {
+    "skills": true
+  },
   "ui": {
     "theme": "ANSI",
     "hideTips": true,
