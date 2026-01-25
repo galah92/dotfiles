@@ -1,11 +1,13 @@
 ---
 name: tau-hpc
-description: Connect to TAU SLURM HPC cluster for GPU batch jobs. Use when user wants to run GPU experiments, submit SLURM jobs, connect to TAU VPN, or SSH to slurmlogin.tau.ac.il.
+description: Connect to TAU SLURM HPC cluster for GPU batch jobs. Use when user wants to run GPU experiments, submit SLURM jobs, connect to TAU VPN, SSH to slurmlogin.tau.ac.il, check job status, or debug running jobs.
 ---
 
 # TAU SLURM HPC Cluster
 
-SLURM-managed HPC cluster with GPU nodes for batch job submission.
+Maintain a VPN connection to TAU's SLURM-managed HPC cluster for submitting GPU batch jobs and monitoring their status.
+
+**Scripts location**: `$HOME/dotfiles/.skills/tau-hpc/scripts/`
 
 | Property | Value |
 |----------|-------|
@@ -29,7 +31,7 @@ export TAU_USERNAME=galaharoni
 export TAU_PASSWORD=<password>
 
 # Get OTP from user, then connect
-python3 scripts/vpn-connect.py $TAU_USERNAME $TAU_PASSWORD <OTP>
+python3 $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py $TAU_USERNAME $TAU_PASSWORD <OTP>
 
 # Verify connection
 ip addr show tun0  # Should show 10.x.x.x address
@@ -116,12 +118,12 @@ sudo apt install ./globalprotect-openconnect_*.deb
 
 ```bash
 # With all arguments
-python3 scripts/vpn-connect.py galaharoni <password> <OTP>
+python3 $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py galaharoni <password> <OTP>
 
 # With environment variables
 export TAU_USERNAME=galaharoni
 export TAU_PASSWORD=<password>
-python3 scripts/vpn-connect.py <OTP>
+python3 $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py <OTP>
 ```
 
 ### Verify Connection
