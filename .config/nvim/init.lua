@@ -17,6 +17,15 @@ vim.opt.laststatus = 0 -- Hide the statusline
 vim.opt.list = true -- Show invisible characters
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Set characters to display for invisible characters
 
+-- Autocompletion settings: https://www.reddit.com/r/neovim/comments/1pd6pg8
+vim.opt.autocomplete = true
+vim.opt.complete = "o,.,w,b,u"
+vim.opt.completeopt = "fuzzy,menuone,noselect,popup"
+vim.opt.pumheight = 7
+vim.opt.pummaxwidth = 80
+vim.opt.shortmess:prepend("c") -- avoid having to press enter on snippet completion
+vim.api.nvim_create_autocmd("LspAttach", { command = "setlocal complete=o" })
+
 vim.pack.add({
   'https://github.com/tpope/vim-sleuth',        -- Detect tabstop, expandtab and shiftwidth automatically
   'https://github.com/lewis6991/gitsigns.nvim', -- Color line numbers with git changes
