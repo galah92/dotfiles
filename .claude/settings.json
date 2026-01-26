@@ -11,11 +11,8 @@
     "ask": []
   },
   "alwaysThinkingEnabled": true,
-  "enabledPlugins": {
-    "rust-analyzer-lsp@claude-plugins-official": true
-  },
   "statusLine": {
     "type": "command",
-    "command": "jq -r '\"\\(.workspace.current_dir) | \\(.model.display_name) | \\(.context_window.remaining_percentage)% | $\\(.cost.total_cost_usd)\"'"
+    "command": "jq -r '\"\\(.workspace.current_dir) | \\(.model.display_name) | \\(.context_window.remaining_percentage)%\"'"
   }
 }
