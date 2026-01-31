@@ -10,73 +10,67 @@ if vim.fn.exists("syntax_on") == 1 then
 end
 vim.g.colors_name = "minimal"
 
--- ANSI color reference (actual colors come from terminal palette):
--- 0=black, 1=red, 2=green, 3=yellow, 4=blue, 5=magenta, 6=cyan, 7=cursorline
--- 8=grey (comments), 9=diff del bg, 10=diff add bg, 11=diff change bg, 12=visual bg
+-- ANSI color names (actual colors come from terminal palette):
+-- DarkGreen=strings, DarkYellow=numbers, DarkGray=comments, Gray=cursorline
+-- Green=diff add bg, Yellow=diff change bg, Red=diff del bg, Blue=visual bg
 
 local function hi(group, opts)
   vim.api.nvim_set_hl(0, group, opts)
 end
 
--- =============================================================================
 -- Editor UI
--- =============================================================================
 hi("Normal", { ctermfg = "NONE", ctermbg = "NONE" })
-hi("FloatBorder", { ctermfg = 8 })
+hi("FloatBorder", { ctermfg = "DarkGray" })
 hi("FloatTitle", { cterm = { bold = true } })
 
-hi("LineNr", { ctermfg = 8 })
+hi("LineNr", { ctermfg = "DarkGray" })
 hi("CursorLineNr", { ctermfg = "NONE", cterm = { bold = true } })
-hi("CursorLine", { ctermbg = 12 })
-hi("ColorColumn", { ctermbg = 8 })
-hi("SignColumn", { ctermfg = 8 })
+hi("CursorLine", { ctermbg = "Blue" })
+hi("ColorColumn", { ctermbg = "DarkGray" })
+hi("SignColumn", { ctermfg = "DarkGray" })
 
-hi("Visual", { ctermbg = 12 })
-hi("Search", { ctermbg = 11, ctermfg = 3 })
-hi("IncSearch", { ctermbg = 3, ctermfg = 0 })
-hi("CurSearch", { ctermbg = 3, ctermfg = 0, cterm = { bold = true } })
+hi("Visual", { ctermbg = "Blue" })
+hi("Search", { ctermbg = "Yellow", ctermfg = "DarkYellow" })
+hi("IncSearch", { ctermbg = "DarkYellow", ctermfg = "Black" })
+hi("CurSearch", { ctermbg = "DarkYellow", ctermfg = "Black", cterm = { bold = true } })
 
 hi("Pmenu", { ctermfg = "NONE", ctermbg = "NONE" })
 hi("PmenuSel", { cterm = { bold = true, reverse = true } })
-hi("PmenuSbar", { ctermbg = 8 })
-hi("PmenuThumb", { ctermbg = 7 })
+hi("PmenuSbar", { ctermbg = "DarkGray" })
+hi("PmenuThumb", { ctermbg = "Gray" })
 
 hi("StatusLine", { ctermfg = "NONE", ctermbg = "NONE", cterm = { bold = true } })
-hi("StatusLineNC", { ctermfg = 8, ctermbg = "NONE" })
-hi("WinSeparator", { ctermfg = 8 })
+hi("StatusLineNC", { ctermfg = "DarkGray", ctermbg = "NONE" })
+hi("WinSeparator", { ctermfg = "DarkGray" })
 
-hi("Folded", { ctermfg = 8 })
-hi("FoldColumn", { ctermfg = 8 })
-hi("NonText", { ctermfg = 8 })
-hi("EndOfBuffer", { ctermfg = 8 })
-hi("SpecialKey", { ctermfg = 8 })
-hi("Whitespace", { ctermfg = 8 })
+hi("Folded", { ctermfg = "DarkGray" })
+hi("FoldColumn", { ctermfg = "DarkGray" })
+hi("NonText", { ctermfg = "DarkGray" })
+hi("EndOfBuffer", { ctermfg = "DarkGray" })
+hi("SpecialKey", { ctermfg = "DarkGray" })
+hi("Whitespace", { ctermfg = "DarkGray" })
 
 hi("Directory", { cterm = { bold = true } })
 hi("Title", { cterm = { bold = true } })
-hi("MoreMsg", { ctermfg = 2 })
-hi("Question", { ctermfg = 2 })
-hi("ErrorMsg", { ctermfg = 1, cterm = { bold = true } })
-hi("WarningMsg", { ctermfg = 3 })
+hi("MoreMsg", { ctermfg = "DarkGreen" })
+hi("Question", { ctermfg = "DarkGreen" })
+hi("ErrorMsg", { ctermfg = "DarkRed", cterm = { bold = true } })
+hi("WarningMsg", { ctermfg = "DarkYellow" })
 hi("ModeMsg", { cterm = { bold = true } })
 
 hi("MatchParen", { cterm = { bold = true } })
 hi("Cursor", { cterm = { reverse = true } })
 
--- =============================================================================
 -- Diff
--- =============================================================================
-hi("DiffAdd", { ctermbg = 10, ctermfg = 2 })
-hi("DiffChange", { ctermbg = 11, ctermfg = 3 })
-hi("DiffDelete", { ctermbg = 9, ctermfg = 1 })
-hi("DiffText", { ctermbg = 11, ctermfg = 3, cterm = { bold = true } })
-hi("Added", { ctermfg = 2 })
-hi("Changed", { ctermfg = 3 })
-hi("Removed", { ctermfg = 1 })
+hi("DiffAdd", { ctermbg = "Green", ctermfg = "DarkGreen" })
+hi("DiffChange", { ctermbg = "Yellow", ctermfg = "DarkYellow" })
+hi("DiffDelete", { ctermbg = "Red", ctermfg = "DarkRed" })
+hi("DiffText", { ctermbg = "Yellow", ctermfg = "DarkYellow", cterm = { bold = true } })
+hi("Added", { ctermfg = "DarkGreen" })
+hi("Changed", { ctermfg = "DarkYellow" })
+hi("Removed", { ctermfg = "DarkRed" })
 
--- =============================================================================
 -- Syntax (the core philosophy: bold for structure, color for literals)
--- =============================================================================
 
 -- Default: plain
 hi("Identifier", { ctermfg = "NONE" })
@@ -86,17 +80,17 @@ hi("Operator", { ctermfg = "NONE" })
 hi("Special", { ctermfg = "NONE" })
 
 -- Comments: grey
-hi("Comment", { ctermfg = 8 })
+hi("Comment", { ctermfg = "DarkGray" })
 
 -- Strings: green
-hi("String", { ctermfg = 2 })
-hi("Character", { ctermfg = 2 })
+hi("String", { ctermfg = "DarkGreen" })
+hi("Character", { ctermfg = "DarkGreen" })
 
 -- Numbers/Constants: yellow
-hi("Number", { ctermfg = 3 })
-hi("Float", { ctermfg = 3 })
-hi("Boolean", { ctermfg = 3 })
-hi("Constant", { ctermfg = 3 })
+hi("Number", { ctermfg = "DarkYellow" })
+hi("Float", { ctermfg = "DarkYellow" })
+hi("Boolean", { ctermfg = "DarkYellow" })
+hi("Constant", { ctermfg = "DarkYellow" })
 
 -- Keywords: bold
 hi("Statement", { cterm = { bold = true } })
@@ -120,24 +114,22 @@ hi("Macro", { cterm = { bold = true } })
 
 -- Tags and special
 hi("Tag", { ctermfg = "NONE" })
-hi("SpecialChar", { ctermfg = 2 })
-hi("SpecialComment", { ctermfg = 8, cterm = { bold = true } })
+hi("SpecialChar", { ctermfg = "DarkGreen" })
+hi("SpecialComment", { ctermfg = "DarkGray", cterm = { bold = true } })
 
 -- Errors/Todos
-hi("Error", { ctermfg = 1, cterm = { bold = true } })
-hi("Todo", { ctermfg = 3, cterm = { bold = true } })
+hi("Error", { ctermfg = "DarkRed", cterm = { bold = true } })
+hi("Todo", { ctermfg = "DarkYellow", cterm = { bold = true } })
 hi("Underlined", { cterm = { underline = true } })
 
--- =============================================================================
 -- Treesitter (only overrides, rest falls back to standard groups)
--- =============================================================================
 hi("@module", { ctermfg = "NONE" })
 hi("@type.definition", { ctermfg = "NONE" })
 hi("@string.documentation", { link = "Comment" })
-hi("@comment.error", { ctermfg = 1, cterm = { bold = true } })
-hi("@comment.warning", { ctermfg = 3, cterm = { bold = true } })
-hi("@comment.todo", { ctermfg = 3, cterm = { bold = true } })
-hi("@comment.note", { ctermfg = 4, cterm = { bold = true } })
+hi("@comment.error", { ctermfg = "DarkRed", cterm = { bold = true } })
+hi("@comment.warning", { ctermfg = "DarkYellow", cterm = { bold = true } })
+hi("@comment.todo", { ctermfg = "DarkYellow", cterm = { bold = true } })
+hi("@comment.note", { ctermfg = "DarkBlue", cterm = { bold = true } })
 
 -- Markup
 hi("@markup.strong", { cterm = { bold = true } })
@@ -147,40 +139,36 @@ hi("@markup.underline", { cterm = { underline = true } })
 hi("@markup.heading", { cterm = { bold = true } })
 hi("@markup.quote", { link = "Comment" })
 hi("@markup.link", { cterm = { underline = true } })
-hi("@markup.raw", { ctermfg = 8 })
+hi("@markup.raw", { ctermfg = "DarkGray" })
 
 -- Tags (HTML/XML)
 hi("@tag", { cterm = { bold = true } })
 hi("@tag.attribute", { ctermfg = "NONE" })
-hi("@tag.delimiter", { ctermfg = 8 })
+hi("@tag.delimiter", { ctermfg = "DarkGray" })
 
 -- Language-specific overrides
 hi("@string.yaml", { ctermfg = "NONE" })  -- YAML values are strings but look better plain
 
--- =============================================================================
 -- Diagnostics
--- =============================================================================
-hi("DiagnosticError", { ctermfg = 1 })
-hi("DiagnosticWarn", { ctermfg = 3 })
-hi("DiagnosticInfo", { ctermfg = 4 })
-hi("DiagnosticHint", { ctermfg = 8 })
-hi("DiagnosticOk", { ctermfg = 2 })
+hi("DiagnosticError", { ctermfg = "DarkRed" })
+hi("DiagnosticWarn", { ctermfg = "DarkYellow" })
+hi("DiagnosticInfo", { ctermfg = "DarkBlue" })
+hi("DiagnosticHint", { ctermfg = "DarkGray" })
+hi("DiagnosticOk", { ctermfg = "DarkGreen" })
 
-hi("DiagnosticUnderlineError", { cterm = { undercurl = true }, ctermfg = 1 })
-hi("DiagnosticUnderlineWarn", { cterm = { undercurl = true }, ctermfg = 3 })
-hi("DiagnosticUnderlineInfo", { cterm = { undercurl = true }, ctermfg = 4 })
-hi("DiagnosticUnderlineHint", { cterm = { undercurl = true }, ctermfg = 8 })
-hi("DiagnosticUnderlineOk", { cterm = { undercurl = true }, ctermfg = 2 })
+hi("DiagnosticUnderlineError", { cterm = { undercurl = true }, ctermfg = "DarkRed" })
+hi("DiagnosticUnderlineWarn", { cterm = { undercurl = true }, ctermfg = "DarkYellow" })
+hi("DiagnosticUnderlineInfo", { cterm = { undercurl = true }, ctermfg = "DarkBlue" })
+hi("DiagnosticUnderlineHint", { cterm = { undercurl = true }, ctermfg = "DarkGray" })
+hi("DiagnosticUnderlineOk", { cterm = { undercurl = true }, ctermfg = "DarkGreen" })
 
 hi("DiagnosticDeprecated", { cterm = { strikethrough = true } })
-hi("DiagnosticUnnecessary", { ctermfg = 8 })
+hi("DiagnosticUnnecessary", { ctermfg = "DarkGray" })
 
--- =============================================================================
 -- Plugins
--- =============================================================================
-hi("GitSignsAdd", { ctermfg = 2 })
-hi("GitSignsChange", { ctermfg = 3 })
-hi("GitSignsDelete", { ctermfg = 1 })
+hi("GitSignsAdd", { ctermfg = "DarkGreen" })
+hi("GitSignsChange", { ctermfg = "DarkYellow" })
+hi("GitSignsDelete", { ctermfg = "DarkRed" })
 
-hi("IblIndent", { ctermfg = 8 })
+hi("IblIndent", { ctermfg = "DarkGray" })
 hi("IblScope", { ctermfg = "NONE" })

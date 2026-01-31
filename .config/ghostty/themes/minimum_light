@@ -7,22 +7,22 @@ cursor-color = #090909
 selection-background = #d5e5f6
 selection-foreground = #000000
 
-# 0-7: Normal colors
+# 0-7: Normal colors (readable on white background)
 palette = 0=#000000
-palette = 1=#800000
+palette = 1=#a02020
 palette = 2=#407f00
 palette = 3=#b07700
-palette = 4=#000075
-palette = 5=#8b008b
-palette = 6=#469990
+palette = 4=#0050a0
+palette = 5=#804080
+palette = 6=#207070
 palette = 7=#c5c6c8
 
-# 8-15: Bright colors (9-11 are pastels for diff backgrounds)
+# 8-15: Bright colors (9-12 are pastels for diff/visual backgrounds)
 palette = 8=#737373
 palette = 9=#fabed4
 palette = 10=#aaffc3
 palette = 11=#fffac8
 palette = 12=#d5e5f6
-palette = 13=#f032e6
-palette = 14=#42d4f4
+palette = 13=#a050a0
+palette = 14=#308080
 palette = 15=#ffffff
