@@ -10,9 +10,12 @@
     "deny": [],
     "ask": []
   },
-  "alwaysThinkingEnabled": true,
   "statusLine": {
     "type": "command",
     "command": "jq -r '\"\\(.workspace.current_dir) | \\(.model.display_name) | \\(.context_window.remaining_percentage)%\"'"
+  },
+  "alwaysThinkingEnabled": true,
+  "enabledPlugins": {
+    "lua-lsp@claude-plugins-official": true
   }
 }
