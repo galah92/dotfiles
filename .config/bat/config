@@ -1,5 +1,7 @@
 # Match cat output
 --style="plain"
 
-# https://github.com/sharkdp/bat/issues/1746#issuecomment-1004698823
---theme="ansi"
+# Auto light/dark theme switching with custom minimal themes
+--theme="auto"
+--theme-light="minimal-light"
+--theme-dark="minimal-dark"

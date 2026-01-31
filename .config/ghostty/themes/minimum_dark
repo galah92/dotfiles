@@ -1,0 +1,28 @@
+# Minimum Dark - Same hues as minimum_light, adjusted for dark background
+# Aligned semantic colors with light variant
+
+background = #090909
+foreground = #e0e0e0
+cursor-color = #e0e0e0
+selection-background = #252d3d
+selection-foreground = #e0e0e0
+
+# 0-7: Normal colors (lighter versions of light theme hues)
+palette = 0=#000000
+palette = 1=#cc8080
+palette = 2=#7fbf50
+palette = 3=#d4a850
+palette = 4=#8080cc
+palette = 5=#cc80cc
+palette = 6=#70c0b8
+palette = 7=#303030
+
+# 8-15: Bright colors (9-12 are muted backgrounds for diffs)
+palette = 8=#606060
+palette = 9=#3d2525
+palette = 10=#253d25
+palette = 11=#3d3525
+palette = 12=#252d3d
+palette = 13=#e080e0
+palette = 14=#80d0d0
+palette = 15=#e0e0e0

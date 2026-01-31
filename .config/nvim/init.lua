@@ -46,7 +46,15 @@ vim.pack.add({
   'https://github.com/savq/melange-nvim',
   'https://github.com/xero/miasma.nvim',
   'https://github.com/ptdewey/darkearth-nvim',
+  'https://github.com/jeffkreeftmeijer/vim-dim',
+  'https://github.com/oskarnurm/koda.nvim',
+  'https://github.com/wtfox/jellybeans.nvim',
+  'https://github.com/e-q/okcolors.nvim',
+  'https://github.com/webhooked/kanso.nvim',
+  'https://github.com/p00f/alabaster.nvim',
 })
+
+vim.cmd.colorscheme('minimal')
 
 require('fzf-lua').setup({ 'border-fused', winopts = { fullscreen = true } })
 require('treesitter-autoinstall').setup({ highlight = true })

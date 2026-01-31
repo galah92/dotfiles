@@ -1,4 +1,7 @@
-theme = dark:Nvim Dark,light:Nvim Light
+theme = dark:minimum_dark,light:minimum_light
+# theme = dark:3024 Night,light:3024 Day
+# theme = dark:Nvim Dark,light:Nvim Light
+
 font-family = JetBrains Mono
 font-feature = -calt, -liga, -dlig  # Disable ligatures
 cursor-style = block
