@@ -1,5 +1,8 @@
-# Minimum Light - Based on telemachus/minimum.lua palette
-# Colors from https://sashamaps.net/docs/resources/20-colors/
+# Minimum Light
+# Based on sashamaps 20 colors: https://sashamaps.net/docs/resources/20-colors/
+#
+# - Slots 1-6: sashamaps dark (text on white)
+# - Slots 9-14: sashamaps pastels (backgrounds)
 
 background = #ffffff
 foreground = #090909
@@ -7,22 +10,26 @@ cursor-color = #090909
 selection-background = #d5e5f6
 selection-foreground = #000000
 
-# 0-7: Normal colors (readable on white background)
+# 0-7: Dark colors (text)
+# 0=black, 1=dark red (maroon), 2=dark green, 3=dark yellow (olive)
+# 4=dark blue (navy), 5=dark magenta, 6=dark cyan (teal), 7=light gray
 palette = 0=#000000
-palette = 1=#a02020
-palette = 2=#407f00
-palette = 3=#b07700
-palette = 4=#0050a0
-palette = 5=#804080
-palette = 6=#207070
+palette = 1=#800000
+palette = 2=#194a1f
+palette = 3=#808000
+palette = 4=#000075
+palette = 5=#8b008b
+palette = 6=#469990
 palette = 7=#c5c6c8
 
-# 8-15: Bright colors (9-12 are pastels for diff/visual backgrounds)
+# 8-15: Pastels (backgrounds)
+# 8=dark gray, 9=red (pink), 10=green (mint), 11=yellow (beige)
+# 12=blue (light blue), 13=magenta (lavender), 14=cyan (aqua), 15=white
 palette = 8=#737373
 palette = 9=#fabed4
 palette = 10=#aaffc3
 palette = 11=#fffac8
 palette = 12=#d5e5f6
-palette = 13=#a050a0
-palette = 14=#308080
+palette = 13=#dcbeff
+palette = 14=#aaffd4
 palette = 15=#ffffff

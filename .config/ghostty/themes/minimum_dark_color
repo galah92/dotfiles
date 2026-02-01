@@ -1,0 +1,35 @@
+# Minimum Dark
+# Based on sashamaps 20 colors: https://sashamaps.net/docs/resources/20-colors/
+#
+# - Slots 1-6: sashamaps saturated (text on dark)
+# - Slots 9-14: sashamaps pastels (backgrounds), except slot 12
+
+background = #101010
+foreground = #e0e0e0
+cursor-color = #e0e0e0
+selection-background = #303050
+selection-foreground = #ffffff
+
+# 0-7: Saturated colors (text)
+# 0=black, 1=dark red, 2=dark green, 3=dark yellow
+# 4=dark blue, 5=dark magenta, 6=dark cyan, 7=light gray
+palette = 0=#000000
+palette = 1=#e6194b
+palette = 2=#3cb44b
+palette = 3=#ffe119
+palette = 4=#4363d8
+palette = 5=#f032e6
+palette = 6=#42d4f4
+palette = 7=#404040
+
+# 8-15: Pastels (backgrounds), slot 12 is subtle for CursorLine
+# 8=dark gray, 9=red (pink), 10=green (mint), 11=yellow (beige)
+# 12=blue (subtle dark blue), 13=magenta (lavender), 14=cyan (aqua), 15=white
+palette = 8=#707070
+palette = 9=#fabed4
+palette = 10=#aaffc3
+palette = 11=#fffac8
+palette = 12=#202535
+palette = 13=#dcbeff
+palette = 14=#aaffd4
+palette = 15=#ffffff

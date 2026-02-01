@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>name</key>
-	<string>Minimal</string>
+	<string>Minimal Light</string>
 	<key>settings</key>
 	<array>
 		<!-- Global settings -->
@@ -11,13 +11,13 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#000000</string>
+				<string>#090909</string>
 				<key>background</key>
 				<string>#ffffff</string>
 			</dict>
 		</dict>
 
-		<!-- Comments: grey -->
+		<!-- Comments: dark gray (slot 8) -->
 		<dict>
 			<key>name</key>
 			<string>Comment</string>
@@ -30,7 +30,7 @@
 			</dict>
 		</dict>
 
-		<!-- Strings: green (koda) -->
+		<!-- Strings: dark green (slot 2) -->
 		<dict>
 			<key>name</key>
 			<string>String</string>
@@ -39,11 +39,11 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#407f00</string>
+				<string>#194a1f</string>
 			</dict>
 		</dict>
 
-		<!-- Numbers: yellow (koda) -->
+		<!-- Numbers: olive (slot 3) -->
 		<dict>
 			<key>name</key>
 			<string>Number</string>
@@ -52,11 +52,11 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#b07700</string>
+				<string>#808000</string>
 			</dict>
 		</dict>
 
-		<!-- Constants/Booleans: yellow -->
+		<!-- Constants/Booleans: olive (slot 3) -->
 		<dict>
 			<key>name</key>
 			<string>Constant</string>
@@ -65,7 +65,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#b07700</string>
+				<string>#808000</string>
 			</dict>
 		</dict>
 
@@ -104,7 +104,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#000000</string>
+				<string>#090909</string>
 			</dict>
 		</dict>
 
@@ -117,7 +117,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#000000</string>
+				<string>#090909</string>
 			</dict>
 		</dict>
 
@@ -130,7 +130,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#000000</string>
+				<string>#090909</string>
 			</dict>
 		</dict>
 
@@ -143,7 +143,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#000000</string>
+				<string>#090909</string>
 			</dict>
 		</dict>
 
@@ -156,7 +156,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#000000</string>
+				<string>#090909</string>
 			</dict>
 		</dict>
 	</array>

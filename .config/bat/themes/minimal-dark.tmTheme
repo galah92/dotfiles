@@ -13,11 +13,11 @@
 				<key>foreground</key>
 				<string>#e0e0e0</string>
 				<key>background</key>
-				<string>#090909</string>
+				<string>#101010</string>
 			</dict>
 		</dict>
 
-		<!-- Comments: grey -->
+		<!-- Comments: dark gray (slot 8) -->
 		<dict>
 			<key>name</key>
 			<string>Comment</string>
@@ -26,11 +26,11 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#606060</string>
+				<string>#707070</string>
 			</dict>
 		</dict>
 
-		<!-- Strings: green (lighter for dark bg) -->
+		<!-- Strings: green (slot 2) -->
 		<dict>
 			<key>name</key>
 			<string>String</string>
@@ -39,11 +39,11 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#7fbf50</string>
+				<string>#3cb44b</string>
 			</dict>
 		</dict>
 
-		<!-- Numbers: yellow (lighter for dark bg) -->
+		<!-- Numbers: yellow (slot 3) -->
 		<dict>
 			<key>name</key>
 			<string>Number</string>
@@ -52,11 +52,11 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#d4a850</string>
+				<string>#ffe119</string>
 			</dict>
 		</dict>
 
-		<!-- Constants/Booleans: yellow -->
+		<!-- Constants/Booleans: yellow (slot 3) -->
 		<dict>
 			<key>name</key>
 			<string>Constant</string>
@@ -65,7 +65,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#d4a850</string>
+				<string>#ffe119</string>
 			</dict>
 		</dict>
 
