@@ -22,23 +22,27 @@
 [init]
     defaultBranch = main
 [pull]
-	rebase = true
+    rebase = true
 [core]
-	editor = vi
-	pager = delta
+    editor = vi
+    pager = delta
 [color]
-	ui = auto
+    ui = auto
 [interactive]
-	diffFilter = delta --color-only
+    diffFilter = delta --color-only
 [delta]
-	navigate = true
-[delta "light"]
-	light = true
-	syntax-theme = minimal-light
-[delta "dark"]
-	dark = true
-	syntax-theme = minimal-dark
+    navigate = true
+    side-by-side = true
+    hunk-header-style = omit
+    file-style = bold
+    file-decoration-style = none
+    line-numbers = true
+    line-numbers-left-style = dim
+    line-numbers-right-style = dim
+    line-numbers-minus-style = dim
+    line-numbers-plus-style = dim
+    line-numbers-zero-style = dim
+    line-numbers-left-format = "{nm:>4} "
+    line-numbers-right-format = "{np:>4} "
 [merge]
-	conflictstyle = diff3
-[diff]
-	colorMoved = default
+    conflictstyle = zdiff3
