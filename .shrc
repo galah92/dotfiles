@@ -34,6 +34,15 @@ alias sqlp_dev="./cloud-sql-proxy walabothome-app-cloud:us-central1:rdbms-postgr
 
 export FZF_DEFAULT_OPTS="--info=inline --no-separator --ansi --color=16"
 
+# Set theme based on system appearance
+if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]; then
+    export BAT_THEME="minimal-dark"
+    export DELTA_FEATURES="dark"
+else
+    export BAT_THEME="minimal-light"
+    export DELTA_FEATURES="light"
+fi
+
 # Common prompt for bash and zsh
 if [ -n "$BASH_VERSION" ]; then
     PS1='\e[1m\w\e[0m \[\e[33m\]❯\[\e[0m\] '
