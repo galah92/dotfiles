@@ -15,6 +15,7 @@
     df = diff
     ps = push
     pl = pull
+    lgm = log --oneline --first-parent  # log master
 [fetch]
     prune = true # Remove remote tracking branches that no longer exist on the remote
 [push]
