@@ -1,7 +1,5 @@
+# theme = dark:koda_dark,light:koda_light
 theme = dark:minimum_dark_color,light:minimum_light
-# theme = dark:minimum_dark_mono,light:minimum_light
-# theme = dark:3024 Night,light:3024 Day
-# theme = dark:Nvim Dark,light:Nvim Light
 
 font-family = JetBrains Mono
 font-feature = -calt, -liga, -dlig  # Disable ligatures
