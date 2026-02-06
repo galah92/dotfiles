@@ -14,9 +14,10 @@
     "type": "command",
     "command": "jq -r '\"\\(.workspace.current_dir) | \\(.model.display_name) | \\(.context_window.remaining_percentage)%\"'"
   },
-  "alwaysThinkingEnabled": true,
   "enabledPlugins": {
     "lua-lsp@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true
-  }
+  },
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "medium"
 }
