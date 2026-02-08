@@ -18,6 +18,5 @@
     "lua-lsp@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true
   },
-  "alwaysThinkingEnabled": true,
-  "effortLevel": "medium"
+  "alwaysThinkingEnabled": true
 }
