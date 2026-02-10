@@ -1,6 +1,7 @@
 # theme = dark:koda_dark,light:koda_light
 theme = dark:minimum_dark_color,light:minimum_light
 
+font-family = Maple Mono
 font-family = JetBrains Mono
 font-feature = -calt, -liga, -dlig  # Disable ligatures
 cursor-style = block
