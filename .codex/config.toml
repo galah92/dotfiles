@@ -1,0 +1,9 @@
+# Docs: https://developers.openai.com/codex/config-basic
+sandbox_mode = "workspace-write"
+model = "gpt-5.3-codex"
+model_reasoning_effort = "high"
+personality = "pragmatic"
+
+[features]
+collaboration_modes = true
+shell_snapshot = true
