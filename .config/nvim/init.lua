@@ -16,28 +16,23 @@ vim.opt.smartcase = true -- Override 'ignorecase' if search pattern contains upp
 vim.opt.laststatus = 0 -- Hide the statusline
 vim.opt.list = true -- Show invisible characters
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Set characters to display for invisible characters
+-- vim.opt.winborder = 'bold' -- Borders on all floating windows (LSP hover, diagnostics, etc.)
+-- vim.opt.pumborder = 'bold' -- Borders on the completion popup menu
 
--- Autocompletion settings: https://www.reddit.com/r/neovim/comments/1pd6pg8
-vim.opt.autocomplete = true
-vim.opt.complete = "o,.,w,b,u"
-vim.opt.completeopt = "fuzzy,menuone,noselect,popup"
-vim.opt.pumheight = 7
-vim.opt.pummaxwidth = 80
-vim.opt.shortmess:prepend("c") -- avoid having to press enter on snippet completion
-vim.api.nvim_create_autocmd("LspAttach", { command = "setlocal complete=o" })
+-- -- Autocompletion settings: https://www.reddit.com/r/neovim/comments/1pd6pg8
+-- vim.opt.autocomplete = true
+-- vim.opt.complete = "o,.,w,b,u"
+-- vim.opt.completeopt = "fuzzy,menuone,noselect,popup"
+-- vim.opt.pumheight = 7
+-- vim.opt.pummaxwidth = 80
+-- vim.opt.shortmess:prepend("c") -- avoid having to press enter on snippet completion
+-- vim.api.nvim_create_autocmd("LspAttach", { command = "setlocal complete=o" })
 
 vim.pack.add({
-  'https://github.com/tpope/vim-sleuth',        -- Detect tabstop, expandtab and shiftwidth automatically
-  'https://github.com/lewis6991/gitsigns.nvim', -- Color line numbers with git changes
-  'https://github.com/ibhagwan/fzf-lua',        -- Fuzzy finder
-  {
-    src = 'https://github.com/nvim-treesitter/nvim-treesitter',
-    data = {
-      -- Auto update treesitter parsers on install/update of the plugin:
-      -- https://www.reddit.com/r/neovim/comments/1mx71rc/
-      run = function(_) vim.cmd 'TSUpdate' end,
-    },
-  },
+  'https://github.com/tpope/vim-sleuth',                  -- Detect tabstop, expandtab and shiftwidth automatically
+  'https://github.com/lewis6991/gitsigns.nvim',           -- Color line numbers with git changes
+  'https://github.com/ibhagwan/fzf-lua',                  -- Fuzzy finder
+  'https://github.com/nvim-treesitter/nvim-treesitter',   -- TSUpdate needs to be run after updating nvim-treesitter, but it's not possible with vim.pack yet
   'https://github.com/mks-h/treesitter-autoinstall.nvim', -- Auto install treesitter parsers and enable highlight
   'https://github.com/github/copilot.vim',                -- GitHub Copilot
 
