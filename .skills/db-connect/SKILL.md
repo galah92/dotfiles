@@ -3,69 +3,41 @@ name: db-connect
 description: Connect to Vayyar production or development PostgreSQL via Google Cloud SQL Proxy. Use when the user needs to query the DB, debug prod data, or run SQL in US/EU regions.
 ---
 
-# Connect to PostgreSQL via Cloud SQL Proxy
-
-## Prerequisites
-
-Confirm you are in `~` and these exist:
-
-```bash
-ls ./cloud-sql-proxy ./service-accounts
-```
-
-Confirm `psql` is available:
-
-```bash
-psql --version
-```
+# Connect to PostgreSQL with IAM Authentication
 
 ## Choose the target
 
-Ask for region and access type:
+Ask for region (US/EU). **Always use read replicas** unless the user explicitly requests a primary instance.
 
-- Region: US or EU
-- Access: read replica (preferred) or primary (write)
+| Instance | Database | Use Case |
+|----------|----------|----------|
+| walabot-home:us-central1:replica-300f61ef | vayyar | US Production |
+| walabot-home:europe-west1:replica-d73e3ed7 | vayyar_eu | EU Production |
+| vayyar-care-preprod:us-central1:replica-5a6d361f | vayyar | US Preprod |
+| vayyar-care-preprod:europe-west1:replica-7a1bee7b | vayyar_eu | EU Preprod |
+| walabothome-app-cloud:us-central1:rdbms-postgresql | vayyar | Development |
 
-## Available instances
+Primary instances (only when explicitly requested):
 
-| Alias | Instance | Use Case | Credentials |
-|-------|----------|----------|-------------|
-| `sqlp_prod_us` | walabot-home:us-central1:rdbms-postgresql | US Production (primary) | `./service-accounts/walabot-home-62c43d769083.json` |
-| `sqlp_prod_us_replica` | walabot-home:us-central1:replica-300f61ef | US Production (read replica) | `./service-accounts/walabot-home-62c43d769083.json` |
-| `sqlp_prod_eu` | walabot-home:europe-west1:rdbms-postgresql-eu | EU Production (primary) | `./service-accounts/walabot-home-62c43d769083.json` |
-| `sqlp_prod_eu_replica` | walabot-home:europe-west1:replica-d73e3ed7 | EU Production (read replica) | `./service-accounts/walabot-home-62c43d769083.json` |
-| `sqlp_dev` | walabothome-app-cloud:us-central1:rdbms-postgresql | Development | `./service-accounts/walabothome-app-cloud-6cb6a16b1aa8.json` |
+| Instance | Database | Use Case |
+|----------|----------|----------|
+| walabot-home:us-central1:rdbms-postgresql | vayyar | US Production (primary) |
+| walabot-home:europe-west1:rdbms-postgresql-eu | vayyar_eu | EU Production (primary) |
+| vayyar-care-preprod:us-central1:rdbms-postgresql | vayyar | US Preprod (primary) |
+| vayyar-care-preprod:europe-west1:rdbms-postgresql-eu | vayyar_eu | EU Preprod (primary) |
 
 ## Start the proxy
 
-Run in background and wait for: `The proxy has started successfully and is ready for new connections!`
-
 ```bash
-# Example: US read replica on default port 5432
-./cloud-sql-proxy walabot-home:us-central1:replica-300f61ef \
-  --credentials-file ./service-accounts/walabot-home-62c43d769083.json &
+~/cloud-sql-proxy <INSTANCE> --auto-iam-authn &
 ```
 
-If another proxy is running, pick another port:
-
-```bash
-./cloud-sql-proxy walabot-home:us-central1:replica-300f61ef \
-  --credentials-file ./service-accounts/walabot-home-62c43d769083.json \
-  --port 5433 &
-```
-
-## Connect with psql
-
-Prefer env var for the password and avoid sharing it in logs.
-
-```bash
-PGPASSWORD=Vayyar1234 psql -h 127.0.0.1 -p 5432 -U debug -d vayyar -c '\conninfo'
-```
+If port 5432 is taken, add `--port 5433`.
 
 ## Run queries
 
 ```bash
-PGPASSWORD=Vayyar1234 psql -h 127.0.0.1 -p 5432 -U debug -d vayyar -c "SELECT ..."
+psql -h 127.0.0.1 -p 5432 -U "$(gcloud config get-value account)" -d <DATABASE> -c "SELECT ..."
 ```
 
 ## Stop the proxy
@@ -78,4 +50,4 @@ pkill -f cloud-sql-proxy
 
 - `connection refused`: proxy not running or wrong port
 - `address already in use`: choose another port (`--port 5433`)
-- `permission denied` or `invalid_grant`: credentials file mismatch or expired
+- `Not authorized` or `IAM principal ... not found`: run `gcloud auth login` and retry
