@@ -1,6 +1,7 @@
---- minimal.lua - ANSI colorscheme for use with terminal palettes
---- Inspired by minimum.lua (bold keywords) and koda.nvim (green strings, yellow numbers)
---- Uses termguicolors=false so Ghostty/terminal controls the actual colors
+--- ANSI colorscheme for use with terminal palettes
+--- Inspired by minimum.lua (bold keywords) and koda.nvim:
+--- https://github.com/telemachus/dotfiles/blob/main/config/nvim/colors/minimum.lua
+--- https://github.com/oskarnurm/koda.nvim
 
 vim.opt.termguicolors = false
 
@@ -147,7 +148,7 @@ hi("@tag.attribute", { ctermfg = "NONE" })
 hi("@tag.delimiter", { ctermfg = "DarkGray" })
 
 -- Language-specific overrides
-hi("@string.yaml", { ctermfg = "NONE" })  -- YAML values are strings but look better plain
+hi("@string.yaml", { ctermfg = "NONE" }) -- YAML values are strings but look better plain
 
 -- Diagnostics
 hi("DiagnosticError", { ctermfg = "DarkRed" })
