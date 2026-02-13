@@ -42,7 +42,6 @@ vim.pack.add({
   'https://github.com/github/copilot.vim',                -- GitHub Copilot
 
   -- Colorschemes
-  'https://github.com/webhooked/kanso.nvim',
   'https://github.com/oskarnurm/koda.nvim',
 })
 
@@ -50,8 +49,6 @@ vim.cmd.colorscheme('minimal')
 
 require('fzf-lua').setup({ 'border-fused', winopts = { fullscreen = true } })
 require('treesitter-autoinstall').setup({ highlight = true })
-
-vim.g.melange_enable_font_variants = { italic = false, bold = true, underline = true, undercurl = true, strikethrough = true }
 
 vim.lsp.config['ruff'] = {
   cmd = { 'uv', 'run', 'ruff', 'server' },

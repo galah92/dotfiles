@@ -11,9 +11,9 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#090909</string>
+				<string>#101010</string>
 				<key>background</key>
-				<string>#ffffff</string>
+				<string>#faf9f5</string>
 			</dict>
 		</dict>
 
@@ -26,11 +26,11 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#737373</string>
+				<string>#969ba5</string>
 			</dict>
 		</dict>
 
-		<!-- Strings: dark green (slot 2) -->
+		<!-- Strings: green (slot 2) -->
 		<dict>
 			<key>name</key>
 			<string>String</string>
@@ -39,11 +39,11 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#194a1f</string>
+				<string>#407f00</string>
 			</dict>
 		</dict>
 
-		<!-- Numbers: olive (slot 3) -->
+		<!-- Numbers: amber (slot 3) -->
 		<dict>
 			<key>name</key>
 			<string>Number</string>
@@ -52,11 +52,11 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#808000</string>
+				<string>#b07700</string>
 			</dict>
 		</dict>
 
-		<!-- Constants/Booleans: olive (slot 3) -->
+		<!-- Constants/Booleans: amber (slot 3) -->
 		<dict>
 			<key>name</key>
 			<string>Constant</string>
@@ -65,7 +65,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#808000</string>
+				<string>#b07700</string>
 			</dict>
 		</dict>
 
@@ -104,7 +104,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#090909</string>
+				<string>#101010</string>
 			</dict>
 		</dict>
 
@@ -117,7 +117,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#090909</string>
+				<string>#101010</string>
 			</dict>
 		</dict>
 
@@ -130,7 +130,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#090909</string>
+				<string>#101010</string>
 			</dict>
 		</dict>
 
@@ -143,7 +143,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#090909</string>
+				<string>#101010</string>
 			</dict>
 		</dict>
 
@@ -156,7 +156,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#090909</string>
+				<string>#101010</string>
 			</dict>
 		</dict>
 	</array>

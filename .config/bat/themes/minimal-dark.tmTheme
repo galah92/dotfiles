@@ -11,7 +11,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#e0e0e0</string>
+				<string>#ffffff</string>
 				<key>background</key>
 				<string>#101010</string>
 			</dict>
@@ -26,7 +26,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#707070</string>
+				<string>#50585d</string>
 			</dict>
 		</dict>
 
@@ -39,11 +39,11 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#3cb44b</string>
+				<string>#a3d6a3</string>
 			</dict>
 		</dict>
 
-		<!-- Numbers: yellow (slot 3) -->
+		<!-- Numbers: golden (slot 3) -->
 		<dict>
 			<key>name</key>
 			<string>Number</string>
@@ -52,11 +52,11 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#ffe119</string>
+				<string>#d9ba73</string>
 			</dict>
 		</dict>
 
-		<!-- Constants/Booleans: yellow (slot 3) -->
+		<!-- Constants/Booleans: golden (slot 3) -->
 		<dict>
 			<key>name</key>
 			<string>Constant</string>
@@ -65,7 +65,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#ffe119</string>
+				<string>#d9ba73</string>
 			</dict>
 		</dict>
 
@@ -104,7 +104,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#e0e0e0</string>
+				<string>#ffffff</string>
 			</dict>
 		</dict>
 
@@ -117,7 +117,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#e0e0e0</string>
+				<string>#ffffff</string>
 			</dict>
 		</dict>
 
@@ -130,7 +130,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#e0e0e0</string>
+				<string>#ffffff</string>
 			</dict>
 		</dict>
 
@@ -143,7 +143,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#e0e0e0</string>
+				<string>#ffffff</string>
 			</dict>
 		</dict>
 
@@ -156,7 +156,7 @@
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
-				<string>#e0e0e0</string>
+				<string>#ffffff</string>
 			</dict>
 		</dict>
 	</array>

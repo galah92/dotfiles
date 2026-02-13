@@ -11,10 +11,6 @@ if vim.fn.exists("syntax_on") == 1 then
 end
 vim.g.colors_name = "minimal"
 
--- ANSI color names (actual colors come from terminal palette):
--- DarkGreen=strings, DarkYellow=numbers, DarkGray=comments, Gray=cursorline
--- Green=diff add bg, Yellow=diff change bg, Red=diff del bg, Blue=visual bg
-
 local function hi(group, opts)
   vim.api.nvim_set_hl(0, group, opts)
 end
@@ -27,7 +23,7 @@ hi("FloatTitle", { cterm = { bold = true } })
 hi("LineNr", { ctermfg = "DarkGray" })
 hi("CursorLineNr", { ctermfg = "NONE", cterm = { bold = true } })
 hi("CursorLine", { ctermbg = "Blue" })
-hi("ColorColumn", { ctermbg = "DarkGray" })
+hi("ColorColumn", { ctermbg = "Blue" })
 hi("SignColumn", { ctermfg = "DarkGray" })
 
 hi("Visual", { ctermbg = "Blue" })
@@ -140,6 +136,8 @@ hi("@markup.underline", { cterm = { underline = true } })
 hi("@markup.heading", { cterm = { bold = true } })
 hi("@markup.quote", { link = "Comment" })
 hi("@markup.link", { cterm = { underline = true } })
+hi("@markup.list.checked", { ctermfg = "DarkGreen" })
+hi("@markup.list.unchecked", { ctermfg = "DarkRed" })
 hi("@markup.raw", { ctermfg = "DarkGray" })
 
 -- Tags (HTML/XML)
@@ -154,13 +152,13 @@ hi("@string.yaml", { ctermfg = "NONE" }) -- YAML values are strings but look bet
 hi("DiagnosticError", { ctermfg = "DarkRed" })
 hi("DiagnosticWarn", { ctermfg = "DarkYellow" })
 hi("DiagnosticInfo", { ctermfg = "DarkBlue" })
-hi("DiagnosticHint", { ctermfg = "DarkGray" })
+hi("DiagnosticHint", { ctermfg = "DarkBlue" })
 hi("DiagnosticOk", { ctermfg = "DarkGreen" })
 
 hi("DiagnosticUnderlineError", { cterm = { undercurl = true }, ctermfg = "DarkRed" })
 hi("DiagnosticUnderlineWarn", { cterm = { undercurl = true }, ctermfg = "DarkYellow" })
 hi("DiagnosticUnderlineInfo", { cterm = { undercurl = true }, ctermfg = "DarkBlue" })
-hi("DiagnosticUnderlineHint", { cterm = { undercurl = true }, ctermfg = "DarkGray" })
+hi("DiagnosticUnderlineHint", { cterm = { undercurl = true }, ctermfg = "DarkBlue" })
 hi("DiagnosticUnderlineOk", { cterm = { undercurl = true }, ctermfg = "DarkGreen" })
 
 hi("DiagnosticDeprecated", { cterm = { strikethrough = true } })
