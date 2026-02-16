@@ -5,6 +5,9 @@
 export EDITOR="nvim"
 export GIT_EDITOR="nvim"
 
+# Vi mode
+set -o vi
+
 # Common aliases
 alias ls='eza'
 alias cat="bat"
