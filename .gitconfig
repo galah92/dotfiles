@@ -33,7 +33,7 @@
     diffFilter = delta --color-only
 [delta]
     navigate = true
-    side-by-side = true
+    ; side-by-side = true
     hunk-header-style = omit
     file-style = bold
     file-decoration-style = none
