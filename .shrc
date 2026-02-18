@@ -9,7 +9,13 @@ export GIT_EDITOR="nvim"
 set -o vi
 
 export LS_COLORS="di=1:ln=33:ex=32"  # dirs=bold, symlinks=yellow, executables=green
-export EZA_CONFIG_DIR="$HOME/.config/eza"
+export EZA_COLORS="\
+reset:\
+sn=0:sb=90:\
+uu=0:un=0:gu=0:gn=0:\
+ur=0:uw=0:ux=0:ue=0:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:su=0:sf=0:xa=0:\
+da=90"
+# eza: reset file type colors, plain sizes/users/permissions, gray timestamps+units
 
 # Common aliases
 alias ls='eza'
