@@ -8,6 +8,9 @@ export GIT_EDITOR="nvim"
 # Vi mode
 set -o vi
 
+export LS_COLORS="di=1:ln=33:ex=32"  # dirs=bold, symlinks=yellow, executables=green
+export EZA_CONFIG_DIR="$HOME/.config/eza"
+
 # Common aliases
 alias ls='eza'
 alias cat="bat"
