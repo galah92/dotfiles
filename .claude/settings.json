@@ -12,14 +12,17 @@
     "deny": [],
     "ask": []
   },
+  "enabledMcpjsonServers": [
+    "codex"
+  ],
   "statusLine": {
     "type": "command",
     "command": "jq -r '\"\\(.workspace.current_dir) | \\(.model.display_name) | \\(.context_window.remaining_percentage)%\"'"
   },
   "enabledPlugins": {
     "lua-lsp@claude-plugins-official": true,
-    "code-simplifier@claude-plugins-official": true
+    "code-simplifier@claude-plugins-official": true,
+    "clangd-lsp@claude-plugins-official": true
   },
-  "alwaysThinkingEnabled": true,
-  "enabledMcpjsonServers": ["codex"]
+  "alwaysThinkingEnabled": true
 }
