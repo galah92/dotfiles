@@ -11,7 +11,6 @@ Usage: uv run vpn-connect.py [USERNAME PASSWORD] OTP
   Credentials default to TAU_USERNAME / TAU_PASSWORD env vars.
 
 Prerequisites: sudo apt install openconnect gpclient
-First run:     uv run --with playwright playwright install chromium
 """
 
 import asyncio
@@ -63,6 +62,10 @@ async def complete_saml_auth(
     otp: str,
 ) -> str | None:
     from playwright.async_api import async_playwright  # ty: ignore[unresolved-import]
+
+    subprocess.run(
+        [sys.executable, "-m", "playwright", "install", "chromium"], check=True
+    )
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)

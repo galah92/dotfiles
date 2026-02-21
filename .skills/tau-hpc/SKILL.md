@@ -32,7 +32,7 @@ export TAU_PASSWORD='<password>'
 uv run $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py $TAU_USERNAME $TAU_PASSWORD <OTP>
 ```
 
-First-time setup: `sudo apt install openconnect sshpass gpclient` and `uv run --with playwright playwright install chromium`.
+Prerequisites: `sudo apt install openconnect sshpass gpclient`. Chromium is installed automatically on first run.
 
 ---
 
