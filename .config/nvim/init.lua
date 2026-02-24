@@ -42,7 +42,9 @@ vim.pack.add({
 
 vim.cmd.colorscheme('minimal')
 
-require('fzf-lua').setup({ 'border-fused', winopts = { fullscreen = true } })
+local fzf = require('fzf-lua')
+fzf.setup({ 'border-fused', winopts = { fullscreen = true } })
+
 require('treesitter-autoinstall').setup({ highlight = true })
 
 vim.lsp.config['ruff'] = {
@@ -93,7 +95,7 @@ vim.diagnostic.config({
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = 'vim.lsp.buf.format()' })                         -- Format current buffer
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'vim.lsp.buf.code_action()' })              -- Show code actions
 vim.keymap.set("n", "<leader>i", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end) -- Toggle inlay hints
-vim.keymap.set("n", "<C-p>", [[<Cmd>lua require"fzf-lua".global()<CR>]], {})                                    -- Fuzzy file finder
-vim.keymap.set("n", "<C-l>", [[<Cmd>lua require"fzf-lua".live_grep()<CR>]], {})                                 -- Fuzzy live grep
+vim.keymap.set("n", "<C-p>", fzf.global)                                                                        -- Fuzzy file finder
+vim.keymap.set("n", "<C-l>", fzf.live_grep)                                                                     -- Fuzzy live grep
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')                                                             -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set("n", "yc", "yygccp", { remap = true })                                                           -- Duplicate a line and comment out the first line
