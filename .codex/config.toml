@@ -9,3 +9,7 @@ collaboration_modes = true
 shell_snapshot = true
 multi_agent = true
 apps = true
+voice_transcription = true
+
+[tui]
+theme = "minimal-dark"
