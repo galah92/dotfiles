@@ -2,163 +2,289 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>name</key>
-	<string>Minimal Light</string>
-	<key>settings</key>
-	<array>
-		<!-- Global settings -->
-		<dict>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#101010</string>
-				<key>background</key>
-				<string>#faf9f5</string>
-			</dict>
-		</dict>
+    <key>name</key>
+    <string>Minimal Light</string>
+    <key>settings</key>
+    <array>
+        <!-- Global settings -->
+        <dict>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#101010</string>
+                <key>background</key>
+                <string>#faf9f5</string>
+            </dict>
+        </dict>
 
-		<!-- Comments: dark gray (slot 8) -->
-		<dict>
-			<key>name</key>
-			<string>Comment</string>
-			<key>scope</key>
-			<string>comment, punctuation.definition.comment</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#969ba5</string>
-			</dict>
-		</dict>
+        <!-- Comments: dark gray (slot 8) -->
+        <dict>
+            <key>name</key>
+            <string>Comment</string>
+            <key>scope</key>
+            <string>comment, punctuation.definition.comment</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#969ba5</string>
+            </dict>
+        </dict>
 
-		<!-- Strings: green (slot 2) -->
-		<dict>
-			<key>name</key>
-			<string>String</string>
-			<key>scope</key>
-			<string>string, string.quoted</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#407f00</string>
-			</dict>
-		</dict>
+        <!-- Strings: green (slot 2) -->
+        <dict>
+            <key>name</key>
+            <string>String</string>
+            <key>scope</key>
+            <string>string, string.quoted</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#407f00</string>
+            </dict>
+        </dict>
 
-		<!-- Numbers: amber (slot 3) -->
-		<dict>
-			<key>name</key>
-			<string>Number</string>
-			<key>scope</key>
-			<string>constant.numeric</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#b07700</string>
-			</dict>
-		</dict>
+        <!-- Numbers: amber (slot 3) -->
+        <dict>
+            <key>name</key>
+            <string>Number</string>
+            <key>scope</key>
+            <string>constant.numeric</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#b07700</string>
+            </dict>
+        </dict>
 
-		<!-- Constants/Booleans: amber (slot 3) -->
-		<dict>
-			<key>name</key>
-			<string>Constant</string>
-			<key>scope</key>
-			<string>constant, constant.language</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#b07700</string>
-			</dict>
-		</dict>
+        <!-- Constants/Booleans: amber (slot 3) -->
+        <dict>
+            <key>name</key>
+            <string>Constant</string>
+            <key>scope</key>
+            <string>constant, constant.language</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#b07700</string>
+            </dict>
+        </dict>
 
-		<!-- Keywords: bold, no color -->
-		<dict>
-			<key>name</key>
-			<string>Keyword</string>
-			<key>scope</key>
-			<string>keyword, storage.type, storage.modifier</string>
-			<key>settings</key>
-			<dict>
-				<key>fontStyle</key>
-				<string>bold</string>
-			</dict>
-		</dict>
+        <!-- Keywords: bold, no color -->
+        <dict>
+            <key>name</key>
+            <string>Keyword</string>
+            <key>scope</key>
+            <string>keyword, storage.type, storage.modifier</string>
+            <key>settings</key>
+            <dict>
+                <key>fontStyle</key>
+                <string>bold</string>
+            </dict>
+        </dict>
 
-		<!-- Control keywords: bold -->
-		<dict>
-			<key>name</key>
-			<string>Control</string>
-			<key>scope</key>
-			<string>keyword.control, keyword.operator.logical</string>
-			<key>settings</key>
-			<dict>
-				<key>fontStyle</key>
-				<string>bold</string>
-			</dict>
-		</dict>
+        <!-- Control keywords: bold -->
+        <dict>
+            <key>name</key>
+            <string>Control</string>
+            <key>scope</key>
+            <string>keyword.control, keyword.operator.logical</string>
+            <key>settings</key>
+            <dict>
+                <key>fontStyle</key>
+                <string>bold</string>
+            </dict>
+        </dict>
 
-		<!-- Functions: plain -->
-		<dict>
-			<key>name</key>
-			<string>Function</string>
-			<key>scope</key>
-			<string>entity.name.function, support.function</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#101010</string>
-			</dict>
-		</dict>
+        <!-- Functions: plain -->
+        <dict>
+            <key>name</key>
+            <string>Function</string>
+            <key>scope</key>
+            <string>entity.name.function, support.function</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#101010</string>
+            </dict>
+        </dict>
 
-		<!-- Types/Classes: plain -->
-		<dict>
-			<key>name</key>
-			<string>Type</string>
-			<key>scope</key>
-			<string>entity.name.type, entity.name.class, support.type, support.class</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#101010</string>
-			</dict>
-		</dict>
+        <!-- Types/Classes: plain -->
+        <dict>
+            <key>name</key>
+            <string>Type</string>
+            <key>scope</key>
+            <string>entity.name.type, entity.name.class, support.type, support.class</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#101010</string>
+            </dict>
+        </dict>
 
-		<!-- Variables: plain -->
-		<dict>
-			<key>name</key>
-			<string>Variable</string>
-			<key>scope</key>
-			<string>variable, variable.parameter</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#101010</string>
-			</dict>
-		</dict>
+        <!-- Variables: plain -->
+        <dict>
+            <key>name</key>
+            <string>Variable</string>
+            <key>scope</key>
+            <string>variable, variable.parameter</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#101010</string>
+            </dict>
+        </dict>
 
-		<!-- Operators: plain -->
-		<dict>
-			<key>name</key>
-			<string>Operator</string>
-			<key>scope</key>
-			<string>keyword.operator</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#101010</string>
-			</dict>
-		</dict>
+        <!-- Operators: plain -->
+        <dict>
+            <key>name</key>
+            <string>Operator</string>
+            <key>scope</key>
+            <string>keyword.operator</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#101010</string>
+            </dict>
+        </dict>
 
-		<!-- Punctuation: plain -->
-		<dict>
-			<key>name</key>
-			<string>Punctuation</string>
-			<key>scope</key>
-			<string>punctuation</string>
-			<key>settings</key>
-			<dict>
-				<key>foreground</key>
-				<string>#101010</string>
-			</dict>
-		</dict>
-	</array>
+        <!-- Punctuation: plain -->
+        <dict>
+            <key>name</key>
+            <string>Punctuation</string>
+            <key>scope</key>
+            <string>punctuation</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#101010</string>
+            </dict>
+        </dict>
+
+        <!-- Diff headers: muted gray -->
+        <dict>
+            <key>name</key>
+            <string>Diff Header</string>
+            <key>scope</key>
+            <string>meta.diff.header, meta.diff.header.from-file, meta.diff.header.to-file</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#969ba5</string>
+            </dict>
+        </dict>
+
+        <!-- Diff file markers (from/to file) -->
+        <dict>
+            <key>name</key>
+            <string>Diff File Markers</string>
+            <key>scope</key>
+            <string>punctuation.definition.from-file.diff, punctuation.definition.to-file.diff</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#969ba5</string>
+            </dict>
+        </dict>
+
+        <!-- Diff context lines: muted -->
+        <dict>
+            <key>name</key>
+            <string>Diff Context</string>
+            <key>scope</key>
+            <string>meta.diff, source.diff, meta.diff.header.git, punctuation.definition.from-file.diff, punctuation.definition.to-file.diff</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#969ba5</string>
+            </dict>
+        </dict>
+
+        <!-- Diff hunk range: amber -->
+        <dict>
+            <key>name</key>
+            <string>Diff Hunk Range</string>
+            <key>scope</key>
+            <string>meta.diff.range</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#b07700</string>
+            </dict>
+        </dict>
+
+        <!-- Diff added lines: green -->
+        <dict>
+            <key>name</key>
+            <string>Diff Added</string>
+            <key>scope</key>
+            <string>markup.inserted, markup.inserted.diff</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#407f00</string>
+            </dict>
+        </dict>
+
+        <!-- Diff removed lines: red -->
+        <dict>
+            <key>name</key>
+            <string>Diff Removed</string>
+            <key>scope</key>
+            <string>markup.deleted, markup.deleted.diff</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#ca0043</string>
+            </dict>
+        </dict>
+
+        <!-- Diff changed lines: amber -->
+        <dict>
+            <key>name</key>
+            <string>Diff Changed</string>
+            <key>scope</key>
+            <string>markup.changed</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#b07700</string>
+            </dict>
+        </dict>
+
+        <!-- Diff signs -->
+        <dict>
+            <key>name</key>
+            <string>Diff Added Sign</string>
+            <key>scope</key>
+            <string>punctuation.definition.inserted</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#407f00</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>name</key>
+            <string>Diff Removed Sign</string>
+            <key>scope</key>
+            <string>punctuation.definition.deleted</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#ca0043</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>name</key>
+            <string>Diff Range Sign</string>
+            <key>scope</key>
+            <string>punctuation.definition.range.diff</string>
+            <key>settings</key>
+            <dict>
+                <key>foreground</key>
+                <string>#b07700</string>
+            </dict>
+        </dict>
+    </array>
 </dict>
 </plist>

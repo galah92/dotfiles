@@ -26,24 +26,7 @@
     rebase = true
 [core]
     editor = vi
-    pager = delta
 [color]
     ui = auto
-[interactive]
-    diffFilter = delta --color-only
-[delta]
-    navigate = true
-    ; side-by-side = true
-    hunk-header-style = omit
-    file-style = bold
-    file-decoration-style = none
-    line-numbers = true
-    line-numbers-left-style = dim
-    line-numbers-right-style = dim
-    line-numbers-minus-style = dim
-    line-numbers-plus-style = dim
-    line-numbers-zero-style = dim
-    line-numbers-left-format = "{nm:>4} "
-    line-numbers-right-format = "{np:>4} "
 [merge]
     conflictstyle = zdiff3
