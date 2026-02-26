@@ -40,7 +40,7 @@ vim.pack.add({
   'https://github.com/oskarnurm/koda.nvim',
 })
 
-vim.cmd.colorscheme('minimal')
+vim.cmd.colorscheme('kodansi')
 
 local fzf = require('fzf-lua')
 fzf.setup({ 'border-fused', winopts = { fullscreen = true } })

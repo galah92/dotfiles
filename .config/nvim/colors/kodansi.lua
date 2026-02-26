@@ -9,7 +9,7 @@ vim.cmd("hi clear")
 if vim.fn.exists("syntax_on") == 1 then
   vim.cmd("syntax reset")
 end
-vim.g.colors_name = "minimal"
+vim.g.colors_name = "kodansi"
 
 local function hi(group, opts)
   vim.api.nvim_set_hl(0, group, opts)

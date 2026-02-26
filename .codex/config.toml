@@ -12,4 +12,4 @@ apps = true
 voice_transcription = true
 
 [tui]
-theme = "minimal-light"
+theme = "kodansi-light"

@@ -1,7 +1,7 @@
 # Match cat output
 --style="plain"
 
-# Auto light/dark theme switching with custom minimal themes
+# Auto light/dark theme switching with custom kodansi themes
 --theme="auto"
---theme-light="minimal-light"
---theme-dark="minimal-dark"
+--theme-light="kodansi-light"
+--theme-dark="kodansi-dark"
