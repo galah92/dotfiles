@@ -25,6 +25,9 @@ SUBMIT_SEL = (
     ' input[value="Sign in"], button:has-text("Validate"), input[value="Validate Code"]'
 )
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+TAU_SPLIT_SCRIPT = os.path.join(SCRIPT_DIR, "tau-vpnc-split.sh")
+
 
 def start_gpclient(username: str) -> tuple[subprocess.Popen, str | None]:
     proc = subprocess.Popen(
@@ -155,19 +158,36 @@ def tun0_up() -> bool:
     )
 
 
+def build_split_tunnel_script() -> str | None:
+    if not os.path.isfile(TAU_SPLIT_SCRIPT):
+        return None
+    if not os.access(TAU_SPLIT_SCRIPT, os.X_OK):
+        print(f"[-] Split script exists but is not executable: {TAU_SPLIT_SCRIPT}")
+        return None
+
+    return TAU_SPLIT_SCRIPT
+
+
 def connect_vpn(cookie: str, username: str) -> bool:
+    cmd = [
+        "sudo",
+        "openconnect",
+        "--protocol=gp",
+        f"--user={username}",
+        "--usergroup=gateway:prelogin-cookie",
+        "--passwd-on-stdin",
+        "--background",
+    ]
+    split_script = build_split_tunnel_script()
+    if split_script:
+        cmd.extend(["--script", split_script])
+    else:
+        print("[-] split-tunnel script unavailable; falling back to full tunnel")
+    cmd.append("vpn.tau.ac.il")
+
     try:
         subprocess.run(
-            [
-                "sudo",
-                "openconnect",
-                "--protocol=gp",
-                f"--user={username}",
-                "--usergroup=gateway:prelogin-cookie",
-                "--passwd-on-stdin",
-                "--background",
-                "vpn.tau.ac.il",
-            ],
+            cmd,
             input=cookie + "\n",
             capture_output=True,
             text=True,

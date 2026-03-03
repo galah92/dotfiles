@@ -30,6 +30,19 @@ export TAU_USERNAME=galaharoni TAU_PASSWORD='<password>'
 uv run $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py $TAU_USERNAME $TAU_PASSWORD <OTP>
 ```
 
+**Split tunnel (default)**:
+- `vpn-connect.py` uses `scripts/tau-vpnc-split.sh` via `openconnect --script`.
+- Only TAU routes go through VPN: `132.66.0.0/16`, `132.67.0.0/16`.
+- Default internet traffic stays on VM NIC (`ens4`) to keep Tailscale direct.
+
+**Adding a new TAU server**:
+- If host IP is in `132.66/16` or `132.67/16`, no change needed.
+- Otherwise either add a new `add_split_route` in `scripts/tau-vpnc-split.sh`, or set `TAU_EXTRA_VPN_HOSTS="<hostname>"` before connecting.
+
+**Quick verify**:
+- `ip route get slurm-client.cs.tau.ac.il` should resolve to `dev tun0`.
+- `tailscale status` should show active peers as `direct ...` (not DERP).
+
 ---
 
 ## SSH
