@@ -13,7 +13,7 @@ When invoked, **always ask the user for** OTP (for VPN) and which server/course.
 | **rack-mad-01** | `rack-mad-01.cs.tau.ac.il` | MASS course | regular home | tcsh |
 | **slurm-client** | `slurm-client.cs.tau.ac.il` | APDL course | `/home/yandex/APDL2526a/galaharoni` | tcsh |
 
-**Username**: `galaharoni` | **Credentials**: `$TAU_USERNAME` / `$TAU_PASSWORD` env vars (single-quote passwords) | **Docs**: https://hpcguide.tau.ac.il/
+**Username**: `galaharoni` | **Credentials**: `$TAU_USERNAME` / `$TAU_PASSWORD` env vars | **Docs**: https://hpcguide.tau.ac.il/
 
 **Caveats**:
 - **slurmlogin**: Default home doesn't exist — always `export HOME=/scratch300/galaharoni`
@@ -26,7 +26,10 @@ When invoked, **always ask the user for** OTP (for VPN) and which server/course.
 ## VPN
 
 ```bash
-export TAU_USERNAME=galaharoni TAU_PASSWORD='<password>'
+export TAU_USERNAME='galaharoni'
+export TAU_PASSWORD='<password>'
+# If the password contains '$', prefer single quotes as above.
+# If you must use double quotes, escape each '$' as '\$'.
 uv run $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py $TAU_USERNAME $TAU_PASSWORD <OTP>
 ```
 
@@ -48,20 +51,20 @@ uv run $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py $TAU_USERNAME $TAU_
 ## SSH
 
 ```bash
-SSH_CMD="sshpass -p \$TAU_PASSWORD ssh -o StrictHostKeyChecking=no"
-
 # slurmlogin (bash, always set HOME)
-$SSH_CMD galaharoni@slurmlogin.tau.ac.il "
+sshpass -p "$TAU_PASSWORD" ssh -o StrictHostKeyChecking=no galaharoni@slurmlogin.tau.ac.il "
 export HOME=/scratch300/galaharoni PATH=\$HOME/.local/bin:\$PATH
 cd \$HOME
 <commands>
 "
 
 # rack-mad-01 — MASS (tcsh → bash)
-$SSH_CMD galaharoni@rack-mad-01.cs.tau.ac.il "/bin/bash -c '<commands>'"
+sshpass -p "$TAU_PASSWORD" ssh -o StrictHostKeyChecking=no \
+  galaharoni@rack-mad-01.cs.tau.ac.il "/bin/bash -c '<commands>'"
 
 # slurm-client — APDL (tcsh → bash)
-$SSH_CMD galaharoni@slurm-client.cs.tau.ac.il "/bin/bash -c '
+sshpass -p "$TAU_PASSWORD" ssh -o StrictHostKeyChecking=no \
+  galaharoni@slurm-client.cs.tau.ac.il "/bin/bash -c '
 cd /home/yandex/APDL2526a/galaharoni
 <commands>
 '"
