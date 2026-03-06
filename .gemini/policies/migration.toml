@@ -1,0 +1,17 @@
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git"
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "gh"
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "uv"
+decision = "allow"
+priority = 100

@@ -10,7 +10,12 @@
   },
   "general": {
     "preferredEditor": "neovim",
-    "previewFeatures": true
+    "previewFeatures": true,
+    "sessionRetention": {
+      "warningAcknowledged": true,
+      "enabled": true,
+      "maxAge": "120d"
+    }
   },
   "context": {
     "fileName": [
