@@ -45,6 +45,7 @@ uv run $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py $TAU_USERNAME $TAU_
 **Quick verify**:
 - `ip route get slurm-client.cs.tau.ac.il` should resolve to `dev tun0`.
 - `tailscale status` should show active peers as `direct ...` (not DERP).
+- TAU's SAML/Google Authenticator flow can take more than a minute after OTP submission before the GlobalProtect callback arrives; don't assume the helper is stuck unless it reports failure.
 
 ---
 

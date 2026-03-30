@@ -25,6 +25,33 @@ SUBMIT_SEL = (
     ' input[value="Sign in"], button:has-text("Validate"), input[value="Validate Code"]'
 )
 
+
+async def submit_username_password(page, username: str, password: str) -> None:
+    username_fields = [
+        'input[type="text"]',
+        'input[name="Ecom_User_ID"]',
+        'input[placeholder="Username"]',
+        'input[placeholder="User name"]',
+    ]
+    password_fields = [
+        'input[type="password"]',
+        'input[placeholder="Password"]',
+    ]
+
+    for selector in username_fields:
+        if await page.query_selector(selector):
+            await page.fill(selector, username)
+            break
+    for selector in password_fields:
+        if await page.query_selector(selector):
+            await page.fill(selector, password)
+            break
+
+    if btn := await page.query_selector(SUBMIT_SEL):
+        await btn.click()
+    else:
+        await page.keyboard.press("Enter")
+
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 TAU_SPLIT_SCRIPT = os.path.join(SCRIPT_DIR, "tau-vpnc-split.sh")
 
@@ -76,26 +103,46 @@ async def complete_saml_auth(
         await page.goto(auth_url, wait_until="networkidle", timeout=30000)
 
         # Login
-        await page.fill('input[type="text"]', username)
-        await page.fill('input[type="password"]', password)
-        if btn := await page.query_selector(SUBMIT_SEL):
-            await btn.click()
-        else:
-            await page.keyboard.press("Enter")
+        await submit_username_password(page, username, password)
 
         # Wait for credential validation (up to 30s)
-        for _ in range(30):
+        for i in range(30):
             await asyncio.sleep(1)
             text = await page.inner_text("body")
             if "Login failed" in text:
                 print("[-] Login failed")
                 return None
+            if "TAU Google Authenticator Enrollment" in text:
+                print("[i] Enrollment/IdP chooser page reached")
+                for link in await page.query_selector_all("a"):
+                    href = await link.get_attribute("href")
+                    if href:
+                        print(f"[i] link: {href}")
+                for form in await page.query_selector_all("form"):
+                    action = await form.get_attribute("action")
+                    print(f"[i] form action: {action}")
+                auth_link = await page.query_selector('a[href*="id=TAUGoogleAuthenticator"]')
+                if auth_link is not None:
+                    href = await auth_link.get_attribute("href")
+                    if href:
+                        print(f"[i] navigating to TAUGoogleAuthenticator: {href}")
+                        await page.goto(href, wait_until="networkidle", timeout=30000)
+                        await asyncio.sleep(1)
+                        await submit_username_password(page, username, password)
+                        await asyncio.sleep(2)
+                        continue
+                await page.screenshot(path="/tmp/vpn-enrollment-page.png")
+                await asyncio.sleep(2)
+                break
             if not await page.query_selector_all('input[type="password"]:visible'):
                 break
             if "globalprotectcallback" in text:
                 break
+            if (i + 1) % 5 == 0:
+                print(f"[i] waiting for post-login page transition... {i + 1}s")
 
         # Fill OTP
+        otp_filled = False
         for inp in await page.query_selector_all("input:visible"):
             inp_type = await inp.get_attribute("type")
             name = await inp.get_attribute("name") or ""
@@ -107,9 +154,25 @@ async def complete_saml_auth(
                     await btn.click()
                 else:
                     await inp.press("Enter")
+                otp_filled = True
                 break
 
-        await asyncio.sleep(5)
+        if not otp_filled:
+            print("[-] No visible OTP field found after login")
+            await page.screenshot(path="/tmp/vpn-no-otp-field.png")
+            return None
+
+        print("[i] OTP submitted; waiting for GlobalProtect callback")
+        for i in range(90):
+            await asyncio.sleep(1)
+            body = await page.inner_text("body")
+            if "Login failed" in body:
+                print("[-] Login failed")
+                return None
+            if "globalprotectcallback" in body:
+                break
+            if (i + 1) % 5 == 0:
+                print(f"[i] waiting for GlobalProtect callback... {i + 1}s")
 
         # Extract callback URL from link or page source
         for link in await page.query_selector_all("a"):
@@ -123,7 +186,7 @@ async def complete_saml_auth(
             return m.group(0)
 
         await page.screenshot(path="/tmp/vpn-auth-failed.png")
-        print("[-] No callback found (screenshot: /tmp/vpn-auth-failed.png)")
+        print("[-] No callback found after waiting for GlobalProtect callback (screenshot: /tmp/vpn-auth-failed.png)")
         await browser.close()
         return None
 
