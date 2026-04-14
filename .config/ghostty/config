@@ -11,6 +11,7 @@ cursor-style-blink = false
 shell-integration-features = no-cursor
 
 macos-titlebar-proxy-icon = hidden
+title = " "
 
 adjust-cell-height = 8%
 
