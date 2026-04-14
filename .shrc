@@ -44,7 +44,14 @@ alias sqlp_prod_eu="./cloud-sql-proxy walabot-home:europe-west1:rdbms-postgresql
 alias sqlp_prod_eu_replica="./cloud-sql-proxy walabot-home:europe-west1:replica-d73e3ed7 --credentials-file ./service-accounts/walabot-home-62c43d769083.json"
 alias sqlp_dev="./cloud-sql-proxy walabothome-app-cloud:us-central1:rdbms-postgresql --credentials-file ./service-accounts/walabothome-app-cloud-6cb6a16b1aa8.json"
 
-export FZF_DEFAULT_OPTS="--info=inline --no-separator --ansi --color=16,prompt:yellow,pointer:yellow,marker:yellow"
+export FZF_DEFAULT_OPTS="\
+--info=inline --no-separator --ansi \
+--color=16,gutter:-1 \
+--color=hl:blue,hl+:blue:bold \
+--color=current-bg:bright-blue \
+--color=prompt:yellow,pointer:yellow \
+--color=marker:green,spinner:green \
+--color=info:bright-black,border:bright-black,header:bright-black,scrollbar:bright-black"
 
 # Common prompt for bash and zsh
 if [ -n "$BASH_VERSION" ]; then
