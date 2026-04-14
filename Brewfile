@@ -1,5 +1,6 @@
 brew "gh"
 brew "neovim"
+brew "tree-sitter-cli"
 brew "tmux"
 brew "ripgrep"
 brew "fzf"
