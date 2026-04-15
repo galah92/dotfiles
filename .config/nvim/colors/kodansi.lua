@@ -49,12 +49,13 @@ hi("Whitespace", { ctermfg = "DarkGray" })
 
 hi("Directory", { cterm = { bold = true } })
 hi("Title", { cterm = { bold = true } })
-hi("MoreMsg", { ctermfg = "DarkGreen" })
-hi("Question", { ctermfg = "DarkGreen" })
+hi("MoreMsg", { ctermfg = "DarkYellow" })
+hi("Question", { ctermfg = "DarkYellow" })
 hi("ErrorMsg", { ctermfg = "DarkRed", cterm = { bold = true } })
 hi("WarningMsg", { ctermfg = "DarkYellow" })
 hi("ModeMsg", { cterm = { bold = true } })
 
+hi("MsgSeparator", { ctermfg = "NONE" })
 hi("MatchParen", { cterm = { bold = true } })
 hi("Cursor", { cterm = { reverse = true } })
 
@@ -168,6 +169,7 @@ hi("DiagnosticUnnecessary", { ctermfg = "DarkGray" })
 hi("GitSignsAdd", { ctermfg = "DarkGreen" })
 hi("GitSignsChange", { ctermfg = "DarkYellow" })
 hi("GitSignsDelete", { ctermfg = "DarkRed" })
+hi("GitSignsChangeInLine", { link = "DiffChange" })
 
 hi("IblIndent", { ctermfg = "DarkGray" })
 hi("IblScope", { ctermfg = "NONE" })
