@@ -14,3 +14,4 @@ voice_transcription = true
 
 [tui]
 theme = "kodansi-light"
+status_line = ["model-with-reasoning", "current-dir", "context-usage", "five-hour-limit"]
