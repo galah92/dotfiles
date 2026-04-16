@@ -170,6 +170,7 @@ hi("GitSignsAdd", { ctermfg = "DarkGreen" })
 hi("GitSignsChange", { ctermfg = "DarkYellow" })
 hi("GitSignsDelete", { ctermfg = "DarkRed" })
 hi("GitSignsChangeInLine", { link = "DiffChange" })
+hi("GitSignsCurrentLineBlame", { ctermfg = "DarkGray" })
 
 hi("IblIndent", { ctermfg = "DarkGray" })
 hi("IblScope", { ctermfg = "NONE" })
