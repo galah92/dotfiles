@@ -26,7 +26,7 @@ hi("CursorLine", { ctermbg = "Blue" })
 hi("ColorColumn", { ctermbg = "Blue" })
 hi("SignColumn", { ctermfg = "DarkGray" })
 
-hi("Visual", { ctermbg = "Blue" })
+hi("Visual", { cterm = { reverse = true } })
 hi("Search", { ctermbg = "Yellow", ctermfg = "DarkYellow" })
 hi("IncSearch", { ctermbg = "DarkYellow", ctermfg = "Black" })
 hi("CurSearch", { ctermbg = "DarkYellow", ctermfg = "Black", cterm = { bold = true } })
