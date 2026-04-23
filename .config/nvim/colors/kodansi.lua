@@ -26,7 +26,7 @@ hi("CursorLine", { ctermbg = "Blue" })
 hi("ColorColumn", { ctermbg = "Blue" })
 hi("SignColumn", { ctermfg = "DarkGray" })
 
-hi("Visual", { cterm = { reverse = true } })
+hi("Visual", { ctermbg = "Blue" })
 hi("Search", { ctermbg = "Yellow", ctermfg = "DarkYellow" })
 hi("IncSearch", { ctermbg = "DarkYellow", ctermfg = "Black" })
 hi("CurSearch", { ctermbg = "DarkYellow", ctermfg = "Black", cterm = { bold = true } })
@@ -152,15 +152,22 @@ hi("@string.yaml", { ctermfg = "NONE" }) -- YAML values are strings but look bet
 -- Diagnostics
 hi("DiagnosticError", { ctermfg = "DarkRed" })
 hi("DiagnosticWarn", { ctermfg = "DarkYellow" })
-hi("DiagnosticInfo", { ctermfg = "DarkBlue" })
-hi("DiagnosticHint", { ctermfg = "DarkBlue" })
+hi("DiagnosticInfo", { ctermfg = "DarkGray" })
+hi("DiagnosticHint", { ctermfg = "NONE" })
 hi("DiagnosticOk", { ctermfg = "DarkGreen" })
 
 hi("DiagnosticUnderlineError", { cterm = { undercurl = true }, ctermfg = "DarkRed" })
 hi("DiagnosticUnderlineWarn", { cterm = { undercurl = true }, ctermfg = "DarkYellow" })
-hi("DiagnosticUnderlineInfo", { cterm = { undercurl = true }, ctermfg = "DarkBlue" })
-hi("DiagnosticUnderlineHint", { cterm = { undercurl = true }, ctermfg = "DarkBlue" })
+hi("DiagnosticUnderlineInfo", { cterm = { undercurl = true }, ctermfg = "DarkGray" })
+hi("DiagnosticUnderlineHint", { cterm = { undercurl = true } })
 hi("DiagnosticUnderlineOk", { cterm = { undercurl = true }, ctermfg = "DarkGreen" })
+
+-- Virtual text: grey body, severity lives on the sign/undercurl
+hi("DiagnosticVirtualTextError", { ctermfg = "DarkGray" })
+hi("DiagnosticVirtualTextWarn", { ctermfg = "DarkGray" })
+hi("DiagnosticVirtualTextInfo", { ctermfg = "DarkGray" })
+hi("DiagnosticVirtualTextHint", { ctermfg = "DarkGray" })
+hi("DiagnosticVirtualTextOk", { ctermfg = "DarkGray" })
 
 hi("DiagnosticDeprecated", { cterm = { strikethrough = true } })
 hi("DiagnosticUnnecessary", { ctermfg = "DarkGray" })
