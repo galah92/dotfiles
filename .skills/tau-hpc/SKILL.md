@@ -30,7 +30,19 @@ export TAU_USERNAME='galaharoni'
 export TAU_PASSWORD='<password>'
 # If the password contains '$', prefer single quotes as above.
 # If you must use double quotes, escape each '$' as '\$'.
-uv run $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py $TAU_USERNAME $TAU_PASSWORD <OTP>
+uv run $HOME/.copilot/skills/tau-hpc/scripts/vpn-connect.py "$TAU_USERNAME" "$TAU_PASSWORD" <OTP>
+```
+
+Pass the OTP as a literal positional argument. Do **not** use a same-line assignment
+and then reference it in the same command, because the shell expands `$TAU_OTP`
+before applying `TAU_OTP=...`:
+
+```bash
+# Wrong: "$TAU_OTP" expands before TAU_OTP=043900 is applied.
+TAU_OTP=043900 uv run $HOME/.copilot/skills/tau-hpc/scripts/vpn-connect.py "$TAU_USERNAME" "$TAU_PASSWORD" "$TAU_OTP"
+
+# Correct:
+uv run $HOME/.copilot/skills/tau-hpc/scripts/vpn-connect.py "$TAU_USERNAME" "$TAU_PASSWORD" 043900
 ```
 
 **Split tunnel (default)**:
@@ -53,18 +65,18 @@ uv run $HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py $TAU_USERNAME $TAU_
 
 ```bash
 # slurmlogin (bash, always set HOME)
-sshpass -p "$TAU_PASSWORD" ssh -o StrictHostKeyChecking=no galaharoni@slurmlogin.tau.ac.il "
+SSHPASS="$TAU_PASSWORD" sshpass -e ssh -o StrictHostKeyChecking=no galaharoni@slurmlogin.tau.ac.il "
 export HOME=/scratch300/galaharoni PATH=\$HOME/.local/bin:\$PATH
 cd \$HOME
 <commands>
 "
 
 # rack-mad-01 — MASS (tcsh → bash)
-sshpass -p "$TAU_PASSWORD" ssh -o StrictHostKeyChecking=no \
+SSHPASS="$TAU_PASSWORD" sshpass -e ssh -o StrictHostKeyChecking=no \
   galaharoni@rack-mad-01.cs.tau.ac.il "/bin/bash -c '<commands>'"
 
 # slurm-client — APDL (tcsh → bash)
-sshpass -p "$TAU_PASSWORD" ssh -o StrictHostKeyChecking=no \
+SSHPASS="$TAU_PASSWORD" sshpass -e ssh -o StrictHostKeyChecking=no \
   galaharoni@slurm-client.cs.tau.ac.il "/bin/bash -c '
 cd /home/yandex/APDL2526a/galaharoni
 <commands>
