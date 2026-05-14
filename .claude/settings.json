@@ -28,7 +28,8 @@
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
-  "voiceEnabled": true,
   "theme": "auto",
-  "editorMode": "vim"
+  "editorMode": "vim",
+  "voiceEnabled": true,
+  "skipAutoPermissionPrompt": true
 }
