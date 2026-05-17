@@ -22,4 +22,13 @@ theme = "kodansi-light"
 status_line = ["model-with-reasoning", "current-dir", "context-usage", "five-hour-limit"]
 
 [tui.model_availability_nux]
-"gpt-5.5" = 2
+"gpt-5.5" = 4
+
+[projects."/home/gal_aharoni_vayyar_com/vc-backend"]
+trust_level = "trusted"
+
+[projects."/home/gal_aharoni_vayyar_com/twml"]
+trust_level = "trusted"
+
+[projects."/home/gal_aharoni_vayyar_com"]
+trust_level = "trusted"

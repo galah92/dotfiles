@@ -1,6 +1,6 @@
 ---
 name: tau-hpc
-description: Connect to TAU HPC servers for experiments. Supports SLURM cluster (slurmlogin.tau.ac.il) for GPU batch jobs, direct SSH (rack-mad-01.cs.tau.ac.il) for MASS course, and SLURM client (slurm-client.cs.tau.ac.il) for APDL course. Use when user wants to run experiments, submit jobs, connect to TAU VPN, or SSH to TAU servers.
+description: Connect to TAU HPC servers for experiments. Supports Power SLURM (slurmlogin.tau.ac.il), CS SLURM (slurm-client.cs.tau.ac.il) for TML/APDL course jobs, and direct SSH (rack-mad-01.cs.tau.ac.il) for MASS. Use when user wants to run experiments, submit jobs, connect to TAU VPN, use course storage, or SSH to TAU servers.
 ---
 
 # TAU HPC Servers
@@ -11,14 +11,16 @@ When invoked, **always ask the user for** OTP (for VPN) and which server/course.
 |--------|------|---------|---------|-------|
 | **slurmlogin** | `slurmlogin.tau.ac.il` | GPU batch jobs | `/scratch300/galaharoni` | bash |
 | **rack-mad-01** | `rack-mad-01.cs.tau.ac.il` | MASS course | regular home | tcsh |
-| **slurm-client** | `slurm-client.cs.tau.ac.il` | APDL course | `/home/yandex/APDL2526a/galaharoni` | tcsh |
+| **slurm-client** | `slurm-client.cs.tau.ac.il` | CS SLURM: TML/APDL course jobs | TML: `/home/sharifm/teaching/tml-0368-4075/galaharoni`; APDL: `/home/yandex/APDL2526a/galaharoni` | tcsh |
 
-**Username**: `galaharoni` | **Credentials**: `$TAU_USERNAME` / `$TAU_PASSWORD` env vars | **Docs**: https://hpcguide.tau.ac.il/
+**Username**: `galaharoni` | **Credentials**: `$TAU_USERNAME` / `$TAU_PASSWORD` env vars | **Docs**: Power docs: https://hpcguide.tau.ac.il/; CS SLURM docs: https://www.cs.tau.ac.il/system/slurm
 
 **Caveats**:
 - **slurmlogin**: Default home doesn't exist — always `export HOME=/scratch300/galaharoni`
 - **rack-mad-01**: Has fail2ban — NEVER retry wrong passwords (locked out ~30 min)
-- **tcsh servers** (`rack-mad-01`, `slurm-client`): Wrap commands in `/bin/bash -c '...'`
+- **tcsh servers** (`rack-mad-01`, `slurm-client`): Wrap commands in `/bin/bash -lc '...'`
+- **slurm-client**: `slurm-client.cs.tau.ac.il` may route to different `c-00x` client nodes with different host keys. If known-host checks block automation, use `-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no` for that command.
+- **TML on slurm-client**: Regular CS home quota may be full. Use `/home/sharifm/teaching/tml-0368-4075/galaharoni` for environments, data, logs, caches, and temp files. In jobs, set `HOME`, `MPLCONFIGDIR`, `XDG_CACHE_HOME`, and `TMPDIR` into that course directory.
 - No `rsync` on cluster — use `scp` with tar (exclude `.venv`, `__pycache__`, `.git`)
 
 ---
@@ -73,12 +75,20 @@ cd \$HOME
 
 # rack-mad-01 — MASS (tcsh → bash)
 SSHPASS="$TAU_PASSWORD" sshpass -e ssh -o StrictHostKeyChecking=no \
-  galaharoni@rack-mad-01.cs.tau.ac.il "/bin/bash -c '<commands>'"
+  galaharoni@rack-mad-01.cs.tau.ac.il "/bin/bash -lc '<commands>'"
 
 # slurm-client — APDL (tcsh → bash)
 SSHPASS="$TAU_PASSWORD" sshpass -e ssh -o StrictHostKeyChecking=no \
-  galaharoni@slurm-client.cs.tau.ac.il "/bin/bash -c '
+  galaharoni@slurm-client.cs.tau.ac.il "/bin/bash -lc '
 cd /home/yandex/APDL2526a/galaharoni
+<commands>
+'"
+
+# slurm-client — TML (tcsh → bash; transient host keys possible)
+SSHPASS="$TAU_PASSWORD" sshpass -e ssh \
+  -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+  galaharoni@slurm-client.cs.tau.ac.il "/bin/bash -lc '
+cd /home/sharifm/teaching/tml-0368-4075/galaharoni
 <commands>
 '"
 ```
@@ -96,6 +106,8 @@ cd /home/yandex/APDL2526a/galaharoni
 | `power-general-public-pool` | `public` | CPU-only |
 
 ### slurm-client
+
+Verified accounts for `galaharoni`: `gpu-students` on `studentkillable`, `gpu-research` on `killable`.
 
 | Partition | Time limit | GPUs |
 |-----------|------------|------|
@@ -129,4 +141,60 @@ uv run python -u your_script.py
 EOF
 
 sbatch job.sbatch
+```
+
+## TML Job Template (slurm-client)
+
+Use the course storage from the professor's email. Install course-specific Python
+environments under this directory, not under regular CS home.
+
+```bash
+COURSE=/home/sharifm/teaching/tml-0368-4075/galaharoni
+
+# One-time environment setup, if no suitable environment exists.
+cd "$COURSE"
+wget -q -O miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-py310_24.7.1-0-Linux-x86_64.sh
+bash miniconda.sh -b -p "$COURSE/miniconda3"
+source "$COURSE/miniconda3/etc/profile.d/conda.sh"
+conda create -y -p "$COURSE/hw1_env" python=3.10 pip
+"$COURSE/hw1_env/bin/python" -m pip install -r "$COURSE/path/to/requirements.txt" "pandas<2" "scipy<1.12"
+```
+
+```bash
+cat > "$COURSE/job.sbatch" << 'EOF'
+#!/bin/bash
+#SBATCH --job-name=tml-job
+#SBATCH --partition=studentkillable
+#SBATCH --gres=gpu:1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=16G
+#SBATCH --time=04:00:00
+#SBATCH --output=/home/sharifm/teaching/tml-0368-4075/galaharoni/job_%j.out
+
+set -euo pipefail
+export COURSE_DIR=/home/sharifm/teaching/tml-0368-4075/galaharoni
+export HOME=$COURSE_DIR
+export MPLBACKEND=Agg
+export MPLCONFIGDIR=$COURSE_DIR/.cache/matplotlib
+export XDG_CACHE_HOME=$COURSE_DIR/.cache
+export TMPDIR=$COURSE_DIR/tmp
+mkdir -p "$MPLCONFIGDIR" "$TMPDIR"
+
+source "$COURSE_DIR/miniconda3/etc/profile.d/conda.sh"
+conda activate "$COURSE_DIR/hw1_env"
+cd "$COURSE_DIR/your-workdir"
+
+python - <<'PY'
+import torch
+print("cuda_available", torch.cuda.is_available())
+if torch.cuda.is_available():
+    print("cuda_device_name", torch.cuda.get_device_name(0))
+PY
+
+python -u your_script.py
+EOF
+
+SSHPASS="$TAU_PASSWORD" sshpass -e ssh \
+  -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+  galaharoni@slurm-client.cs.tau.ac.il "/bin/bash -lc 'sbatch $COURSE/job.sbatch'"
 ```
