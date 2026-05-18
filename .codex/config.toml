@@ -19,7 +19,10 @@ goals = true
 
 [tui]
 theme = "kodansi-light"
-status_line = ["model-with-reasoning", "current-dir", "context-usage", "five-hour-limit"]
-
-[tui.model_availability_nux]
-"gpt-5.5" = 4
+status_line = [
+  "model-with-reasoning",
+  "current-dir",
+  "context-usage",
+  "five-hour-limit"
+]
+vim_mode_default = true
