@@ -152,13 +152,13 @@ hi("@string.yaml", { ctermfg = "NONE" }) -- YAML values are strings but look bet
 -- Diagnostics
 hi("DiagnosticError", { ctermfg = "DarkRed" })
 hi("DiagnosticWarn", { ctermfg = "DarkYellow" })
-hi("DiagnosticInfo", { ctermfg = "DarkGray" })
+hi("DiagnosticInfo", { ctermfg = "DarkBlue" })
 hi("DiagnosticHint", { ctermfg = "NONE" })
 hi("DiagnosticOk", { ctermfg = "DarkGreen" })
 
 hi("DiagnosticUnderlineError", { cterm = { undercurl = true }, ctermfg = "DarkRed" })
 hi("DiagnosticUnderlineWarn", { cterm = { undercurl = true }, ctermfg = "DarkYellow" })
-hi("DiagnosticUnderlineInfo", { cterm = { undercurl = true }, ctermfg = "DarkGray" })
+hi("DiagnosticUnderlineInfo", { cterm = { undercurl = true }, ctermfg = "DarkBlue" })
 hi("DiagnosticUnderlineHint", { cterm = { undercurl = true } })
 hi("DiagnosticUnderlineOk", { cterm = { undercurl = true }, ctermfg = "DarkGreen" })
 

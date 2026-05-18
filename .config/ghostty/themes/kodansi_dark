@@ -8,6 +8,9 @@ cursor-text = #101010
 selection-background = #272727
 selection-foreground = #ffffff
 
+# Bright slots are semantic UI/background colors, not brighter foregrounds.
+# Keep bold-is-bright unset.
+
 # black
 palette = 0=#000000
 # red — danger (= koda)
