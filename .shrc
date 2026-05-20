@@ -4,6 +4,7 @@
 # Editor settings
 export EDITOR="nvim"
 export GIT_EDITOR="nvim"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Vi mode
 set -o vi

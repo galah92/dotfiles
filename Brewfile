@@ -23,7 +23,8 @@ cask "vlc"
 
 cask "claude-code@latest"
 cask "codex"
-brew "gemini-cli"
 cask "copilot-cli"
+# Antigravity CLI installs with:
+# curl -fsSL https://antigravity.google/cli/install.sh | bash
 
 cask "gcloud-cli"
