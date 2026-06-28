@@ -17,6 +17,9 @@ When invoked, **always ask the user for** OTP (for VPN) and which server/course.
 
 **Caveats**:
 - **slurmlogin**: Default home doesn't exist — always `export HOME=/scratch300/galaharoni`
+- **slurmlogin account**: Use Power Slurm account `gpu-tad-wolf_v2`. It is the verified default account for `galaharoni`.
+- **slurmlogin uv**: `uv` is user-managed in `/scratch300/galaharoni/.local/bin/uv` (updated and verified `uv 0.11.25` on 2026-06-28), not a system install. In every interactive SSH command and Slurm job, set `HOME=/scratch300/galaharoni` first, then set `PATH=$HOME/.local/bin:$PATH`, before calling `uv`.
+- **slurmlogin VPN**: Do not disconnect the TAU VPN unless the user explicitly asks or cleanup is required for a failed/stale session.
 - **rack-mad-01**: Has fail2ban — NEVER retry wrong passwords (locked out ~30 min)
 - **tcsh servers** (`rack-mad-01`, `slurm-client`): Wrap commands in `/bin/bash -lc '...'`
 - **slurm-client**: `slurm-client.cs.tau.ac.il` may route to different `c-00x` client nodes with different host keys. If known-host checks block automation, use `-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no` for that command.
@@ -97,13 +100,28 @@ cd /home/sharifm/teaching/tml-0368-4075/galaharoni
 
 ## SLURM Partitions
 
-### slurmlogin (account: `gpu-tad-users_v2`)
+### slurmlogin (account: `gpu-tad-wolf_v2`)
 
 | Partition | QOS | GPUs |
 |-----------|-----|------|
-| `gpu-tad-pool` | `owner` | H100, A100 (priority) |
-| `gpu-general-pool` | `public` | H100, H200, A100, L40S, A6000, V100 |
+| `gpu-tad-pool` | `owner` | H100, A100 (priority; verified real A100 job under `gpu-tad-wolf_v2`) |
+| `gpu-general-pool` | `public` | H100, H200, A100, L40S, A6000, A5000, RTX 6000, V100 |
 | `power-general-public-pool` | `public` | CPU-only |
+
+Verified on 2026-06-28:
+- `gpu-tad-wolf_v2` is the default and only Power Slurm association for `galaharoni`.
+- A real `gpu-tad-pool` owner job with `--gres=gpu:A100:1` completed under `gpu-tad-wolf_v2` and saw `NVIDIA A100-SXM4-80GB`.
+- `power-general-shared-pool` may show GPU nodes in `sinfo`, but Slurm rejects GPU submissions there as a non-GPU partition.
+- Public GPU jobs on `gpu-general-pool` are accepted but can have long backfill delays; prefer `gpu-tad-pool` with owner QOS for real work.
+
+Typical owner GPU request:
+
+```bash
+#SBATCH --account=gpu-tad-wolf_v2
+#SBATCH --partition=gpu-tad-pool
+#SBATCH --qos=owner
+#SBATCH --gres=gpu:A100:1
+```
 
 ### slurm-client
 
@@ -124,9 +142,10 @@ Verified accounts for `galaharoni`: `gpu-students` on `studentkillable`, `gpu-re
 cat > job.sbatch << 'EOF'
 #!/bin/bash
 #SBATCH --job-name=my-job
-#SBATCH --partition=gpu-general-pool
-#SBATCH --qos=public
-#SBATCH --gres=gpu:1
+#SBATCH --account=gpu-tad-wolf_v2
+#SBATCH --partition=gpu-tad-pool
+#SBATCH --qos=owner
+#SBATCH --gres=gpu:A100:1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=32G
 #SBATCH --time=01:00:00
@@ -134,8 +153,11 @@ cat > job.sbatch << 'EOF'
 
 export HOME=/scratch300/galaharoni
 export PATH=$HOME/.local/bin:$PATH
+export UV_CACHE_DIR=$HOME/.cache/uv
 cd /scratch300/galaharoni/your-repo
 
+command -v uv
+uv --version
 uv sync
 uv run python -u your_script.py
 EOF
