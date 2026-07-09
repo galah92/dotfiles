@@ -1,6 +1,6 @@
 # Docs: https://developers.openai.com/codex/config-basic
 sandbox_mode = "workspace-write"
-model = "gpt-5.5"
+model = "gpt-5.6-sol"
 model_reasoning_effort = "high"
 personality = "pragmatic"
 suppress_unstable_features_warning = true
