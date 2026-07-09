@@ -18,7 +18,7 @@ memories = true
 goals = true
 
 [tui]
-theme = "kodansi-light"
+theme = "ansi"
 status_line = [
   "model-with-reasoning",
   "current-dir",
