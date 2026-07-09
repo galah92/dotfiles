@@ -10,6 +10,7 @@ cursor-style-blink = false
 # Force shell to use ghostty cursor style
 shell-integration-features = no-cursor
 
+macos-icon = retro
 macos-titlebar-proxy-icon = hidden
 title = " "
 

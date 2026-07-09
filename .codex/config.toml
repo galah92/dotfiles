@@ -26,3 +26,12 @@ status_line = [
   "five-hour-limit"
 ]
 vim_mode_default = true
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[projects."/Users/galah92/Downloads"]
+trust_level = "trusted"
+
+[projects."/Users/galah92/dotfiles"]
+trust_level = "trusted"
