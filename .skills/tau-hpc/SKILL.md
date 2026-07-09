@@ -104,7 +104,7 @@ cd /home/sharifm/teaching/tml-0368-4075/galaharoni
 
 | Partition | QOS | GPUs |
 |-----------|-----|------|
-| `gpu-tad-pool` | `owner` | H100, A100 (priority; verified real A100 job under `gpu-tad-wolf_v2`) |
+| `gpu-tad-pool` | `0.25_656c_40g` (owner fallback) | H100, A100 (TAD fair-share; verified real A100 job under `gpu-tad-wolf_v2`) |
 | `gpu-general-pool` | `public` | H100, H200, A100, L40S, A6000, A5000, RTX 6000, V100 |
 | `power-general-public-pool` | `public` | CPU-only |
 
@@ -112,14 +112,22 @@ Verified on 2026-06-28:
 - `gpu-tad-wolf_v2` is the default and only Power Slurm association for `galaharoni`.
 - A real `gpu-tad-pool` owner job with `--gres=gpu:A100:1` completed under `gpu-tad-wolf_v2` and saw `NVIDIA A100-SXM4-80GB`.
 - `power-general-shared-pool` may show GPU nodes in `sinfo`, but Slurm rejects GPU submissions there as a non-GPU partition.
-- Public GPU jobs on `gpu-general-pool` are accepted but can have long backfill delays; prefer `gpu-tad-pool` with owner QOS for real work.
 
-Typical owner GPU request:
+Verified on 2026-07-02:
+- `gpu-tad-wolf_v2` association includes QOS `0.25_656c_40g,normal,owner,public`; default QOS remains `owner`.
+- `sbatch --test-only` accepts both `owner` and `0.25_656c_40g` on `gpu-tad-pool` for `--gres=gpu:A100:1`.
+- In a live test, `0.25_656c_40g` predicted an earlier A100 start than `owner` and listed jobs it would preempt/requeue.
+- `gpu-tad-users_v2` is deleted; do not submit with it.
+- For TAD account fairness/preemption, prefer `gpu-tad-pool` with QOS `0.25_656c_40g`; use `owner` only as a fallback.
+- Preemption ladder: `0.25_656c_40g` may preempt/requeue `owner` jobs from other TAD accounts; `owner` may preempt public jobs.
+- Public GPU jobs on `gpu-general-pool` are accepted but can have long backfill delays.
+
+Typical TAD fair-share GPU request:
 
 ```bash
 #SBATCH --account=gpu-tad-wolf_v2
 #SBATCH --partition=gpu-tad-pool
-#SBATCH --qos=owner
+#SBATCH --qos=0.25_656c_40g
 #SBATCH --gres=gpu:A100:1
 ```
 
@@ -144,7 +152,7 @@ cat > job.sbatch << 'EOF'
 #SBATCH --job-name=my-job
 #SBATCH --account=gpu-tad-wolf_v2
 #SBATCH --partition=gpu-tad-pool
-#SBATCH --qos=owner
+#SBATCH --qos=0.25_656c_40g
 #SBATCH --gres=gpu:A100:1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=32G
