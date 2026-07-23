@@ -14,7 +14,6 @@ brew "colima"
 brew "docker"
 brew "docker-compose"
 
-cask "google-chrome"
 cask "ghostty"
 cask "visual-studio-code"
 cask "rectangle"
