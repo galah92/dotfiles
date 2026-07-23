@@ -1,5 +1,8 @@
 # Docs: https://developers.openai.com/codex/config-basic
-sandbox_mode = "workspace-write"
+# Equivalent to `codex --yolo`. Intended for running inside a VM, which is the
+# externally-sandboxed environment that flag is designed for.
+sandbox_mode = "danger-full-access"
+approval_policy = "never"
 model = "gpt-5.6-sol"
 model_reasoning_effort = "high"
 personality = "pragmatic"
