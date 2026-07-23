@@ -6,8 +6,11 @@
       "Bash",
       "WebSearch",
       "WebFetch",
-      "mcp__codex__codex",
-      "mcp__codex__codex-reply"
+      "Skill",
+      "Workflow",
+      "Monitor",
+      "EnterWorktree",
+      "Artifact"
     ],
     "deny": [],
     "ask": []
