@@ -4,7 +4,7 @@
 sandbox_mode = "danger-full-access"
 approval_policy = "never"
 model = "gpt-5.6-sol"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "high"
 personality = "pragmatic"
 suppress_unstable_features_warning = true
 
@@ -22,20 +22,9 @@ goals = true
 
 [tui]
 theme = "ansi"
-status_line = [
-  "model-with-reasoning",
-  "current-dir",
-  "context-usage",
-  "five-hour-limit"
-]
+status_line = ["model-with-reasoning", "current-dir", "context-used", "five-hour-limit", "weekly-limit", "thread-title"]
 vim_mode_default = true
+status_line_use_colors = true
 
 [tui.model_availability_nux]
-"gpt-5.5" = 4
 "gpt-5.6-sol" = 4
-
-[projects."/Users/galah92/Downloads"]
-trust_level = "trusted"
-
-[projects."/Users/galah92/dotfiles"]
-trust_level = "trusted"
