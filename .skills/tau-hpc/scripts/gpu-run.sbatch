@@ -1,8 +1,9 @@
 #!/bin/bash
 #SBATCH --job-name=gpu-job
-#SBATCH --partition=gpu-general-pool
-#SBATCH --qos=public
-#SBATCH --gres=gpu:1
+#SBATCH --account=gpu-tad-wolf_v2
+#SBATCH --partition=gpu-tad-pool
+#SBATCH --qos=0.25_656c_40g
+#SBATCH --gres=gpu:A100:1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=32G
 #SBATCH --time=01:00:00
