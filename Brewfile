@@ -15,7 +15,6 @@ brew "docker"
 brew "docker-compose"
 
 cask "ghostty"
-cask "visual-studio-code"
 cask "rectangle"
 cask "tailscale-app"
 cask "vlc"
