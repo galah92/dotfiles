@@ -1,0 +1,26 @@
+[marketplace]
+default_skills_installs_purged = true
+official_marketplace_auto_installed = true
+
+[[marketplace.sources]]
+name = "xAI Official"
+git = "https://github.com/xai-org/plugin-marketplace.git"
+
+[ui]
+screen_mode = "minimal"
+vim_mode = true
+simple_mode = false
+permission_mode = "always-approve"
+
+[models]
+default = "grok-4.6"
+default_reasoning_effort = "high"
+
+[features]
+web_fetch = true
+
+[memory]
+enabled = true
+
+[sandbox]
+profile = "off"
