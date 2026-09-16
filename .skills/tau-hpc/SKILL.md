@@ -14,8 +14,36 @@ Identify the target from the request; ask only when it is genuinely ambiguous.
 | CS SLURM (APDL) | `slurm-client.cs.tau.ac.il` | APDL course jobs | `/home/yandex/APDL2526a/galaharoni` |
 | MASS | `rack-mad-01.cs.tau.ac.il` | Direct SSH | regular home |
 
-Username: `galaharoni`. Credentials come from `TAU_USERNAME` and
-`TAU_PASSWORD`; never print them.
+Username defaults to `galaharoni` and can be overridden with `TAU_USERNAME`.
+The password comes from `TAU_PASSWORD`; never print credentials.
+
+## Run remote commands
+
+Use `tau` for normal SSH work. It supplies credentials, host-key options, the
+target's default directory, bash wrapping, and Power's required `HOME`/`PATH`
+setup. Power is the default target:
+
+```bash
+tau hostname
+tau -C my-project squeue -u galaharoni
+tau tml -C assignment-1 pwd
+```
+
+Commands after the target are passed as an argument-safe command. Use `-c` only
+when shell syntax is needed (pipes, redirects, variable expansion, or multiple
+commands):
+
+```bash
+tau -C my-project -c 'squeue -j 123; tail -3 job-123.log'
+```
+
+Specify `tml`, `apdl`, or `mass` immediately after `tau`; `power` is also
+accepted explicitly. `-C` accepts an absolute path or a path relative to the
+target's default working directory. Run multiple remote checks in one call when
+they belong together; do local waiting as a separate tool call rather than
+prefixing the SSH command with `sleep`.
+
+Use raw `ssh` only to diagnose the wrapper itself.
 
 ## Before network access
 
@@ -59,8 +87,8 @@ those networks.
 
 ## Power SLURM
 
-Power uses bash, but its default home does not exist. Start every command and job
-with:
+Power uses bash, but its default home does not exist. The remote wrapper applies
+this setup automatically. Start job scripts with:
 
 ```bash
 export HOME=/scratch300/galaharoni
@@ -84,22 +112,13 @@ public jobs can wait much longer. `power-general-public-pool` is CPU-only.
 Before a consequential submission, verify live availability and acceptance with
 `sinfo`, `sacctmgr`, or `sbatch --test-only`; cluster policy can change.
 
-Connect:
-
-```bash
-SSHPASS="$TAU_PASSWORD" sshpass -e ssh -o StrictHostKeyChecking=no \
-  galaharoni@slurmlogin.tau.ac.il \
-  'export HOME=/scratch300/galaharoni; export PATH=$HOME/.local/bin:$PATH; cd "$HOME"; <commands>'
-```
-
 The bundled `scripts/gpu-run.sbatch` is the small default A100 template. Copy it
 and change only the job-specific resources and command.
 
 ## CS SLURM
 
-The login shell is tcsh, so wrap remote commands in `/bin/bash -lc '...'`.
-Different `slurm-client` nodes can present different host keys; for automation,
-use both `StrictHostKeyChecking=no` and `UserKnownHostsFile=/dev/null`.
+The login shell is tcsh. The remote wrapper supplies the required bash and host
+key options automatically.
 
 Verified associations:
 
@@ -114,17 +133,10 @@ For TML, put environments, data, logs, caches, and temp files in the course
 directory because the regular CS home quota may be full. In jobs, point `HOME`,
 `MPLCONFIGDIR`, `XDG_CACHE_HOME`, and `TMPDIR` there.
 
-```bash
-SSHPASS="$TAU_PASSWORD" sshpass -e ssh \
-  -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-  galaharoni@slurm-client.cs.tau.ac.il \
-  "/bin/bash -lc 'cd <course-directory>; <commands>'"
-```
-
 ## MASS
 
-`rack-mad-01.cs.tau.ac.il` uses tcsh and fail2ban. Wrap commands with
-`/bin/bash -lc`; never retry a password known to be wrong because lockouts last
+`rack-mad-01.cs.tau.ac.il` uses tcsh and fail2ban. The remote wrapper supplies
+bash wrapping. Never retry a password known to be wrong because lockouts last
 about 30 minutes.
 
 ## File transfer and safety

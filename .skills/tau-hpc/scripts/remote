@@ -1,0 +1,148 @@
+#!/usr/bin/env python3
+"""Run a command on a TAU HPC login host with the required setup."""
+
+from __future__ import annotations
+
+import argparse
+import os
+from pathlib import PurePosixPath
+import shlex
+import subprocess
+import sys
+
+
+TARGETS = {
+    "power": {
+        "host": "slurmlogin.tau.ac.il",
+        "base": "/scratch300/galaharoni",
+        "setup": 'export HOME=/scratch300/galaharoni; export PATH="$HOME/.local/bin:$PATH"',
+        "ssh_options": ("-o", "StrictHostKeyChecking=no"),
+    },
+    "tml": {
+        "host": "slurm-client.cs.tau.ac.il",
+        "base": "/home/sharifm/teaching/tml-0368-4075/galaharoni",
+        "setup": "",
+        "ssh_options": (
+            "-o",
+            "StrictHostKeyChecking=no",
+            "-o",
+            "UserKnownHostsFile=/dev/null",
+        ),
+    },
+    "apdl": {
+        "host": "slurm-client.cs.tau.ac.il",
+        "base": "/home/yandex/APDL2526a/galaharoni",
+        "setup": "",
+        "ssh_options": (
+            "-o",
+            "StrictHostKeyChecking=no",
+            "-o",
+            "UserKnownHostsFile=/dev/null",
+        ),
+    },
+    "mass": {
+        "host": "rack-mad-01.cs.tau.ac.il",
+        "base": None,
+        "setup": "",
+        "ssh_options": (
+            "-o",
+            "StrictHostKeyChecking=no",
+            "-o",
+            "UserKnownHostsFile=/dev/null",
+        ),
+    },
+}
+
+
+def parse_args(argv: list[str]) -> argparse.Namespace:
+    if not argv or argv[0] not in (*TARGETS, "-h", "--help"):
+        argv = ["power", *argv]
+    parser = argparse.ArgumentParser(
+        prog="tau",
+        usage="tau [-C DIR] [-c COMMAND] [power|tml|apdl|mass] [COMMAND ...]",
+        description="Run a command on a TAU HPC host.",
+        epilog=(
+            "Power is the default target. Use -c for shell syntax such as pipes, "
+            "redirections, variable expansion, or multiple commands."
+        ),
+    )
+    targets = parser.add_subparsers(dest="target", required=True)
+    for name in TARGETS:
+        target = targets.add_parser(name)
+        target.add_argument(
+            "-C",
+            "--directory",
+            metavar="DIR",
+            help="remote working directory (relative to the target's default directory)",
+        )
+        target.add_argument(
+            "-c",
+            "--shell-command",
+            metavar="COMMAND",
+            help="command interpreted by remote bash",
+        )
+        target.add_argument("command", nargs=argparse.REMAINDER)
+    args = parser.parse_args(argv)
+    if args.command[:1] == ["--"]:
+        args.command = args.command[1:]
+    if args.shell_command is not None and args.command:
+        parser.error("do not combine -c with a direct command")
+    if args.shell_command is None and not args.command:
+        parser.error("a command is required")
+    return args
+
+
+def working_directory(target: dict[str, object], requested: str | None) -> str:
+    base = target["base"]
+    if requested is None:
+        return str(base) if base else "$HOME"
+    path = PurePosixPath(requested)
+    if path.is_absolute() or not base:
+        return str(path)
+    return str(PurePosixPath(str(base), path))
+
+
+def build_remote_command(args: argparse.Namespace) -> str:
+    target = TARGETS[args.target]
+    directory = working_directory(target, args.directory)
+    if directory == "$HOME":
+        change_directory = 'cd -- "$HOME"'
+    else:
+        change_directory = f"cd -- {shlex.quote(directory)}"
+
+    command = args.shell_command
+    if command is None:
+        command = "exec " + shlex.join(args.command)
+
+    statements = [str(target["setup"]), change_directory, command]
+    body = "; ".join(statement for statement in statements if statement)
+    return f"/bin/bash -lc {shlex.quote(body)}"
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = parse_args(sys.argv[1:] if argv is None else argv)
+    password = os.environ.get("TAU_PASSWORD")
+    username = os.environ.get("TAU_USERNAME", "galaharoni")
+    if not password:
+        print("tau: TAU_PASSWORD is not set", file=sys.stderr)
+        return 2
+    if not username:
+        print("tau: TAU_USERNAME is empty", file=sys.stderr)
+        return 2
+
+    target = TARGETS[args.target]
+    command = [
+        "sshpass",
+        "-e",
+        "ssh",
+        *target["ssh_options"],
+        f'{username}@{target["host"]}',
+        build_remote_command(args),
+    ]
+    environment = os.environ.copy()
+    environment["SSHPASS"] = password
+    return subprocess.run(command, env=environment, check=False).returncode
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
