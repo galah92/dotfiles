@@ -19,6 +19,7 @@ apps = true
 terminal_resize_reflow = true
 memories = true
 goals = true
+realtime_conversation = true
 
 [tui]
 theme = "ansi"
