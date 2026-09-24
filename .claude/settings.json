@@ -15,9 +15,6 @@
     "deny": [],
     "ask": []
   },
-  "enabledMcpjsonServers": [
-    "codex"
-  ],
   "statusLine": {
     "type": "command",
     "command": "jq -r '\"\\(.workspace.current_dir) | \\(.model.display_name) | \\(.context_window.remaining_percentage)%\"'"
