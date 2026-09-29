@@ -28,11 +28,23 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- Set character
 -- vim.opt.shortmess:prepend("c") -- avoid having to press enter on snippet completion
 -- vim.api.nvim_create_autocmd("LspAttach", { command = "setlocal complete=o" })
 
+vim.api.nvim_create_autocmd('PackChanged', {
+  callback = function(ev)
+    if ev.data.spec.name ~= 'nvim-treesitter' or (ev.data.kind ~= 'install' and ev.data.kind ~= 'update') then
+      return
+    end
+    if not ev.data.active then
+      vim.cmd.packadd('nvim-treesitter')
+    end
+    require('nvim-treesitter').update()
+  end,
+})
+
 vim.pack.add({
   'https://github.com/tpope/vim-sleuth',                  -- Detect tabstop, expandtab and shiftwidth automatically
   'https://github.com/lewis6991/gitsigns.nvim',           -- Color line numbers with git changes
   'https://github.com/ibhagwan/fzf-lua',                  -- Fuzzy finder
-  'https://github.com/nvim-treesitter/nvim-treesitter',   -- TSUpdate needs to be run after updating nvim-treesitter, but it's not possible with vim.pack yet
+  'https://github.com/nvim-treesitter/nvim-treesitter',   -- Parsers are updated by the PackChanged hook above
   'https://github.com/mks-h/treesitter-autoinstall.nvim', -- Auto install treesitter parsers and enable highlight
 
   -- Colorschemes
