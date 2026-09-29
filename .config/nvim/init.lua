@@ -34,7 +34,6 @@ vim.pack.add({
   'https://github.com/ibhagwan/fzf-lua',                  -- Fuzzy finder
   'https://github.com/nvim-treesitter/nvim-treesitter',   -- TSUpdate needs to be run after updating nvim-treesitter, but it's not possible with vim.pack yet
   'https://github.com/mks-h/treesitter-autoinstall.nvim', -- Auto install treesitter parsers and enable highlight
-  'https://github.com/github/copilot.vim',                -- GitHub Copilot
 
   -- Colorschemes
   'https://github.com/oskarnurm/koda.nvim',
