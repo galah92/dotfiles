@@ -1,18 +1,4 @@
 {
-  "permissions": {
-    "allow": [
-      "Read",
-      "Edit",
-      "Bash",
-      "WebSearch",
-      "WebFetch",
-      "Skill",
-      "Workflow",
-      "Monitor",
-      "EnterWorktree",
-      "Artifact"
-    ]
-  },
   "statusLine": {
     "type": "command",
     "command": "jq -r '\"\\(.workspace.current_dir) | \\(.model.display_name) | \\(.context_window.remaining_percentage)%\"'"
