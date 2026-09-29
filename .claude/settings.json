@@ -13,7 +13,8 @@
   "effortLevel": "high",
   "theme": "auto",
   "editorMode": "vim",
-  "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true,
+  "voice": {
+    "enabled": true
+  },
   "tui": "fullscreen"
 }
