@@ -4,22 +4,10 @@
 sandbox_mode = "danger-full-access"
 approval_policy = "never"
 model = "gpt-6-sol"
-model_reasoning_effort = "medium"
 personality = "pragmatic"
-suppress_unstable_features_warning = true
-
-[notice]
-fast_default_opt_out = true
 
 [features]
-collaboration_modes = true
-shell_snapshot = true
-multi_agent = true
-apps = true
-terminal_resize_reflow = true
 memories = true
-goals = true
-realtime_conversation = true
 
 [tui]
 theme = "ansi"
@@ -27,4 +15,3 @@ notification_condition = "always"
 notification_method = "bel"
 status_line = ["model-with-reasoning", "current-dir", "context-used", "five-hour-limit", "weekly-limit", "thread-title"]
 vim_mode_default = true
-status_line_use_colors = true
