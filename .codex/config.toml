@@ -15,3 +15,12 @@ notification_condition = "always"
 notification_method = "bel"
 status_line = ["model-with-reasoning", "current-dir", "context-used", "five-hour-limit", "weekly-limit", "thread-title"]
 vim_mode_default = true
+
+[projects."/Users/galah92/Downloads"]
+trust_level = "trusted"
+
+[projects."/Users/galah92/dotfiles"]
+trust_level = "trusted"
+
+[realtime]
+voice = "cove"
