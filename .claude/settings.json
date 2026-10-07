@@ -10,9 +10,11 @@
     "frontend-design@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true
   },
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
   "theme": "auto",
   "editorMode": "vim",
-  "voice": {
-    "enabled": true
-  }
+  "voiceEnabled": true
 }
