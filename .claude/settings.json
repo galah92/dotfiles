@@ -14,6 +14,11 @@
     "enabled": true,
     "mode": "hold"
   },
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
   "theme": "auto",
   "editorMode": "vim",
   "voiceEnabled": true
