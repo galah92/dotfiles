@@ -21,5 +21,6 @@
   },
   "theme": "auto",
   "editorMode": "vim",
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "remoteControlAtStartup": true
 }
