@@ -1,0 +1,6 @@
+{
+  "lastChangelogVersion": "1.4.0",
+  "theme": "light/dark",
+  "defaultProvider": "llama.cpp",
+  "defaultModel": "qwen3.8-27b"
+}

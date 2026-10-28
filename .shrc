@@ -35,6 +35,11 @@ alias gci="gcloud compute instances"
 
 alias uvci="uv run ruff check && uv run ruff format && uv run ty check"
 
+# llama.cpp router for pi (https://pi.dev/docs/latest/llama-cpp): `llama serve` picks these up
+export LLAMA_ARG_MODELS_PRESET="$HOME/models/presets.ini"
+export LLAMA_ARG_MODELS_MAX=1
+export LLAMA_ARG_PORT=8080
+
 # TAU SLURM cluster
 taussh() { sshpass -p "$TAU_PASSWORD" ssh galaharoni@slurmlogin.tau.ac.il "HOME=/scratch300/galaharoni bash -lc \"cd && $*\""; }
 
