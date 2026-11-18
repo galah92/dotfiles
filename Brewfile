@@ -19,8 +19,6 @@ cask "rectangle"
 cask "tailscale-app"
 cask "vlc"
 
-cask "claude-code@latest"
-cask "codex"
 cask "grok-build"
 cask "copilot-cli"
 cask "antigravity-cli"

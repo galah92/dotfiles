@@ -22,5 +22,6 @@
   "theme": "auto",
   "editorMode": "vim",
   "voiceEnabled": true,
-  "remoteControlAtStartup": true
+  "remoteControlAtStartup": true,
+  "autoUpdatesChannel": "latest"
 }
