@@ -13,6 +13,8 @@ brew "cmake"
 brew "colima"
 brew "docker"
 brew "docker-compose"
+brew "hcloud"
+brew "cloudflare-wrangler"
 
 cask "ghostty"
 cask "rectangle"
