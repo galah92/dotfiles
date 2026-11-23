@@ -162,14 +162,25 @@ def saml_auth(username: str, password: str, otp: str) -> dict:
         return fetch(f"{action}{'&' if '?' in action else '?'}{qs}" if qs else action)
 
     def follow(url: str, hdrs: dict[str, str], body: str) -> tuple[str, dict[str, str], str, dict | None]:
-        for _ in range(6):
+        for _ in range(10):
             if cred := extract_cred(hdrs, body, username):
                 return url, hdrs, body, cred
             forms = parse_forms(body)
-            if len(forms) == 1 and not [i for i in forms[0]["inputs"] if i["type"] not in {"hidden", "submit", "button", "image"}]:
-                if "submit()" in body or any(i["name"] in {"SAMLRequest", "SAMLResponse"} for i in forms[0]["inputs"]):
-                    url, hdrs, body = submit(url, forms[0])
+            saml_form = next((f for f in forms if any(i["name"] in {"SAMLRequest", "SAMLResponse"} for i in f["inputs"])), None)
+            if saml_form:
+                url, hdrs, body = submit(url, saml_form)
+                continue
+            if len(forms) == 1 and not [i for i in forms[0]["inputs"] if i["type"] not in {"hidden", "submit", "button", "image"}] and "submit()" in body:
+                url, hdrs, body = submit(url, forms[0])
+                continue
+            if m := re.search(r"""(?:(?:window|top|self|parent|document)\.)?location(?:\.href)?\s*=\s*['"]([^'"]+)['"]|location\.replace\(\s*['"]([^'"]+)['"]\s*\)""", body):
+                target = html.unescape(m.group(1) or m.group(2))
+                if not target.startswith("javascript:"):
+                    url, hdrs, body = fetch(urllib.parse.urljoin(url, target))
                     continue
+            if m := re.search(r'<meta[^>]+http-equiv=["\']?refresh["\']?[^>]+url=([^"\'>\s]+)', body, re.I):
+                url, hdrs, body = fetch(urllib.parse.urljoin(url, html.unescape(m.group(1))))
+                continue
             break
         return url, hdrs, body, extract_cred(hdrs, body, username)
 
@@ -212,7 +223,8 @@ def saml_auth(username: str, password: str, otp: str) -> dict:
         raise SystemExit("[-] TAU IdP rejected OTP (expired or incorrect?)")
     url, hdrs, body, cred = follow(url, hdrs, body)
     if not cred:
-        raise SystemExit(f"[-] No GlobalProtect auth cookie found after SAML flow (ended at {url})")
+        snippet = re.sub(r"\s+", " ", body).strip()[:400]
+        raise SystemExit(f"[-] No GlobalProtect auth cookie found after SAML flow (ended at {url})\n[debug] body={snippet}")
     return cred
 
 
