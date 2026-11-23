@@ -5,10 +5,28 @@ from __future__ import annotations
 
 import argparse
 import os
-from pathlib import PurePosixPath
+from pathlib import Path, PurePosixPath
 import shlex
 import subprocess
 import sys
+
+
+def load_saved_env() -> dict[str, str]:
+    home = os.environ.get("HOME")
+    if not home:
+        return {}
+    path = Path(home) / ".config" / "tau-hpc" / "env"
+    if not path.is_file():
+        return {}
+    values: dict[str, str] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        k = k.removeprefix("export ").strip()
+        values[k] = shlex.split(v)[0] if v.strip() else ""
+    return values
 
 
 TARGETS = {
@@ -121,8 +139,9 @@ def build_remote_command(args: argparse.Namespace) -> str:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
-    password = os.environ.get("TAU_PASSWORD")
-    username = os.environ.get("TAU_USERNAME", "galaharoni")
+    saved = load_saved_env() if not os.environ.get("TAU_PASSWORD") else {}
+    password = os.environ.get("TAU_PASSWORD") or saved.get("TAU_PASSWORD")
+    username = os.environ.get("TAU_USERNAME") or saved.get("TAU_USERNAME") or "galaharoni"
     if not password:
         print("tau: TAU_PASSWORD is not set", file=sys.stderr)
         return 2

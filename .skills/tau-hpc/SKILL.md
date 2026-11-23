@@ -5,90 +5,43 @@ description: Connect to TAU HPC servers for experiments. Supports Power SLURM (s
 
 # TAU HPC
 
-Identify the target from the request; ask only when it is genuinely ambiguous.
+Identify the target from the request; ask only when ambiguous.
 
 | Target | Host | Use | Working directory |
 |---|---|---|---|
-| Power SLURM | `slurmlogin.tau.ac.il` | GPU/CPU batch jobs | `/scratch300/galaharoni` |
-| CS SLURM (TML) | `slurm-client.cs.tau.ac.il` | TML course jobs | `/home/sharifm/teaching/tml-0368-4075/galaharoni` |
-| CS SLURM (APDL) | `slurm-client.cs.tau.ac.il` | APDL course jobs | `/home/yandex/APDL2526a/galaharoni` |
-| MASS | `rack-mad-01.cs.tau.ac.il` | Direct SSH | regular home |
+| `power` (default) | `slurmlogin.tau.ac.il` | GPU/CPU batch jobs | `/scratch300/galaharoni` |
+| `tml` | `slurm-client.cs.tau.ac.il` | TML course jobs | `/home/sharifm/teaching/tml-0368-4075/galaharoni` |
+| `apdl` | `slurm-client.cs.tau.ac.il` | APDL course jobs | `/home/yandex/APDL2526a/galaharoni` |
+| `mass` | `rack-mad-01.cs.tau.ac.il` | Direct SSH | regular home |
 
-Username defaults to `galaharoni` and can be overridden with `TAU_USERNAME`.
-The password comes from `TAU_PASSWORD`; never print credentials.
+Credentials default to `TAU_USERNAME` / `TAU_PASSWORD` (automatic fallback: `~/.config/tau-hpc/env`). Never print credentials or cached cookies.
 
-## Run remote commands
+## VPN (shared across all sessions on this VM)
 
-Use `tau` for normal SSH work. It supplies credentials, host-key options, the
-target's default directory, bash wrapping, and Power's required `HOME`/`PATH`
-setup. Power is the default target:
+Never disconnect or duplicate a healthy shared tunnel. Run `vpn-connect.py --help` for full usage:
+
+```bash
+VPN="$HOME/dotfiles/.skills/tau-hpc/scripts/vpn-connect.py"
+python3 "$VPN" --status    # trust this summary; nonzero = disconnected
+python3 "$VPN" --reuse     # try once if disconnected with cached_reauth=yes
+python3 "$VPN" <6-DIGIT-OTP>  # ask user for OTP only if needed
+```
+
+Split tunnel routes `132.66.0.0/16` and `132.67.0.0/16` via `tun0` (add `TAU_EXTRA_VPN_HOSTS=<host>` if needed). To refresh cookies without touching an active tunnel, use `--refresh-auth <OTP>`.
+
+## Remote commands
+
+Use `tau` (or `~/.local/bin/tau` if not on `PATH`; see `tau --help`). Power is the default target; use `-C <dir>` for working directory and `-c '...'` when shell syntax (pipes, `;`, redirects) is needed:
 
 ```bash
 tau hostname
-tau -C my-project squeue -u galaharoni
+tau -C my-project -c 'squeue -u galaharoni; tail -5 job.log'
 tau tml -C assignment-1 pwd
 ```
 
-Commands after the target are passed as an argument-safe command. Use `-c` only
-when shell syntax is needed (pipes, redirects, variable expansion, or multiple
-commands):
-
-```bash
-tau -C my-project -c 'squeue -j 123; tail -3 job-123.log'
-```
-
-Specify `tml`, `apdl`, or `mass` immediately after `tau`; `power` is also
-accepted explicitly. `-C` accepts an absolute path or a path relative to the
-target's default working directory. Run multiple remote checks in one call when
-they belong together; do local waiting as a separate tool call rather than
-prefixing the SSH command with `sleep`.
-
-Use raw `ssh` only to diagnose the wrapper itself.
-
-## Before network access
-
-All Codex sessions on this VM share one TAU VPN tunnel. Do not disconnect it or
-start a duplicate.
-
-1. Run the helper once and trust its summary; do not repeat its `ip`, `pgrep`, or
-   route checks unless diagnosing an inconsistency:
-
-   ```bash
-   python3 $HOME/.copilot/skills/tau-hpc/scripts/vpn-connect.py --status
-   ```
-
-   A nonzero exit simply means the VPN is not currently usable.
-
-2. If connected, continue. If disconnected with `cached_reauth=yes`, try once:
-
-   ```bash
-   python3 $HOME/.copilot/skills/tau-hpc/scripts/vpn-connect.py --reuse
-   ```
-
-3. Ask for a fresh six-digit OTP only if the network operation is required and
-   cached reuse is unavailable or rejected. Then connect with:
-
-   ```bash
-   uv run $HOME/.copilot/skills/tau-hpc/scripts/vpn-connect.py <OTP>
-   ```
-
-The helper reads the username/password from the environment. Pass the OTP as a
-literal argument, not through a same-command environment assignment. It stores
-only short-lived GlobalProtect cookies under `$XDG_RUNTIME_DIR/tau-vpn`, mode
-`0600`, for up to 12 hours. Never expose that cache in output.
-
-Do not force a disconnect to test reconnection. To refresh cached authentication
-without replacing a healthy tunnel, use `uv run .../vpn-connect.py
---refresh-auth <OTP>` only when the user has supplied a fresh OTP.
-
-The split tunnel routes only `132.66.0.0/16` and `132.67.0.0/16` through `tun0`.
-Set `TAU_EXTRA_VPN_HOSTS=<hostname>` before connecting only for a TAU host outside
-those networks.
-
 ## Power SLURM
 
-Power uses bash, but its default home does not exist. The remote wrapper applies
-this setup automatically. Start job scripts with:
+Default `$HOME` does not exist on Power—always start batch scripts with:
 
 ```bash
 export HOME=/scratch300/galaharoni
@@ -96,7 +49,7 @@ export PATH=$HOME/.local/bin:$PATH
 cd "$HOME"
 ```
 
-For a normal TAD A100 job, use exactly:
+Verified TAD A100 header (owner pool also has H100s; use `gpu-general-pool` + QOS `public` only intentionally):
 
 ```bash
 #SBATCH --account=gpu-tad-wolf_v2
@@ -105,46 +58,18 @@ For a normal TAD A100 job, use exactly:
 #SBATCH --gres=gpu:A100:1
 ```
 
-`gpu-tad-wolf_v2` is the verified account. The owner pool also has H100s. Use
-`gpu-general-pool` with QOS `public` only when public capacity is intentional;
-public jobs can wait much longer. `power-general-public-pool` is CPU-only.
+Before consequential submissions, check live availability with `sinfo` / `sbatch --test-only`.
 
-Before a consequential submission, verify live availability and acceptance with
-`sinfo`, `sacctmgr`, or `sbatch --test-only`; cluster policy can change.
+## CS SLURM & MASS
 
-The bundled `scripts/gpu-run.sbatch` is the small default A100 template. Copy it
-and change only the job-specific resources and command.
+- **CS SLURM** (login shell is `tcsh`; `tau` wraps `bash`):
+  - `gpu-students` / `studentkillable` (1d: TITAN, RTX 2080)
+  - `gpu-research` / `killable` (1d: L40S, A6000, RTX 3090/2080, A5000, V100) or `gpu-h100-killable` (1d: H100)
+  - CPU: `cpu-killable` (5d)
+  - For TML, point `HOME`, `MPLCONFIGDIR`, `XDG_CACHE_HOME`, and `TMPDIR` into the course dir (home quota may be full).
+- **MASS** (`rack-mad-01.cs.tau.ac.il`): fail2ban locks out ~30 min on wrong passwords—never retry a bad password.
 
-## CS SLURM
+## Safety & transfers
 
-The login shell is tcsh. The remote wrapper supplies the required bash and host
-key options automatically.
-
-Verified associations:
-
-| Account | Partition | Limit / GPUs |
-|---|---|---|
-| `gpu-students` | `studentkillable` | 1 day; TITAN, RTX 2080 |
-| `gpu-research` | `killable` | 1 day; L40S, A6000, RTX 3090/2080, A5000, V100 |
-| `gpu-research` | `gpu-h100-killable` | 1 day; H100 |
-| CPU | `cpu-killable` | 5 days |
-
-For TML, put environments, data, logs, caches, and temp files in the course
-directory because the regular CS home quota may be full. In jobs, point `HOME`,
-`MPLCONFIGDIR`, `XDG_CACHE_HOME`, and `TMPDIR` there.
-
-## MASS
-
-`rack-mad-01.cs.tau.ac.il` uses tcsh and fail2ban. The remote wrapper supplies
-bash wrapping. Never retry a password known to be wrong because lockouts last
-about 30 minutes.
-
-## File transfer and safety
-
-- The clusters do not have `rsync`; transfer a tar archive with `scp`, excluding
-  `.venv`, `__pycache__`, and `.git`.
-- Inspect existing jobs and files before changing or deleting them.
-- Do not submit jobs, cancel jobs, or overwrite remote data when the user asked
-  only for inspection or advice.
-- Do not disconnect the shared VPN unless the user explicitly asks or a failed
-  connection attempt created a stale process that must be cleaned up.
+- No `rsync` on the clusters; transfer tarballs over `scp`/`ssh`, excluding `.venv`, `__pycache__`, and `.git`.
+- Inspect remote jobs/files before modifying or deleting; never submit/cancel jobs when only asked to inspect or advise.

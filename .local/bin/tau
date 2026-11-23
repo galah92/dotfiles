@@ -1,2 +1,2 @@
 #!/bin/sh
-exec "$HOME/.copilot/skills/tau-hpc/scripts/remote" "$@"
+exec "$HOME/dotfiles/.skills/tau-hpc/scripts/remote" "$@"
