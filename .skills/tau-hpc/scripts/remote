@@ -94,11 +94,11 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         argv = ["power", *argv]
     parser = argparse.ArgumentParser(
         prog="tau",
-        usage="tau [-C DIR] [-c COMMAND] [power|cs|tml|apdl|mass] [COMMAND ...]",
-        description="Run a command on a TAU HPC host.",
+        usage="tau [power|cs|tml|apdl|mass] ([-C DIR] [-c CMD | CMD ...] | put LOCAL REMOTE | get REMOTE LOCAL)",
+        description="Run a command or transfer files on a TAU HPC host.",
         epilog=(
-            "Power is the default target. Use -c for shell syntax such as pipes, "
-            "redirections, variable expansion, or multiple commands."
+            "Power is the default target. Use -c for shell syntax (pipes, redirects, multiline). "
+            "For put/get, relative REMOTE paths resolve under the target's default working directory."
         ),
     )
     targets = parser.add_subparsers(dest="target", required=True)
@@ -170,6 +170,20 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     target = TARGETS[args.target]
+    environment = os.environ.copy()
+    environment["SSHPASS"] = password
+
+    if args.shell_command is None and len(args.command) == 3 and args.command[0] in {"put", "get"}:
+        mode, src, dst = args.command
+        if mode == "put":
+            remote_path = working_directory(target, dst)
+            scp_args = [src, f'{username}@{target["host"]}:{remote_path}']
+        else:
+            remote_path = working_directory(target, src)
+            scp_args = [f'{username}@{target["host"]}:{remote_path}', dst]
+        command = ["sshpass", "-e", "scp", "-r", "-C", *target["ssh_options"], *scp_args]
+        return subprocess.run(command, env=environment, check=False).returncode
+
     command = [
         "sshpass",
         "-e",
@@ -178,8 +192,6 @@ def main(argv: list[str] | None = None) -> int:
         f'{username}@{target["host"]}',
         build_remote_command(args),
     ]
-    environment = os.environ.copy()
-    environment["SSHPASS"] = password
     return subprocess.run(command, env=environment, check=False).returncode
 
 

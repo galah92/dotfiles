@@ -64,9 +64,10 @@ Before consequential submissions, check live availability with `sinfo` / `sbatch
 ## CS SLURM (`cs`) & MASS
 
 - **Storage (important):** CS `$HOME` has a tiny **6 GB quota**—never put datasets, venvs, or model caches there! Put project dirs under `/specific/scratches/scratch/galaharoni` (16 TB quota) and put `.venv`, `UV_CACHE_DIR`, and `HF_HOME` on node-local `/tmp/galaharoni-*` inside batch jobs (faster imports + zero quota pressure).
-- **Partitions:**
-  - `gpu-research` / `killable` (1d: L40S, A6000, RTX 3090/2080, A5000, V100) or `gpu-h100-killable` (1d: H100) — always pass `#SBATCH --requeue` and write resumable checkpoints/done-markers.
-  - `gpu-students` / `studentkillable` (1d: TITAN, RTX 2080); CPU: `cpu-killable` (5d).
+- **Partitions (verified via `sacctmgr`):**
+  - `gpu-research` / `killable` (1d: L40S, A6000, RTX 3090/2080, A5000, V100) — always pass `#SBATCH --requeue` and write resumable checkpoints/done-markers.
+  - `gpu-students` / `studentkillable` (1d: TITAN, RTX 2080).
+  - *(No `cpu-killable` or `gpu-h100-killable` association currently exists; verify live with `sacctmgr -n -P show assoc where user=galaharoni format=Account,Partition` before assuming new ones.)*
 - **Known bad CS nodes & quirks:**
   - Exclude broken GPU nodes: `#SBATCH --exclude=n-301,n-306,n-307` and fail fast on CUDA sanity (`python -c 'import torch; assert torch.cuda.is_available()'`).
   - Leave queue headroom when other workstreams are active (avoid hogging >40–50 queued jobs from one project).
@@ -75,5 +76,5 @@ Before consequential submissions, check live availability with `sinfo` / `sbatch
 
 ## Safety & transfers
 
-- No `rsync` on the clusters; transfer tarballs over `scp` (not raw binary stdout through `tau`, which is ~100 KB/s), excluding `.venv`, `__pycache__`, and `.git`.
+- No `rsync` on the clusters; use `tau [target] put <local> <remote>` / `tau [target] get <remote> <local>` (wraps `scp -r -C` with compression and target default dirs; e.g. `tau cs put code.tgz myproj/`). Avoid transferring huge raw data over TAU VPN—download public datasets directly on the cluster. (`nova.cs.tau.ac.il` is also reachable as an alternate CS SFTP/SSH gateway.)
 - Inspect remote jobs/files before modifying or deleting; never submit/cancel jobs when only asked to inspect or advise.
