@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import os
 from pathlib import Path, PurePosixPath
 import shlex
@@ -35,6 +36,19 @@ TARGETS = {
         "base": "/scratch300/galaharoni",
         "setup": 'export HOME=/scratch300/galaharoni; export PATH="$HOME/.local/bin:$PATH"',
         "ssh_options": ("-o", "StrictHostKeyChecking=no"),
+        "tcsh": False,
+    },
+    "cs": {
+        "host": "slurm-client.cs.tau.ac.il",
+        "base": "/specific/scratches/scratch/galaharoni",
+        "setup": "",
+        "ssh_options": (
+            "-o",
+            "StrictHostKeyChecking=no",
+            "-o",
+            "UserKnownHostsFile=/dev/null",
+        ),
+        "tcsh": True,
     },
     "tml": {
         "host": "slurm-client.cs.tau.ac.il",
@@ -46,6 +60,7 @@ TARGETS = {
             "-o",
             "UserKnownHostsFile=/dev/null",
         ),
+        "tcsh": True,
     },
     "apdl": {
         "host": "slurm-client.cs.tau.ac.il",
@@ -57,6 +72,7 @@ TARGETS = {
             "-o",
             "UserKnownHostsFile=/dev/null",
         ),
+        "tcsh": True,
     },
     "mass": {
         "host": "rack-mad-01.cs.tau.ac.il",
@@ -68,6 +84,7 @@ TARGETS = {
             "-o",
             "UserKnownHostsFile=/dev/null",
         ),
+        "tcsh": True,
     },
 }
 
@@ -77,7 +94,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         argv = ["power", *argv]
     parser = argparse.ArgumentParser(
         prog="tau",
-        usage="tau [-C DIR] [-c COMMAND] [power|tml|apdl|mass] [COMMAND ...]",
+        usage="tau [-C DIR] [-c COMMAND] [power|cs|tml|apdl|mass] [COMMAND ...]",
         description="Run a command on a TAU HPC host.",
         epilog=(
             "Power is the default target. Use -c for shell syntax such as pipes, "
@@ -134,6 +151,9 @@ def build_remote_command(args: argparse.Namespace) -> str:
 
     statements = [str(target["setup"]), change_directory, command]
     body = "; ".join(statement for statement in statements if statement)
+    if target.get("tcsh"):
+        b64 = base64.b64encode(body.encode("utf-8")).decode("ascii")
+        return f"""/bin/bash -lc 'eval "$(echo {b64} | base64 -d)"'"""
     return f"/bin/bash -lc {shlex.quote(body)}"
 
 
