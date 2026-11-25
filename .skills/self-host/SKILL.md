@@ -18,7 +18,9 @@ We intentionally follow a lean, single-VM ("levelsio-style") architecture instea
 
 ## Access, Secrets & Live Inventory
 
-- **SSH:** `ssh vps` (configured in `~/.ssh/config` → `deploy@levels-box-1` over Tailscale).
+- **SSH / Local:**
+  - From another machine: `ssh vps` (`deploy@levels-box-1` for prod ops) or `ssh vps-dev` (`gal@levels-box-1` for dev/agents).
+  - **When already running on `levels-box-1` as `gal`:** skip `ssh vps` / `scp` — run commands directly (use `sudo -u deploy` when writing under `/srv/apps/` or `/srv/data/`), and compile natively (no glibc mismatch; keep `CARGO_BUILD_JOBS=2` to stay lean).
 - **Secrets & IDs:** Load before Cloudflare/Hetzner API or `wrangler` calls — **never print values or commit them**:
   ```bash
   set -a; source ~/.config/self-host/env; set +a
