@@ -30,6 +30,7 @@ We intentionally follow a lean, single-VM ("levelsio-style") architecture instea
 - **Current apps** (verify live with `ssh vps 'ls /etc/caddy/sites/ && ss -tlnp'`):
   - `https://sixtysix.galah92.dev` → Hetzner `sixty-six.service` (`127.0.0.1:3000`, `/srv/apps/sixty-six/current`, `/srv/data/sixty-six/sixty-six.db`)
   - `https://tetris.galah92.dev` → Cloudflare Workers Static Assets (`$0/mo`)
+  - `https://warzone.galah92.dev` → Cloudflare Workers Static Assets (`$0/mo`, Macroquad WASM)
 
 ---
 
