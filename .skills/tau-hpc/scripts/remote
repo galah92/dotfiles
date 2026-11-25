@@ -8,6 +8,7 @@ import base64
 import os
 from pathlib import Path, PurePosixPath
 import shlex
+import shutil
 import subprocess
 import sys
 
@@ -177,11 +178,30 @@ def main(argv: list[str] | None = None) -> int:
         mode, src, dst = args.command
         if mode == "put":
             remote_path = working_directory(target, dst)
-            scp_args = [src, f'{username}@{target["host"]}:{remote_path}']
+            if dst.endswith("/") and not remote_path.endswith("/"):
+                remote_path += "/"
+            pair = [src, f'{username}@{target["host"]}:{remote_path}']
         else:
             remote_path = working_directory(target, src)
-            scp_args = [f'{username}@{target["host"]}:{remote_path}', dst]
-        command = ["sshpass", "-e", "scp", "-r", "-C", *target["ssh_options"], *scp_args]
+            if src.endswith("/") and not remote_path.endswith("/"):
+                remote_path += "/"
+            pair = [f'{username}@{target["host"]}:{remote_path}', dst]
+        if shutil.which("rsync"):
+            ssh_cmd = shlex.join(["ssh", *target["ssh_options"]])
+            command = [
+                "sshpass",
+                "-e",
+                "rsync",
+                "-az",
+                "--partial",
+                "--exclude=.venv",
+                "--exclude=__pycache__",
+                "-e",
+                ssh_cmd,
+                *pair,
+            ]
+        else:
+            command = ["sshpass", "-e", "scp", "-r", "-C", *target["ssh_options"], *pair]
         return subprocess.run(command, env=environment, check=False).returncode
 
     command = [

@@ -76,5 +76,5 @@ Before consequential submissions, check live availability with `sinfo` / `sbatch
 
 ## Safety & transfers
 
-- No `rsync` on the clusters; use `tau [target] put <local> <remote>` / `tau [target] get <remote> <local>` (wraps `scp -r -C` with compression and target default dirs; e.g. `tau cs put code.tgz myproj/`). Avoid transferring huge raw data over TAU VPN—download public datasets directly on the cluster. (`nova.cs.tau.ac.il` is also reachable as an alternate CS SFTP/SSH gateway.)
+- Use `tau [target] put <local> <remote>` / `tau [target] get <remote> <local>` (uses `rsync -az --partial` excluding `.venv`/`__pycache__`, with `scp -r -C` fallback; relative remote paths resolve under the target's default dir). Avoid transferring huge raw data over TAU VPN—download public datasets directly on the cluster. (`nova.cs.tau.ac.il` is also reachable as an alternate CS SFTP/SSH gateway.)
 - Inspect remote jobs/files before modifying or deleting; never submit/cancel jobs when only asked to inspect or advise.
